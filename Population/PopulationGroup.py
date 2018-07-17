@@ -1,6 +1,10 @@
 class PopulationGroup():
 
-    def __init__(self, name, gender,agegroup, employment, carAviable, averageIncome, paramsChoice):
+    posibleGender = ["male", "female"]
+    posibleAgegroups = [[6,14], [15,19], [20,65], [65,100] ]
+    
+
+    def __init__(self, name, gender,agegroup, employment, carAviable, averageIncome, timebudget, paramsChoice):
         self._name=name
         self.__gender=gender #male or female
         self.__agegroup=agegroup 
@@ -8,7 +12,7 @@ class PopulationGroup():
         self.__carAviable=carAviable
         self.__averageIncome=averageIncome
         self.__paramsChoice=paramsChoice
-        self._timebudget = None
+        self._timebudget = timebudget
         
     
     
@@ -16,5 +20,12 @@ class PopulationGroup():
     def calculatePopulation(populationParams):
         pass
     
-    
+    @staticmethod
+    def generateGroups():
+        poblist=[]
+        for gen in PopulationGroup.posibleGender:
+            for age in PopulationGroup.posibleAgegroups:
+                poblist.append([gen, age])
+
+
         
