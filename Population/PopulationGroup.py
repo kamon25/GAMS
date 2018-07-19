@@ -4,13 +4,13 @@ import itertools
 class PopulationGroup():
 
     #static attributes
-    possibleGender = ["male", "female"]
-    possibleAgegroups = [(6,14), (15,19), (20,65), (65,100)]
-    possibleEmploymentState= ["employed", "unemployed"]
-    groupAttributesNames=("gender", "age", "employment")
-    impossibleCombinations=[(possibleAgegroups[0],possibleEmploymentState[0]), 
-                            (possibleAgegroups[1],possibleEmploymentState[0]),
-                            (possibleAgegroups[3],possibleEmploymentState[0])]
+
+    possibleAttributes={"gender":["male", "female"],
+                        "agegroup":[(6,14), (15,19), (20,65), (65,100)], 
+                        "employment":["employed", "unemployed"]}
+    impossibleCombinations=[((6,14),"employed"), 
+                            ((15,19),"employed"),
+                            ((65,100),"employed")]
     
     #static methods
     @staticmethod
@@ -18,10 +18,21 @@ class PopulationGroup():
         pass
     
     @staticmethod
-    def generateGroups(impossibleCombinations,groupAttributesNames ,*args):
+    def generateGroups(possibleAttributes,impossibleCombinations):
         #generate a list with all possible attribute combinations
-        poplist = [[arg] for arg in args[0]]
-        toAdd =  list(args)
+        attributeList=[]
+        attributeNameList=[] 
+        for key, value in possibleAttributes.items():
+            attributeList.append(value) 
+            attributeNameList.append(key)
+
+        #print(attributeList[0])
+        poplist=[]
+        for attribute in attributeList[0]:
+            poplist.append((attribute,))
+        #print(poplist)
+
+        toAdd =  attributeList
         toAdd.pop(0)      
         for arg in toAdd:            
             poplist = [(*pop, attribute) for pop in poplist for attribute in arg]       
@@ -35,19 +46,18 @@ class PopulationGroup():
         #genarate a list of objects for the groups
         grouplist=[]
         for group in poplist:
-            grouplist.append(PopulationGroup(group))
-                   
+            #print(dict(zip(attributeNameList,group)))
+            grouplist.append(PopulationGroup(dict(zip(attributeNameList,group))))
+
+        #print(poplist)           
         return grouplist
     
 
 
     def __init__(self, attributes):
-        self.__attributes = attributes
+        self.__attributes = attributes #dict with attributes like {"gender":"male"}
         self.__paramsChoice={}
     
     def __str__(self):
-        # output = None
-        # output= output + str(att) for att in self.__attributes)
-        # return output
-        return "test"
+        return str(self.__attributes)
         
