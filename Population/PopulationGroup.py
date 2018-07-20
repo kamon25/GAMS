@@ -4,9 +4,8 @@ import itertools
 class PopulationGroup():
 
     #static attributes
-
     possibleAttributes={"gender":["male", "female"],
-                        "agegroup":[(6,14), (15,19), (20,65), (65,100)], 
+                        "agegroup":[(6,19), (20,65), (65,100)], 
                         "employment":["employed", "unemployed"]}
     impossibleCombinations=[((6,14),"employed"), 
                             ((15,19),"employed"),
