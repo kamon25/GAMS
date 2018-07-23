@@ -4,22 +4,27 @@ import DataHandler
 from collections import defaultdict
 
 
-#List of populationgroups in the area
+#---List of populationgroups in the area
 groupeList = PopulationGroup.generateGroups(
     PopulationGroup.possibleAttributes,
     PopulationGroup.impossibleCombinations
     ) 
 
-#print(groupeList[0])
+print(groupeList[0])
 
-#Generate TrafficCells
-trafficcelldict=defaultdict()
+#---Generate TrafficCells
+trafficCellDict=defaultdict()
 trafficCellsInitDict = DataHandler.TrafficCellReaderCSV()
-print(trafficCellsInitDict)
-for key, value in trafficCellsInitDict.items():
-    trafficcelldict[key]=TrafficCell(value,key)
+#print(trafficCellsInitDict)
+for cellKey, cellName in trafficCellsInitDict.items():
+    #set Name and GKZ of 
+    trafficCellDict[cellKey]=TrafficCell(cellName,cellKey)
 
-print(trafficcelldict["60101"])
+
+
+print(trafficCellDict["60101"])
+
+#---populate TrafficCell
 
 
 

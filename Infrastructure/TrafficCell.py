@@ -1,5 +1,6 @@
 import pandas as pd 
-import numpy as np 
+import numpy as np
+from collections import defaultdict 
 
 
 
@@ -7,8 +8,10 @@ class TrafficCell():
 
     def __init__(self, name, cellID):
         self._name=name
-        self.inhabitants=None
+        self.inhabitants=int()
+        self.popGroups=None
         self.cellID=cellID
+        
 
         self.populationParams=None
         self.attractivity=None

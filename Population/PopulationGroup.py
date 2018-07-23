@@ -5,7 +5,7 @@ class PopulationGroup():
 
     #static attributes
     possibleAttributes={"gender":["male", "female"],
-                        "agegroup":[(6,19), (20,65), (65,100)], 
+                        "agegroup":[(0,14), (15,59), (60,100)], 
                         "employment":["employed", "unemployed"]}
     impossibleCombinations=[((6,14),"employed"), 
                             ((15,19),"employed"),
