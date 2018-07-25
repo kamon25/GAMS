@@ -20,11 +20,11 @@ for cellKey, cellName in trafficCellsInitDict.items():
     #set Name and GKZ of 
     trafficCellDict[cellKey]=TrafficCell(cellName,cellKey)
 
-
-
-print(trafficCellDict["60101"])
+print(trafficCellDict[60101])
 
 #---populate TrafficCell
+DataHandler.inhabitantReaderCSV(trafficCellDict,"inhabitants")
+print(trafficCellDict[60101].inhabitants)
 
 
 

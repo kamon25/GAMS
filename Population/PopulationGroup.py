@@ -10,12 +10,18 @@ class PopulationGroup():
     impossibleCombinations=[((6,14),"employed"), 
                             ((15,19),"employed"),
                             ((65,100),"employed")]
+    grouplist=[]
     
     #static methods
     @staticmethod
-    def calculatePopulation(populationParams):
-        pass
-    
+    def calculatePopulation(inhabitants, cellID):
+        if not PopulationGroup.grouplist:
+            print("Groups are not generated -> genaration")
+            PopulationGroup.generateGroups(PopulationGroup.possibleAttributes, PopulationGroup.impossibleCombinations)
+        
+
+
+
     @staticmethod
     def generateGroups(possibleAttributes,impossibleCombinations):
         #generate a list with all possible attribute combinations
@@ -43,13 +49,13 @@ class PopulationGroup():
                     poplist.remove(group)
 
         #genarate a list of objects for the groups
-        grouplist=[]
+        
         for group in poplist:
             #print(dict(zip(attributeNameList,group)))
-            grouplist.append(PopulationGroup(dict(zip(attributeNameList,group))))
+            PopulationGroup.grouplist.append(PopulationGroup(dict(zip(attributeNameList,group))))
 
         #print(poplist)           
-        return grouplist
+        return PopulationGroup.grouplist
     
 
 

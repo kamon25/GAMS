@@ -18,10 +18,12 @@ class TrafficCell():
     
     
     def __str__(self):
-        return str(self._name)
-        
+        return str(self._name)   
 
     def SetPopulationParams(self,populationParams):
         self.populationParams=populationParams
+
+    def SetPopulationGroups(self, popGroups):
+        self.popGroups=popGroups
 
 
