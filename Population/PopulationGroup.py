@@ -1,4 +1,4 @@
-import itertools
+from collections import defaultdict
 
 
 class PopulationGroup():
@@ -14,12 +14,17 @@ class PopulationGroup():
     
     #static methods
     @staticmethod
-    def calculatePopulation(inhabitants, cellID):
+    def calculatePopulation(trafficCell, DataHandler):
+
         if not PopulationGroup.grouplist:
             print("Groups are not generated -> genaration")
             PopulationGroup.generateGroups(PopulationGroup.possibleAttributes, PopulationGroup.impossibleCombinations)
         
-
+        #read all necesary Attributes
+        attributesWithValues=defaultdict()
+        for attribute in PopulationGroup.possibleAttributes.keys():
+            attributesWithValues[attribute] = DataHandler.AttributeReaderCSV(trafficCell.cellID,PopulationGroup, attribute)
+        #print(attributesWithValues)
 
 
     @staticmethod

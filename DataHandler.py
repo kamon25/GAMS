@@ -6,6 +6,7 @@ from collections import defaultdict
 #Filepaths
 pathTrafficCellsCSV = './Data/Gemeinde_Liste_V1.csv'
 pathPopulationAgeGroupsCSV='Data/STMK_01012017_AGE.csv'
+pathPopulationSexCSV='Data/STMK_01012017_SEX.csv'
 
 def TrafficCellReaderCSV():
     TarfficCells = defaultdict()
@@ -24,6 +25,7 @@ def TrafficCellReaderCSV():
 def inhabitantReaderCSV(trafficCellDict, *paramsToRead):
     dfGemList=pd.read_csv(pathTrafficCellsCSV,encoding = "ISO-8859-1",  sep=';',  na_values=['NA'])
 
+    # reading Agegroups is currently not in use. Ageroups are set de AttributeReaderCSV
     if ("agegroupe" in paramsToRead):
       df=pd.read_csv(pathPopulationAgeGroupsCSV, encoding = "ISO-8859-1", sep=';',  na_values=['NA'])
       dfBetrachtung=df[df["LAU_CODE"].isin(dfGemList["GKZ"])]
@@ -45,10 +47,58 @@ def inhabitantReaderCSV(trafficCellDict, *paramsToRead):
       dfBetrachtung=df[df["LAU_CODE"].isin(dfGemList["GKZ"])]
 
       pop_total=dfBetrachtung.set_index('LAU_CODE')["POP_TOTAL"]
-      print(pop_total.to_dict().keys())
+      # print(pop_total.to_dict().keys())
 
       for cellID, cell in trafficCellDict.items():
         cell.inhabitants=pop_total.to_dict()[cellID]
         
 
- 
+def AttributeReaderCSV(cellID, popGroup, paramToRead):
+
+  #---read agegroups
+  if paramToRead is "agegroup":
+    df=pd.read_csv(pathPopulationAgeGroupsCSV, encoding = "ISO-8859-1", sep=';',  na_values=['NA'])
+    dfBetrachtung=df.set_index('LAU_CODE')
+    agegroupCount = defaultdict()
+
+    for agegroupe in popGroup.possibleAttributes[paramToRead]:
+      print(agegroupe)
+      agegroupeSum=0
+      
+      for dataColumNames in list(dfBetrachtung):
+        headSplit=dataColumNames.split("_") 
+
+        if headSplit[0] == "POP" and headSplit[1].isdigit():
+        #group in data is completle in the defined group)
+          if int(headSplit[1]) >= agegroupe[0] and ((int(headSplit[2]) <= agegroupe[1]) if len(headSplit)>2 else int(headSplit[1]) <= agegroupe[1]):
+            agegroupeSum=agegroupeSum+ dfBetrachtung.loc[60101][dataColumNames]
+          #group in data is a part of the defined group
+          elif int(headSplit[1]) >= agegroupe[0] and int(headSplit[1]) < agegroupe[1]:
+            upperBound= int(headSplit[2]) if len(headSplit)>2 else agegroupe[1]
+            grouppart=dfBetrachtung.loc[60101][dataColumNames]/(upperBound-int(headSplit[1]))*(agegroupe[1]-int(headSplit[1]))
+            agegroupeSum = agegroupeSum + grouppart
+          elif  int(headSplit[1]) < agegroupe[0] and ((int(headSplit[2])>agegroupe[0]) if len(headSplit)>2 else True):
+            upperBound= int(headSplit[2]) if len(headSplit)>2 else agegroupe[1]
+            grouppart=dfBetrachtung.loc[60101][dataColumNames]/(upperBound-int(headSplit[1]))*(upperBound-agegroupe[0])
+            agegroupeSum = agegroupeSum + grouppart
+      agegroupCount[agegroupe]=agegroupeSum
+    # print(agegroupCount)
+    return agegroupCount  
+
+  #---read gender
+  if paramToRead is "gender":
+    df=pd.read_csv(pathPopulationSexCSV, encoding = "ISO-8859-1", sep=';',  na_values=['NA'])
+    dfBetrachtung=df.set_index('LAU_CODE')
+    genderCount = defaultdict()
+
+    for gender in popGroup.possibleAttributes[paramToRead]:
+      print(gender)
+
+      for dataColumNames in list(dfBetrachtung):
+        headSplit=dataColumNames.split("_") 
+
+        if headSplit[0] == "POP" and headSplit[1] == "MEN":
+          genderCount[gender] = dfBetrachtung.loc[60101][dataColumNames]
+
+          #CONTINUE here!!!!
+          

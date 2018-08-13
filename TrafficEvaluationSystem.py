@@ -26,5 +26,7 @@ print(trafficCellDict[60101])
 DataHandler.inhabitantReaderCSV(trafficCellDict,"inhabitants")
 print(trafficCellDict[60101].inhabitants)
 
+PopulationGroup.calculatePopulation(trafficCellDict[60101], DataHandler)
+
 
 
