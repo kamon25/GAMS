@@ -1,5 +1,6 @@
 from collections import defaultdict
 
+class sampleInhabitant()
 
 class PopulationGroup():
 
@@ -7,9 +8,9 @@ class PopulationGroup():
     possibleAttributes={"gender":["male", "female"],
                         "agegroup":[(0,14), (15,59), (60,100)], 
                         "employment":["employed", "unemployed"]}
-    impossibleCombinations=[((6,14),"employed"), 
-                            ((15,19),"employed"),
-                            ((65,100),"employed")]
+    impossibleCombinations=[((0,14),"employed"), 
+                            ((15,59),"employed"),
+                            ((60,100),"employed")]
     grouplist=[]
     
     #static methods
@@ -20,11 +21,19 @@ class PopulationGroup():
             print("Groups are not generated -> genaration")
             PopulationGroup.generateGroups(PopulationGroup.possibleAttributes, PopulationGroup.impossibleCombinations)
         
-        #read all necesary Attributes
-        attributesWithValues=defaultdict()
+        #--- read all necesary Attributes
+        attributesWithValues=defaultdict(dict)
         for attribute in PopulationGroup.possibleAttributes.keys():
             attributesWithValues[attribute] = DataHandler.AttributeReaderCSV(trafficCell.cellID,PopulationGroup, attribute)
-        #print(attributesWithValues)
+        print(attributesWithValues)
+
+        #--- sample attributes for each inhabitant
+        for i in range(1, trafficCell.inhabitants):
+            print(i)
+
+        ### CONTINUE here
+
+
 
 
     @staticmethod
