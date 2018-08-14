@@ -1,6 +1,5 @@
 from collections import defaultdict
 
-class sampleInhabitant()
 
 class PopulationGroup():
 
