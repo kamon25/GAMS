@@ -1,20 +1,25 @@
 from collections import defaultdict
+from Population.Inhabitant import Inhabitant
+from DataHandler import AttributeReaderCSV as AttributeReader
+from DataHandler import behaviorReaderDummy as BehaviorReader
+
+#--- Global Variables
+genderMale = "male"
 
 
 class PopulationGroup():
 
-    #static attributes
+    #--- static attributes
     possibleAttributes={"gender":["male", "female"],
                         "agegroup":[(0,14), (15,59), (60,100)], 
                         "employment":["employed", "unemployed"]}
     impossibleCombinations=[((0,14),"employed"), 
-                            ((15,59),"employed"),
                             ((60,100),"employed")]
     grouplist=[]
     
-    #static methods
+    #--- static methods
     @staticmethod
-    def calculatePopulation(trafficCell, DataHandler):
+    def calculatePopulation(trafficCell):
 
         if not PopulationGroup.grouplist:
             print("Groups are not generated -> genaration")
@@ -23,14 +28,50 @@ class PopulationGroup():
         #--- read all necesary Attributes
         attributesWithValues=defaultdict(dict)
         for attribute in PopulationGroup.possibleAttributes.keys():
-            attributesWithValues[attribute] = DataHandler.AttributeReaderCSV(trafficCell.cellID,PopulationGroup, attribute)
+            attributesWithValues[attribute] = AttributeReader(trafficCell.cellID,PopulationGroup, attribute)
         print(attributesWithValues)
+        #-- traffic relevant attributes
+        trafficBehaviorAttributes=["travelTimeBudget"]
+        for attribute in trafficBehaviorAttributes:
+            attributesWithValues[attribute] = BehaviorReader(attribute, PopulationGroup.possibleAttributes)
 
-        #--- sample attributes for each inhabitant
-        for i in range(1, trafficCell.inhabitants):
-            print(i)
+        #--- sample attributes for each inhabitant 
+        sampledInhabitants = []
+        for i in range(0, trafficCell.inhabitants):
+            #-- generate new instance of inhabitant
+            tempInhab= Inhabitant()
+            #-- set agegroupe
+                #print( attributesWithValues["agegroup"])
+            tempInhab.setAgegroupe(i,trafficCell.inhabitants,  attributesWithValues["agegroup"])
+            #-- set gender
+            tempInhab.setGender(i,trafficCell.inhabitants,  attributesWithValues["gender"])
+            #-- set employment
+            tempInhab.setEmployment(i, attributesWithValues["employmentRate_15_64"], PopulationGroup.grouplist.copy())
 
-        ### CONTINUE here
+            ##-- set traffic relevant attributes
+
+            #-- set travel time budget
+
+            ################
+            #CONTINUE HERE
+            ################
+
+
+
+
+            #-- add inhabitant
+            sampledInhabitants.append(tempInhab)
+            print(tempInhab.agegroupe)
+            print(tempInhab.gender)
+            print(tempInhab.employment)
+            break
+
+         
+            
+
+        
+
+        
 
 
 
@@ -73,9 +114,9 @@ class PopulationGroup():
 
 
     def __init__(self, attributes):
-        self.__attributes = attributes #dict with attributes like {"gender":"male"}
+        self._attributes = attributes #dict with attributes like {"gender":"male"}
         self.__paramsChoice={}
     
     def __str__(self):
-        return str(self.__attributes)
+        return str(self._attributes)
         

@@ -1,4 +1,5 @@
 import csv
+import math
 import numpy as np 
 import pandas as pd 
 from collections import defaultdict
@@ -114,10 +115,33 @@ def AttributeReaderCSV(cellID, popGroup, paramToRead):
     employmentRate={"employmentRate_15_64": float(dfBetrachtung.loc[cellID][employmentCorresponding[paramToRead]])}
     return employmentRate
 
+#---read human behavior in traffic
+def behaviorReaderDummy(paramToRead, possibleAttributes):
+  #--- read travel time budget
+  if (paramToRead == "travelTimeBudget"):
+    ttbSchweizerMikriozenzus={(6,24):(88.61,90.19,91.77), (25,64):(94.91,96.02,97.13),(65,100):(72.89,74.81,76,64)}
+    ttbAgegroups=defaultdict()
+
+    #-- chose data with smallest difference
+    for agegroup in possibleAttributes["agegroup"]:
+      keyForSmalestDifference=None
+      smallestDifference = None
+      for key in ttbSchweizerMikriozenzus.keys():
+          diff=math.pow(agegroup[0]-key[0] ,2) + math.pow(agegroup[1]-key[1] ,2)
+          if keyForSmalestDifference == None:
+              keyForSmalestDifference=key
+              smallestDifference = diff
+          elif smallestDifference>diff:
+              keyForSmalestDifference=key
+              smallestDifference = diff
+      ttbAgegroups[agegroup]=ttbSchweizerMikriozenzus[key]
+    
+    return ttbAgegroups
+    
     
 
 
 
-    
 
-          
+
+    

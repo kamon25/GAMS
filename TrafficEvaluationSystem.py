@@ -1,6 +1,7 @@
 from Population.PopulationGroup import PopulationGroup
 from Infrastructure.TrafficCell import TrafficCell
-import DataHandler
+from DataHandler import TrafficCellReaderCSV as TrafficCellReader
+from DataHandler import inhabitantReaderCSV as inhabitantReader
 from collections import defaultdict
 
 
@@ -14,7 +15,7 @@ print(groupeList[0])
 
 #---Generate TrafficCells
 trafficCellDict=defaultdict()
-trafficCellsInitDict = DataHandler.TrafficCellReaderCSV()
+trafficCellsInitDict = TrafficCellReader()
 #print(trafficCellsInitDict)
 for cellKey, cellName in trafficCellsInitDict.items():
     #set Name and GKZ of 
@@ -23,10 +24,10 @@ for cellKey, cellName in trafficCellsInitDict.items():
 print(trafficCellDict[60101])
 
 #---populate TrafficCell
-DataHandler.inhabitantReaderCSV(trafficCellDict,"inhabitants")
+inhabitantReader(trafficCellDict,"inhabitants")
 print(trafficCellDict[60101].inhabitants)
 
-PopulationGroup.calculatePopulation(trafficCellDict[60101], DataHandler)
+PopulationGroup.calculatePopulation(trafficCellDict[60101])
 
 
 
