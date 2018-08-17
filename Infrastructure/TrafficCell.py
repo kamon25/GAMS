@@ -9,11 +9,11 @@ class TrafficCell():
     def __init__(self, name, cellID):
         self._name=name
         self.inhabitants=int()
-        self.popGroups=None
+        self.popPerGroup=None       #dict with {PopulationGroup : count}
         self.cellID=cellID
         
 
-        self.populationParams=None
+        self.populationParamsPerGroup=None #dict with {PopulationGroup : {travelTimeBudget: int, tripRate : int}}
         self.attractivity=None
     
     
@@ -21,9 +21,9 @@ class TrafficCell():
         return str(self._name)   
 
     def SetPopulationParams(self,populationParams):
-        self.populationParams=populationParams
+        self.populationParamsPerGroup=populationParams
 
     def SetPopulationGroups(self, popGroups):
-        self.popGroups=popGroups
+        self.popPerGroup=popGroups
 
 

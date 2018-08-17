@@ -1,4 +1,6 @@
 import random
+import numpy as np
+from collections import defaultdict
 
 
 
@@ -6,9 +8,15 @@ import random
 class Inhabitant():
     # static variables:
     femalecounter=0
+
+    # Constant Number of Trips to Work
+    tripRateWork=1.35 #Schweizer Mikrozensus
+
+    def __init__(self):
+        self.attributes=defaultdict()
     
     
-    def setAgegroupe(self, i, trafficcellInhabitants , agegroupValues):
+    def setAgegroupe(self, i, trafficcellInhabitants , agegroupValues, agegroupKey):
         sumOfGroups = 0
         for value in agegroupValues.values():
             sumOfGroups = sumOfGroups + value
@@ -18,7 +26,7 @@ class Inhabitant():
             sumOfGroups = 0
             for key, value in agegroupValues.items():
                 if i >= sumOfGroups:
-                    self.agegroupe = key
+                    self.attributes[agegroupKey] = key
                     #print(key)
                     break
                 else:
@@ -26,7 +34,8 @@ class Inhabitant():
         else:
             raise NotImplementedError("Implement setAgegroupmethod -> inhabitants != sum of Agegroups")
 
-    def setGender(self, i, trafficcellInhabitants, genderDistribution):        
+
+    def setGender(self, i, trafficcellInhabitants, genderDistribution, genderKey): #maybe subsitute keys        
         sumOfGroups = 0
         if i == 0: Inhabitant.femalecounter=0
         for value in genderDistribution.values():
@@ -36,25 +45,33 @@ class Inhabitant():
         if sumOfGroups == trafficcellInhabitants:
             radomnumberGender = random.randint(0, trafficcellInhabitants)
             if genderDistribution["male"]<=radomnumberGender or Inhabitant.femalecounter==genderDistribution["female"]:
-                self.gender="male"                
+                self.attributes[genderKey]="male"                
             else:
-                self.gender="female"
+                self.attributes[genderKey]="female"
                 Inhabitant.femalecounter=Inhabitant.femalecounter+1
         else:
             raise NotImplementedError("Implement setGender -> inhabitants != sum of genderGroups")
 
-    def setEmployment(self, i , employmentRate, grouplist):
+    def setEmployment(self, i , employmentRate, grouplist, employmentKey, agegroupKey):
         #-- is employment possible (ageroupe)? 
         employmentPossible=False
         for group in grouplist:
-            if group._attributes["agegroup"] ==self.agegroupe and group._attributes["employment"]=="employed":
+            if group._attributes[agegroupKey] == self.attributes[agegroupKey] and group._attributes[employmentKey]=="employed":
                 employmentPossible=True
         
         if employmentPossible:
             randomnumberEmployment=random.randrange(0,1,0.001)
             if randomnumberEmployment<=employmentRate:
-                self.employment="employed"
+                self.attributes[employmentKey]="employed"
             else:
-                self.employment="unemployed"
+                self.attributes[employmentKey]="unemployed"
         else:
-            self.employment="unemployed"
+            self.attributes[employmentKey]="unemployed"
+    
+    def setTravelTimeBudget(self, i, timeBudgetAgegroups):
+        self.travelTimeBudget = np.random.triangular(*timeBudgetAgegroups[self.attributes["agegroup"]])
+
+    def setTripRate(self, i , tripRateAgegroups):
+        self.tripRate = np.random.triangular(*tripRateAgegroups[ self.attributes["agegroup"]])
+        self.tripRateWork = Inhabitant.tripRateWork
+        

@@ -119,7 +119,7 @@ def AttributeReaderCSV(cellID, popGroup, paramToRead):
 def behaviorReaderDummy(paramToRead, possibleAttributes):
   #--- read travel time budget
   if (paramToRead == "travelTimeBudget"):
-    ttbSchweizerMikriozenzus={(6,24):(88.61,90.19,91.77), (25,64):(94.91,96.02,97.13),(65,100):(72.89,74.81,76,64)}
+    ttbSchweizerMikriozenzus={(6,24):(88.61,90.19,91.77), (25,64):(94.91,96.02,97.13),(65,100):(72.89,74.81,76.64)}
     ttbAgegroups=defaultdict()
 
     #-- chose data with smallest difference
@@ -134,9 +134,30 @@ def behaviorReaderDummy(paramToRead, possibleAttributes):
           elif smallestDifference>diff:
               keyForSmalestDifference=key
               smallestDifference = diff
-      ttbAgegroups[agegroup]=ttbSchweizerMikriozenzus[key]
+      ttbAgegroups[agegroup]=ttbSchweizerMikriozenzus[keyForSmalestDifference]
     
     return ttbAgegroups
+
+  #--- read travel time budget
+  if (paramToRead == "tripRate"):
+    waysSchweizerMikriozenzus={(6,24):(3.85,3.89,3.93), (25,64):(3.87,3.9,3.93),(65,100):(2.69,2.73,2.76)}
+    tripsAgegroups=defaultdict()
+
+    #-- chose data with smallest difference
+    for agegroup in possibleAttributes["agegroup"]:
+      keyForSmalestDifference=None
+      smallestDifference = None
+      for key in waysSchweizerMikriozenzus.keys():
+          diff=math.pow(agegroup[0]-key[0] ,2) + math.pow(agegroup[1]-key[1] ,2)
+          if keyForSmalestDifference == None:
+              keyForSmalestDifference=key
+              smallestDifference = diff
+          elif smallestDifference>diff:
+              keyForSmalestDifference=key
+              smallestDifference = diff
+      tripsAgegroups[agegroup]=waysSchweizerMikriozenzus[keyForSmalestDifference]
+    
+    return tripsAgegroups
     
     
 

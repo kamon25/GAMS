@@ -28,6 +28,7 @@ inhabitantReader(trafficCellDict,"inhabitants")
 print(trafficCellDict[60101].inhabitants)
 
 PopulationGroup.calculatePopulation(trafficCellDict[60101])
+print(trafficCellDict[60101].populationParamsPerGroup[groupeList[0]])
 
 
 

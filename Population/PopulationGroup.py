@@ -4,7 +4,9 @@ from DataHandler import AttributeReaderCSV as AttributeReader
 from DataHandler import behaviorReaderDummy as BehaviorReader
 
 #--- Global Variables
+gender="gender"
 genderMale = "male"
+
 
 
 class PopulationGroup():
@@ -20,21 +22,26 @@ class PopulationGroup():
     #--- static methods
     @staticmethod
     def calculatePopulation(trafficCell):
+        #################
+        # Things to Add:
+        #  -car aviable?!
+        ################
 
         if not PopulationGroup.grouplist:
             print("Groups are not generated -> genaration")
             PopulationGroup.generateGroups(PopulationGroup.possibleAttributes, PopulationGroup.impossibleCombinations)
-        
+        ################################
         #--- read all necesary Attributes
         attributesWithValues=defaultdict(dict)
         for attribute in PopulationGroup.possibleAttributes.keys():
             attributesWithValues[attribute] = AttributeReader(trafficCell.cellID,PopulationGroup, attribute)
         print(attributesWithValues)
         #-- traffic relevant attributes
-        trafficBehaviorAttributes=["travelTimeBudget"]
+        trafficBehaviorAttributes=["travelTimeBudget", "tripRate"]
         for attribute in trafficBehaviorAttributes:
             attributesWithValues[attribute] = BehaviorReader(attribute, PopulationGroup.possibleAttributes)
-
+        
+        ########################################
         #--- sample attributes for each inhabitant 
         sampledInhabitants = []
         for i in range(0, trafficCell.inhabitants):
@@ -42,29 +49,78 @@ class PopulationGroup():
             tempInhab= Inhabitant()
             #-- set agegroupe
                 #print( attributesWithValues["agegroup"])
-            tempInhab.setAgegroupe(i,trafficCell.inhabitants,  attributesWithValues["agegroup"])
+            tempInhab.setAgegroupe(i,trafficCell.inhabitants,  attributesWithValues["agegroup"], "agegroup")
             #-- set gender
-            tempInhab.setGender(i,trafficCell.inhabitants,  attributesWithValues["gender"])
+            tempInhab.setGender(i,trafficCell.inhabitants,  attributesWithValues["gender"], "gender")
             #-- set employment
-            tempInhab.setEmployment(i, attributesWithValues["employmentRate_15_64"], PopulationGroup.grouplist.copy())
+            tempInhab.setEmployment(i, attributesWithValues["employmentRate_15_64"], PopulationGroup.grouplist.copy(), "employment" , "agegroup")
 
             ##-- set traffic relevant attributes
-
             #-- set travel time budget
-
-            ################
-            #CONTINUE HERE
-            ################
-
-
+            tempInhab.setTravelTimeBudget(i, attributesWithValues["travelTimeBudget"])
+            #-- set number of ways
+            tempInhab.setTripRate(i, attributesWithValues["tripRate"])
 
 
             #-- add inhabitant
-            sampledInhabitants.append(tempInhab)
-            print(tempInhab.agegroupe)
-            print(tempInhab.gender)
-            print(tempInhab.employment)
-            break
+            sampledInhabitants.append(tempInhab) 
+            # if i > 10:
+            #     break
+                      
+
+                    
+        ########################################
+        #--- split up inhabitants to groups
+        peoplePerGroupe = defaultdict(int)
+        trafficParamsGroupe = defaultdict()
+        for group in PopulationGroup.grouplist:
+            tempInhabitantList = []
+            for inhab in sampledInhabitants:
+                #check if inhabitant match group
+                inhabitantInGroup=True
+                for key in PopulationGroup.possibleAttributes.keys():
+                    if group._attributes[key] != inhab.attributes[key]:
+                        inhabitantInGroup=False
+                        break
+                
+                if inhabitantInGroup:
+                    tempInhabitantList.append(inhab)
+            
+            # set count of groupmembers
+            print(group)                    ################################################ CONTINUE DEBUGUNG HERE
+            print(len(tempInhabitantList))
+            peoplePerGroupe[group] = len(tempInhabitantList)            
+
+            # set params for group
+            timebudget=None
+            tripRate= None
+            for inhab in tempInhabitantList:
+                if timebudget == None or tripRate == None:
+                    timebudget = inhab.travelTimeBudget
+                    tripRate = inhab.tripRate
+                else:
+                    timebudget = timebudget + inhab.travelTimeBudget
+                    tripRate = tripRate + inhab.tripRate
+            print(timebudget)
+            print(tripRate)
+            timebudget = timebudget/float(peoplePerGroupe[group])
+            tripRate = tripRate/float(peoplePerGroupe[group])
+            
+
+            trafficParamsGroupe[group]={"travelTimeBudget":timebudget, "tripRate" : tripRate}
+
+        trafficCell.SetPopulationGroups(peoplePerGroupe)
+        trafficCell.SetPopulationParams(trafficParamsGroupe)
+
+
+
+
+
+
+
+
+        
+
 
          
             
