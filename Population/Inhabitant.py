@@ -31,7 +31,7 @@ class Inhabitant():
         if sumOfGroups == trafficcellInhabitants:
             sumOfGroups = 0
             for key, value in agegroupValues.items():
-                if i <= sumOfGroups + value:
+                if i < sumOfGroups + value:
                     self.attributes[agegroupKey] = key
                     #print(key)
                     break
@@ -44,7 +44,6 @@ class Inhabitant():
     def setGender(self, i, trafficcellInhabitants, genderDistribution, genderKey): #maybe subsitute keys        
         sumOfGroups = sum(genderDistribution.values())
         femalecounter=Inhabitant.femalecounter
-        maleFemaleRatio=1
         if i == 0: femalecounter=0
         maleFemaleRatio = genderDistribution["male"] / genderDistribution["female"]
         ### Version two with for
@@ -58,7 +57,7 @@ class Inhabitant():
         #print("set as inhabitants: " + str(trafficcellInhabitants))
         if sumOfGroups == trafficcellInhabitants:
             if(femalecounter == 0):
-                currentRatio = 1
+                currentRatio = trafficcellInhabitants-1
             else:
                 currentRatio= (i-femalecounter)/femalecounter
                        

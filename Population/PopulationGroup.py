@@ -37,6 +37,7 @@ class PopulationGroup():
         for attribute in PopulationGroup.possibleAttributes.keys():
             attributesWithValues[attribute] = AttributeReader(trafficCell.cellID,PopulationGroup, attribute)
         print(attributesWithValues)
+        print(trafficCell)
         #-- traffic relevant attributes
         trafficBehaviorAttributes=["travelTimeBudget", "tripRate"]
         for attribute in trafficBehaviorAttributes:

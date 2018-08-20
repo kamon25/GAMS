@@ -27,7 +27,9 @@ print(trafficCellDict[61059])
 inhabitantReader(trafficCellDict,"inhabitants")
 print(trafficCellDict[61059].inhabitants)
 
-PopulationGroup.calculatePopulation(trafficCellDict[61059])
+for TC in trafficCellDict.values():
+    PopulationGroup.calculatePopulation(TC)
+#PopulationGroup.calculatePopulation(trafficCellDict[61059])
 print(trafficCellDict[61059].populationParamsPerGroup)
 
 
