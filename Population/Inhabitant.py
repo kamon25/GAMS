@@ -1,31 +1,37 @@
 import random
 import numpy as np
 from collections import defaultdict
+import time
 
 
 
 
 class Inhabitant():
+    __slots__="attributes","tripRate", "travelTimeBudget", "tripRateWork"
+    
+
     # static variables:
     femalecounter=0
 
     # Constant Number of Trips to Work
-    tripRateWork=1.35 #Schweizer Mikrozensus
+    tripRateWorkSwiss=1.35 #Schweizer Mikrozensus
 
     def __init__(self):
         self.attributes=defaultdict()
+
+    def __str__(self):
+        return "Here Inhabitant"
+    
     
     
     def setAgegroupe(self, i, trafficcellInhabitants , agegroupValues, agegroupKey):
-        sumOfGroups = 0
-        for value in agegroupValues.values():
-            sumOfGroups = sumOfGroups + value
+        sumOfGroups = sum(agegroupValues.values())
         #print("Summe der Gruppe: " + str(sumOfGroups))
         #print("set as Inhabitants: " + str(trafficcellInhabitants))
         if sumOfGroups == trafficcellInhabitants:
             sumOfGroups = 0
             for key, value in agegroupValues.items():
-                if i >= sumOfGroups:
+                if i <= sumOfGroups + value:
                     self.attributes[agegroupKey] = key
                     #print(key)
                     break
@@ -33,22 +39,35 @@ class Inhabitant():
                     sumOfGroups = sumOfGroups + value  
         else:
             raise NotImplementedError("Implement setAgegroupmethod -> inhabitants != sum of Agegroups")
-
+        
 
     def setGender(self, i, trafficcellInhabitants, genderDistribution, genderKey): #maybe subsitute keys        
-        sumOfGroups = 0
-        if i == 0: Inhabitant.femalecounter=0
-        for value in genderDistribution.values():
-            sumOfGroups = sumOfGroups + value
+        sumOfGroups = sum(genderDistribution.values())
+        femalecounter=Inhabitant.femalecounter
+        maleFemaleRatio=1
+        if i == 0: femalecounter=0
+        maleFemaleRatio = genderDistribution["male"] / genderDistribution["female"]
+        ### Version two with for
+        # for key, value in genderDistribution.items():
+        #     sumOfGroups = sumOfGroups + value
+        #     if key == "female":
+        #         maleFemaleRatio = maleFemaleRatio/value
+        #     elif key == "male":
+        #         maleFemaleRatio = maleFemaleRatio * value
         #print("Summe der Gruppe: " + str(sumOfGroups))
         #print("set as inhabitants: " + str(trafficcellInhabitants))
         if sumOfGroups == trafficcellInhabitants:
-            radomnumberGender = random.randint(0, trafficcellInhabitants)
-            if genderDistribution["male"]<=radomnumberGender or Inhabitant.femalecounter==genderDistribution["female"]:
+            if(femalecounter == 0):
+                currentRatio = 1
+            else:
+                currentRatio= (i-femalecounter)/femalecounter
+                       
+            if maleFemaleRatio>currentRatio or femalecounter==genderDistribution["female"]:
                 self.attributes[genderKey]="male"                
             else:
                 self.attributes[genderKey]="female"
-                Inhabitant.femalecounter=Inhabitant.femalecounter+1
+                femalecounter=femalecounter+1
+            Inhabitant.femalecounter=femalecounter            
         else:
             raise NotImplementedError("Implement setGender -> inhabitants != sum of genderGroups")
 
@@ -58,10 +77,12 @@ class Inhabitant():
         for group in grouplist:
             if group._attributes[agegroupKey] == self.attributes[agegroupKey] and group._attributes[employmentKey]=="employed":
                 employmentPossible=True
+            #print("Group" + str(group._attributes[agegroupKey]))
+            #print("self" + str(self.attributes[agegroupKey] ))
         
         if employmentPossible:
-            randomnumberEmployment=random.randrange(0,1,0.001)
-            if randomnumberEmployment<=employmentRate:
+            randomnumberEmployment=np.random.random()
+            if randomnumberEmployment<=employmentRate/100.0:
                 self.attributes[employmentKey]="employed"
             else:
                 self.attributes[employmentKey]="unemployed"
@@ -73,5 +94,5 @@ class Inhabitant():
 
     def setTripRate(self, i , tripRateAgegroups):
         self.tripRate = np.random.triangular(*tripRateAgegroups[ self.attributes["agegroup"]])
-        self.tripRateWork = Inhabitant.tripRateWork
+        self.tripRateWork = Inhabitant.tripRateWorkSwiss
         

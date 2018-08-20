@@ -21,14 +21,14 @@ for cellKey, cellName in trafficCellsInitDict.items():
     #set Name and GKZ of 
     trafficCellDict[cellKey]=TrafficCell(cellName,cellKey)
 
-print(trafficCellDict[60101])
+print(trafficCellDict[61059])
 
 #---populate TrafficCell
 inhabitantReader(trafficCellDict,"inhabitants")
-print(trafficCellDict[60101].inhabitants)
+print(trafficCellDict[61059].inhabitants)
 
-PopulationGroup.calculatePopulation(trafficCellDict[60101])
-print(trafficCellDict[60101].populationParamsPerGroup[groupeList[0]])
+PopulationGroup.calculatePopulation(trafficCellDict[61059])
+print(trafficCellDict[61059].populationParamsPerGroup)
 
 
 

@@ -2,6 +2,7 @@ from collections import defaultdict
 from Population.Inhabitant import Inhabitant
 from DataHandler import AttributeReaderCSV as AttributeReader
 from DataHandler import behaviorReaderDummy as BehaviorReader
+import time
 
 #--- Global Variables
 gender="gender"
@@ -42,32 +43,47 @@ class PopulationGroup():
             attributesWithValues[attribute] = BehaviorReader(attribute, PopulationGroup.possibleAttributes)
         
         ########################################
-        #--- sample attributes for each inhabitant 
+        #--- sample attributes for each inhabitant  ######## slow part
+        time.clock()
         sampledInhabitants = []
         for i in range(0, trafficCell.inhabitants):
             #-- generate new instance of inhabitant
+            #c1=time.clock()
             tempInhab= Inhabitant()
+            #print(time.clock() - c1)
             #-- set agegroupe
                 #print( attributesWithValues["agegroup"])
+            #c1=time.clock()
             tempInhab.setAgegroupe(i,trafficCell.inhabitants,  attributesWithValues["agegroup"], "agegroup")
+            #print(time.clock() - c1)
             #-- set gender
+            #c1=time.clock()
             tempInhab.setGender(i,trafficCell.inhabitants,  attributesWithValues["gender"], "gender")
+            #print(time.clock() - c1)
             #-- set employment
-            tempInhab.setEmployment(i, attributesWithValues["employmentRate_15_64"], PopulationGroup.grouplist.copy(), "employment" , "agegroup")
+            #c1=time.clock()
+            tempInhab.setEmployment(i, attributesWithValues["employment"]["employmentRate_15_64"], PopulationGroup.grouplist, "employment" , "agegroup")
+            #print(time.clock() - c1)
 
             ##-- set traffic relevant attributes
             #-- set travel time budget
+            #c1=time.clock()
             tempInhab.setTravelTimeBudget(i, attributesWithValues["travelTimeBudget"])
+            #print(time.clock() - c1)
             #-- set number of ways
+            #c1=time.clock()
             tempInhab.setTripRate(i, attributesWithValues["tripRate"])
-
+            #print((time.clock() - c1) *trafficCell.inhabitants)
 
             #-- add inhabitant
             sampledInhabitants.append(tempInhab) 
-            # if i > 10:
+            #print(str(tempInhab)  +  str(i))
+            #if i > 999:            
             #     break
-                      
 
+        #print((time.clock()-c)/(1001))
+        print(time.clock())              
+        print(len(sampledInhabitants))
                     
         ########################################
         #--- split up inhabitants to groups
@@ -87,7 +103,7 @@ class PopulationGroup():
                     tempInhabitantList.append(inhab)
             
             # set count of groupmembers
-            print(group)                    ################################################ CONTINUE DEBUGUNG HERE
+            print(group)                  
             print(len(tempInhabitantList))
             peoplePerGroupe[group] = len(tempInhabitantList)            
 
@@ -101,34 +117,17 @@ class PopulationGroup():
                 else:
                     timebudget = timebudget + inhab.travelTimeBudget
                     tripRate = tripRate + inhab.tripRate
-            print(timebudget)
-            print(tripRate)
+
             timebudget = timebudget/float(peoplePerGroupe[group])
             tripRate = tripRate/float(peoplePerGroupe[group])
+            #print(timebudget)
+            #print(tripRate)
             
 
             trafficParamsGroupe[group]={"travelTimeBudget":timebudget, "tripRate" : tripRate}
 
         trafficCell.SetPopulationGroups(peoplePerGroupe)
         trafficCell.SetPopulationParams(trafficParamsGroupe)
-
-
-
-
-
-
-
-
-        
-
-
-         
-            
-
-        
-
-        
-
 
 
 
