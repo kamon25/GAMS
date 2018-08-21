@@ -10,11 +10,10 @@ class TrafficCell():
         self._name=name
         self.inhabitants=int()
         self.popPerGroup=None       #dict with {PopulationGroup : count}
-        self.cellID=cellID
-        
+        self.cellID=cellID        
 
         self.populationParamsPerGroup=None #dict with {PopulationGroup : {travelTimeBudget: int, tripRate : int}}
-        self.attractivity=None
+        self.attractivity=defaultdict()
     
     
     def __str__(self):

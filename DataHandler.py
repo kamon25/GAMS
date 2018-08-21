@@ -24,6 +24,16 @@ def TrafficCellReaderCSV():
     
     return TarfficCells
 
+def attractionReaderCSV(cellID, tripPrupose):
+  if tripPrupose is "work":
+    df=pd.read_csv('Data/OGDEXT_AEST_GEMTAB_1.csv', sep=';',  na_values=['NA'], thousands="." )
+    df2=df[df["JAHR"]==df["JAHR"].max()]
+    dfBetrachtung=df2.set_index('GCD')
+    workplaceCorresponding={"work":"BESCH_AST"}
+
+    attractionWork=float(dfBetrachtung.loc[cellID][workplaceCorresponding[tripPrupose]])
+    return attractionWork
+
 def inhabitantReaderCSV(trafficCellDict, *paramsToRead):
     dfGemList=pd.read_csv(pathTrafficCellsCSV,encoding = "ISO-8859-1",  sep=';',  na_values=['NA'])
 
