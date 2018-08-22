@@ -10,6 +10,7 @@ pathPopulationAgeGroupsCSV='Data/STMK_01012017_AGE.csv'
 pathPopulationSexCSV='Data/STMK_01012017_SEX.csv'
 pathPopulationEmployment='Data/OGDEXT_AEST_GEMTAB_1.csv'
 
+
 def TrafficCellReaderCSV():
     TarfficCells = defaultdict()
     with open(pathTrafficCellsCSV) as f:
@@ -169,7 +170,19 @@ def behaviorReaderDummy(paramToRead, possibleAttributes):
     
     return tripsAgegroups
     
+def readConnectionRows()
+    data = []
+    with open(filename) as f:
+      reader = csv.reader(f, delimiter=';')
+      skip = True
+      for row in reader:
+        if(skip):
+          skip = False
+          continue      
+        
+        data.append(";".join(row))
     
+    return data
 
 
 

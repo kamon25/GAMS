@@ -3,8 +3,14 @@ from Infrastructure.TrafficCell import TrafficCell
 from DataHandler import TrafficCellReaderCSV as TrafficCellReader
 from DataHandler import inhabitantReaderCSV as inhabitantReader
 from DataHandler import attractionReaderCSV as attractionReader
+from Infrastructure import ConInfrastructure as ConInfra
+
+
 
 from collections import defaultdict
+
+ConInfra.bildGraph()
+print()
 
 
 #---List of populationgroups in the area
