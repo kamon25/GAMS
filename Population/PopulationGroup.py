@@ -171,7 +171,6 @@ class PopulationGroup():
 
     def __init__(self, attributes):
         self._attributes = attributes #dict with attributes like {"gender":"male"}
-        self.__paramsChoice={}
     
     def __str__(self):
         return str(self._attributes)

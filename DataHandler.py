@@ -3,13 +3,27 @@ import math
 import numpy as np 
 import pandas as pd 
 from collections import defaultdict
+import json
 
-#Filepaths
+#Filepaths Data
 pathTrafficCellsCSV = './Data/Gemeinde_Liste_V1.csv'
 pathPopulationAgeGroupsCSV='Data/STMK_01012017_AGE.csv'
 pathPopulationSexCSV='Data/STMK_01012017_SEX.csv'
 pathPopulationEmployment='Data/OGDEXT_AEST_GEMTAB_1.csv'
 
+#Filepaths traffic network
+pathAutobahnNeighbour='Data/Nachbarschaftsliste_Autobahn.csv'
+pathCountryRoadNeighbour='Data/Nachbarschaftsliste_Zug.csv'
+pathTrainNeighbour='Data/Nachbarschaftsliste_Standard.csv'
+
+#Filepaths Output
+pathTrafficCellData = 'JsonOutput/trafficCellData2.json'
+
+########################################
+#
+#     INPUT methods
+#
+#########################################
 
 def TrafficCellReaderCSV():
     TarfficCells = defaultdict()
@@ -170,20 +184,49 @@ def behaviorReaderDummy(paramToRead, possibleAttributes):
     
     return tripsAgegroups
     
-def readConnectionRows()
-    data = []
-    with open(filename) as f:
-      reader = csv.reader(f, delimiter=';')
-      skip = True
-      for row in reader:
-        if(skip):
-          skip = False
-          continue      
-        
-        data.append(";".join(row))
-    
-    return data
+def readConnectionRows(connectionToRead):
+  data = []
+  filename="None"
+  if connectionToRead =="countryRoad":
+    filename=pathCountryRoadNeighbour
+  with open(filename) as f:
+    reader = csv.reader(f, delimiter=';')
+    skip = True
+    for row in reader:
+      if(skip):
+        skip = False
+        continue      
+      
+      data.append(";".join(row))
+  
+  return data
 
+
+
+#################################
+#
+#   OUTPUT methods
+#
+#################################
+
+##########
+# JSON Encoder
+##########
+
+def cellListToJson(trafficCellDict):
+
+  outDict=defaultdict()
+
+
+  for key, cell in trafficCellDict.items():
+    if cell.popPerGroup != None:
+      outDict[key] = cell.toDictWithPopGroupe()
+    else:
+      outDict[key] = cell.toDict()
+  
+  with open(pathTrafficCellData, 'w') as fp:
+    json.dump(outDict, fp ,separators=(',', ':'), indent=4)
+  print("Output updated: TrafficCells")
 
 
 

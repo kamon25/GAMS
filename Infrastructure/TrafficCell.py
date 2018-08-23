@@ -24,5 +24,24 @@ class TrafficCell():
 
     def SetPopulationGroups(self, popGroups):
         self.popPerGroup=popGroups
+    
+    ### preparing dicts for encoding to json
+    def toDict(self):
+        tempDict={'name':self._name, 'inhabitants': self.inhabitants}
+        return tempDict
+    
+    def toDictWithPopGroupe(self):
+        popGroupAttributeList=[]
+
+        for group, count in self.popPerGroup.items():
+            popGroupAttributeDict=group._attributes
+            popGroupAttributeDict["count"] = count
+            popGroupAttributeList.append(popGroupAttributeDict)
+            
+        tempDict={'name':self._name, 'inhabitants': self.inhabitants, "inhabitantGroups": popGroupAttributeList}
+        
+        return tempDict
+
+
 
 
