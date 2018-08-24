@@ -6,12 +6,8 @@ from DataHandler import attractionReaderCSV as attractionReader
 from DataHandler import cellListToJson
 from Infrastructure import ConInfrastructure as ConInfra
 
-
-
 from collections import defaultdict
 
-ConInfra.bildGraph()
-print()
 
 
 #---List of populationgroups in the area
@@ -32,7 +28,11 @@ for cellKey, cellName in trafficCellsInitDict.items():
     print(cellName)
 
 
-(print(len(trafficCellDict)))
+print(len(trafficCellDict))
+
+#--- shortest Path:
+ConInfra.bildGraph()
+print(ConInfra.getShortestPath(60101, 61059, trafficCellDict))
 
 
 

@@ -15,6 +15,7 @@ pathPopulationEmployment='Data/OGDEXT_AEST_GEMTAB_1.csv'
 pathAutobahnNeighbour='Data/Nachbarschaftsliste_Autobahn.csv'
 pathCountryRoadNeighbour='Data/Nachbarschaftsliste_Zug.csv'
 pathTrainNeighbour='Data/Nachbarschaftsliste_Standard.csv'
+pathConnectionWeights='Data/weightConnections.csv'
 
 #Filepaths Output
 pathTrafficCellData = 'JsonOutput/trafficCellData2.json'
@@ -183,12 +184,21 @@ def behaviorReaderDummy(paramToRead, possibleAttributes):
       tripsAgegroups[agegroup]=waysSchweizerMikriozenzus[keyForSmalestDifference]
     
     return tripsAgegroups
-    
+
+# Information about connection between the trafficCells    
 def readConnectionRows(connectionToRead):
   data = []
   filename="None"
-  if connectionToRead =="countryRoad":
+
+  if connectionToRead =="countryroad":
     filename=pathCountryRoadNeighbour
+  elif connectionToRead == "train":
+    filename=pathTrainNeighbour
+  elif connectionToRead =="autobahn":
+    filename=pathAutobahnNeighbour
+  else:
+    raise ValueError
+
   with open(filename) as f:
     reader = csv.reader(f, delimiter=';')
     skip = True
@@ -201,7 +211,20 @@ def readConnectionRows(connectionToRead):
   
   return data
 
-
+# read weight connection
+def redConnectionWeights():
+    variables = defaultdict(float)
+    with open(pathConnectionWeights) as f:
+      reader = csv.reader(f, delimiter=';')
+      skip = True
+      for row in reader:
+        if(skip):
+          skip = False
+          continue      
+        
+        variables[row[0]] = float(row[1])
+    
+    return variables
 
 #################################
 #
@@ -216,7 +239,6 @@ def readConnectionRows(connectionToRead):
 def cellListToJson(trafficCellDict):
 
   outDict=defaultdict()
-
 
   for key, cell in trafficCellDict.items():
     if cell.popPerGroup != None:
