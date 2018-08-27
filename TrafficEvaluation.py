@@ -13,6 +13,7 @@ from collections import defaultdict
 def generatePopulationGroups():
     return PopulationGroup.generateGroups(PopulationGroup.possibleAttributes, PopulationGroup.impossibleCombinations)
 
+
 def generateTrafficCells():
     trafficCellDict=defaultdict()
     trafficCellsInitDict = TrafficCellReader()#Read the traffic cells in viewing space
@@ -41,3 +42,19 @@ def generateTrafficCells():
     print(trafficCellDict[61059].populationParamsPerGroup)
 
     return trafficCellDict
+
+
+def calcAllPathsForTrafficCell(startTrafficCell, trafficCellDict):
+    for tempCell in trafficCellDict.values():
+        print(startTrafficCell.cellID)
+        print(tempCell.cellID)
+        path = ConInfra.getShortestPath(startTrafficCell.cellID, tempCell.cellID, trafficCellDict)
+        startTrafficCell.shortestPaths[tempCell.cellID] = path
+        break
+    return path
+    ####################################### CONTINUE    
+
+
+def calcSimulationStep(self, parameter_list):
+    pass
+    

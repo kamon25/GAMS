@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 from Population.PopulationGroup import PopulationGroup
 from Infrastructure.TrafficCell import TrafficCell
 from DataHandler import cellListToJson
@@ -9,8 +11,9 @@ from Infrastructure import ConInfrastructure as ConInfra
 
 from TrafficEvaluation import generatePopulationGroups as generatePopulationGroups
 from TrafficEvaluation import generateTrafficCells as generateTrafficCells
+from TrafficEvaluation import calcAllPathsForTrafficCell
 
-from collections import defaultdict
+
 
 
 
@@ -18,7 +21,7 @@ from collections import defaultdict
 groupList = generatePopulationGroups()
 print(groupList[0])
 
-groupListToJson(groupList)
+# groupListToJson(groupList)
 
 
 #############################
@@ -30,14 +33,18 @@ groupListToJson(groupList)
 #-----reload TrafficCells
 trafficCellDict=loadTC()
 print(trafficCellDict[61059].inhabitants)
+#######################################
 
-cellListToJson(trafficCellDict)
+# cellListToJson(trafficCellDict)
 
 #--- shortest Path:
 ConInfra.bildGraph()
-print(ConInfra.getShortestPath(60101, 61059, trafficCellDict))
+print(ConInfra.getShortestPath(61059, 60101, trafficCellDict))
 
-graphToJson(ConInfra.infraNetworkGraph)
+print(calcAllPathsForTrafficCell(trafficCellDict[61059], trafficCellDict))
+####################################### CONTINUE
+
+# graphToJson(ConInfra.infraNetworkGraph)
 
 
 

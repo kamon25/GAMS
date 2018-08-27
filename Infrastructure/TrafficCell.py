@@ -14,7 +14,8 @@ class TrafficCell():
 
         self.populationParamsPerGroup=None #dict with {PopulationGroup : {travelTimeBudget: int, tripRate : int}}
         self.attractivity=defaultdict()
-    
+        
+        self.shortestPaths=defaultdict()    
     
     def __str__(self):
         return str(self._name)   

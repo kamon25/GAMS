@@ -126,11 +126,11 @@ def calc_dijkstra(start_node, target_node, trafficCells):
     if target_node in shortest_paths:
       ###Trace back from target###
       curr_node = target_node
-      path.insert(0, trafficCells[int(curr_node)]._name)
+      path.insert(0, trafficCells[int(curr_node)].cellID)
       while curr_node in prev:
         #Look up city
         previous = prev[curr_node]
-        city = trafficCells[int(previous[0])]._name
+        city = trafficCells[int(previous[0])].cellID
 
         path.insert(0, (city, previous[1]))
         curr_node = previous[0]
