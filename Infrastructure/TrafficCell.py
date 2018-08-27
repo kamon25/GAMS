@@ -31,14 +31,15 @@ class TrafficCell():
         return tempDict
     
     def toDictWithPopGroupe(self):
-        popGroupAttributeList=[]
+        popGroupDict=defaultdict()
 
         for group, count in self.popPerGroup.items():
-            popGroupAttributeDict=group._attributes
-            popGroupAttributeDict["count"] = count
-            popGroupAttributeList.append(popGroupAttributeDict)
+            groupid = "bhg" + str(group._groupID)
+            popGroupAttributeDict={}
+            popGroupAttributeDict["inhabitants"] = count
+            popGroupDict[groupid]=popGroupAttributeDict
             
-        tempDict={'name':self._name, 'inhabitants': self.inhabitants, "inhabitantGroups": popGroupAttributeList}
+        tempDict={'name':self._name, 'inhabitants': self.inhabitants, "inhabitantGroups": popGroupDict}
         
         return tempDict
 

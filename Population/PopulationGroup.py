@@ -160,18 +160,23 @@ class PopulationGroup():
 
         #genarate a list of objects for the groups
         
-        for group in poplist:
+        for idx, group in enumerate(poplist): #enumerate to generate a idividual ID
             #print(dict(zip(attributeNameList,group)))
-            PopulationGroup.grouplist.append(PopulationGroup(dict(zip(attributeNameList,group))))
+            PopulationGroup.grouplist.append(PopulationGroup(idx,dict(zip(attributeNameList,group))))
+
 
         #print(poplist)           
         return PopulationGroup.grouplist
     
 
 
-    def __init__(self, attributes):
+    def __init__(self, groupID, attributes):
         self._attributes = attributes #dict with attributes like {"gender":"male"}
+        self._groupID = groupID
     
     def __str__(self):
         return str(self._attributes)
+
+
+
         

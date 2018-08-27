@@ -4,6 +4,8 @@ import numpy as np
 import pandas as pd 
 from collections import defaultdict
 import json
+from networkx.readwrite import json_graph
+import pickle
 
 #Filepaths Data
 pathTrafficCellsCSV = './Data/Gemeinde_Liste_V1.csv'
@@ -19,6 +21,11 @@ pathConnectionWeights='Data/weightConnections.csv'
 
 #Filepaths Output
 pathTrafficCellData = 'JsonOutput/trafficCellData2.json'
+pathBehaviouralHomogenousGroups = 'JsonOutput/behaviouralHomogenousGroups.json'
+pathNetworkgraph ='JsonOutput/networkgraph.json'
+
+#Filepaths storage
+pathTrafficCellStorage = 'Storage/trafficCellObjects'
 
 ########################################
 #
@@ -251,6 +258,38 @@ def cellListToJson(trafficCellDict):
   print("Output updated: TrafficCells")
 
 
+def groupListToJson(groupList):
+  outDict=defaultdict()
+
+  for group in groupList:
+    keystring= "bhg" + str(group._groupID)
+    outDict[keystring]=group._attributes
+  
+
+  with open(pathBehaviouralHomogenousGroups, 'w') as fp:
+    json.dump(outDict, fp ,separators=(',', ':'), indent=4)
+  print("Output updated: Groups")
 
 
-    
+def graphToJson(networkGraph):
+  d = json_graph.node_link_data(networkGraph)
+  with open(pathNetworkgraph, 'w') as fp:
+    json.dump(d, fp, indent=4)
+  print('Wrote node-link JSON data to' + pathNetworkgraph )
+
+#################################
+#
+#   storing data methods
+#
+#################################
+
+def saveTrafficCells(TrafficCellDict):
+  with open(pathTrafficCellStorage, 'wb') as fp:
+    pickle.dump(TrafficCellDict, fp)
+
+
+def loadTrafficCellDict():
+  with open(pathTrafficCellStorage, 'rb') as fp:
+    trafficCellDict = pickle.load(fp)
+  return trafficCellDict
+
