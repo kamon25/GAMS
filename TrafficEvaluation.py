@@ -44,15 +44,16 @@ def generateTrafficCells():
     return trafficCellDict
 
 
-def calcAllPathsForTrafficCell(startTrafficCell, trafficCellDict):
-    for tempCell in trafficCellDict.values():
-        print(startTrafficCell.cellID)
-        print(tempCell.cellID)
-        path = ConInfra.getShortestPath(startTrafficCell.cellID, tempCell.cellID, trafficCellDict)
-        startTrafficCell.shortestPaths[tempCell.cellID] = path
-        break
-    return path
-    ####################################### CONTINUE    
+def calcAllPathsForTrafficCell(trafficCellDict):
+    print("Start shortest evaluation")
+    for startTrafficCell in trafficCellDict.values():
+        for tempCell in trafficCellDict.values():
+            path = ConInfra.getShortestPaths_withStartMode(startTrafficCell.cellID, tempCell.cellID, trafficCellDict)
+            startTrafficCell.shortestPaths[tempCell.cellID] = path
+        print("EndCell")
+    print("End shortest evaluation") 
+
+    
 
 
 def calcSimulationStep(self, parameter_list):

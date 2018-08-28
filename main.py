@@ -39,10 +39,12 @@ print(trafficCellDict[61059].inhabitants)
 
 #--- shortest Path:
 ConInfra.bildGraph()
-print(ConInfra.getShortestPath(61059, 60101, trafficCellDict))
+print(ConInfra.getShortestPaths_withStartMode(61059, 60101, trafficCellDict))
 
-print(calcAllPathsForTrafficCell(trafficCellDict[61059], trafficCellDict))
-####################################### CONTINUE
+
+calcAllPathsForTrafficCell(trafficCellDict)
+print(trafficCellDict[61059].shortestPaths[60101])
+
 
 # graphToJson(ConInfra.infraNetworkGraph)
 
