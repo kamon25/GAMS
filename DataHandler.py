@@ -104,9 +104,10 @@ def AttributeReaderCSV(cellID, popGroup, paramToRead):
         headSplit=dataColumNames.split("_") 
 
         if headSplit[0] == "POP" and headSplit[1].isdigit():
-        #group in data is completle in the defined group)
+          #group in data is completlely in the defined group
           if int(headSplit[1]) >= agegroupe[0] and ((int(headSplit[2]) <= agegroupe[1]) if len(headSplit)>2 else int(headSplit[1]) <= agegroupe[1]):
             agegroupeSum=agegroupeSum+ dfBetrachtung.loc[cellID][dataColumNames]
+
           #group in data is a part of the defined group
           elif int(headSplit[1]) >= agegroupe[0] and int(headSplit[1]) < agegroupe[1]:
             upperBound= int(headSplit[2]) if len(headSplit)>2 else agegroupe[1]
@@ -116,6 +117,18 @@ def AttributeReaderCSV(cellID, popGroup, paramToRead):
             upperBound= int(headSplit[2]) if len(headSplit)>2 else agegroupe[1]
             grouppart=dfBetrachtung.loc[cellID][dataColumNames]/(upperBound-int(headSplit[1]))*(upperBound-agegroupe[0])
             agegroupeSum = agegroupeSum + grouppart
+            
+          #defined group is completely in
+          elif int(headSplit[1]) <= agegroupe[0] and ((int(headSplit[2]) >= agegroupe[1]) if len(headSplit)>2 else True):
+            if len(headSplit)>2:
+              rangeData = int(headSplit[2]-headSplit[1])
+              rangeDefinetGroup = agegroupe[1]-agegroupe[0]
+              grouppart=dfBetrachtung.loc[cellID][dataColumNames]*rangeDefinetGroup/rangeData
+            else:
+              rangeData = int(popGroup.possibleAttributes[paramToRead][-1][1]-headSplit[1])
+              rangeDefinetGroup = agegroupe[1]-agegroupe[0]
+              grouppart=dfBetrachtung.loc[cellID][dataColumNames]*rangeDefinetGroup/rangeData
+
       agegroupCount[agegroupe]=agegroupeSum
     # print(agegroupCount)
     return agegroupCount  

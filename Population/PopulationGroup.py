@@ -1,26 +1,63 @@
+import time
+import math
 from collections import defaultdict
+
 from Population.Inhabitant import Inhabitant
 from DataHandler import AttributeReaderCSV as AttributeReader
 from DataHandler import behaviorReaderDummy as BehaviorReader
-import time
 
 #--- Global Variables
 gender="gender"
 genderMale = "male"
 
+#--- actual hard coded
+costBudget=15.0
+
 
 
 class PopulationGroup():
 
+    ######################
     #--- static attributes
+    ######################
     possibleAttributes={"gender":["male", "female"],
                         "agegroup":[(0,14), (15,59), (60,100)], 
                         "employment":["employed", "unemployed"]}
     impossibleCombinations=[((0,14),"employed"), 
                             ((60,100),"employed")]
     grouplist=[]
+
     
+    ######################
+    #--- methods
+    ######################
+    def __init__(self, groupID, attributes):
+        self._attributes = attributes #dict with attributes like {"gender":"male"}
+        self._groupID = groupID
+        #attributes for resistance
+        self.k={'cost':0.5, 'duration':0.5, 'los':0.0}
+    
+    def __str__(self):
+        return str(self._attributes)
+
+    def calcResistance(self, duration, cost, los, travelTimeBudget, costBudget, expectationLos, tripsPerDay):
+        #calc duration resistance
+        travelTimeBudgetPerTrip = travelTimeBudget/tripsPerDay
+        resistanceDuration= math.exp((duration/travelTimeBudgetPerTrip)-1)
+        #calc cost resistance
+        resistanceCost = math.exp((cost/costBudget)-1)
+        #calc LoS resistance
+        resistanceLos = los
+
+        resistanceSum= self.k['cost']*resistanceCost+ self.k['duration']*resistanceDuration + self.k['los']*resistanceLos
+
+        return resistanceSum
+
+
+
+    ############################################
     #--- static methods
+    ############################################
     @staticmethod
     def calculatePopulation(trafficCell):
         #################
@@ -125,7 +162,7 @@ class PopulationGroup():
             #print(tripRate)
             
 
-            trafficParamsGroupe[group]={"travelTimeBudget":timebudget, "tripRate" : tripRate}
+            trafficParamsGroupe[group]={"travelTimeBudget":timebudget, "tripRate" : tripRate, "costBudget": costBudget}
 
         trafficCell.SetPopulationGroups(peoplePerGroupe)
         trafficCell.SetPopulationParams(trafficParamsGroupe)
@@ -170,12 +207,6 @@ class PopulationGroup():
     
 
 
-    def __init__(self, groupID, attributes):
-        self._attributes = attributes #dict with attributes like {"gender":"male"}
-        self._groupID = groupID
-    
-    def __str__(self):
-        return str(self._attributes)
 
 
 

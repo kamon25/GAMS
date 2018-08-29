@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from collections import defaultdict 
 
-
+from Infrastructure import ConInfrastructure as ConInfra
 
 class TrafficCell():
 
@@ -12,10 +12,13 @@ class TrafficCell():
         self.popPerGroup=None       #dict with {PopulationGroup : count}
         self.cellID=cellID        
 
-        self.populationParamsPerGroup=None #dict with {PopulationGroup : {travelTimeBudget: int, tripRate : int}}
-        self.attractivity=defaultdict()
+        self.populationParamsPerGroup=None #dict with {PopulationGroup : {travelTimeBudget: int, tripRate : int, costBudget : float}}
+        self.attractivity=defaultdict()     #{purpose: attractivity}
         
         self.shortestPaths=defaultdict()    
+        self.connectionParams = defaultdict() #{'duration': time, 'cost': cost, 'distance': distance}
+
+        self.purposeSestinationModeGroup=defaultdict() #{Purpose{destination: { mode:{popGroup: ratio}}}}
     
     def __str__(self):
         return str(self._name)   
@@ -43,6 +46,41 @@ class TrafficCell():
         tempDict={'name':self._name, 'inhabitants': self.inhabitants, "inhabitantGroups": popGroupDict}
         
         return tempDict
+    
+    def calcConnectionParams(self, carCostKm, ptCostZone):
+        
+        for destination, modes in self.shortestPaths.items():
+            modeParams=defaultdict()
+            for mode, path in modes.items():
+
+                #calc attributes from distance and zones               
+                copypath = path.copy()
+                copypath.pop()
+                distance = 0
+                time = 0
+                cost = 0
+                zoneCounter = 0
+                for _, connection, dis in copypath:
+                    distance+=dis
+                    time += dis*ConInfra.costModes[connection]
+                    if connection.split('_')[0]=='car':
+                        cost += dis*carCostKm
+                        zoneCounter=0
+                    else:
+                        cost += ptCostZone[zoneCounter]
+                        zoneCounter += 1   
+
+                params={'duration': time, 'cost': cost, 'distance': distance}
+                
+                modeParams[mode]=params
+            self.connectionParams[destination]=modeParams
+        
+            
+
+
+
+
+        
 
 
 

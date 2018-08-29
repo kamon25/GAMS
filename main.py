@@ -12,6 +12,7 @@ from Infrastructure import ConInfrastructure as ConInfra
 from TrafficEvaluation import generatePopulationGroups as generatePopulationGroups
 from TrafficEvaluation import generateTrafficCells as generateTrafficCells
 from TrafficEvaluation import calcAllPathsForTrafficCell
+from TrafficEvaluation import choseDestinationAndMode
 
 
 
@@ -26,9 +27,10 @@ print(groupList[0])
 
 #############################
 #---Generate TrafficCells
-# trafficCellDict=generateTrafficCells()
+#trafficCellDict=generateTrafficCells()
+#print("TrafficCells generated")
 # saveTC(trafficCellDict)
-# print("done!!!!!!!!!!")
+
 
 #-----reload TrafficCells
 trafficCellDict=loadTC()
@@ -39,17 +41,29 @@ print(trafficCellDict[61059].inhabitants)
 
 #--- shortest Path:
 ConInfra.bildGraph()
+
 print(ConInfra.getShortestPaths_withStartMode(61059, 60101, trafficCellDict))
 
-
-calcAllPathsForTrafficCell(trafficCellDict)
+# Remove comment if changes in TrafficCell!!!
+#calcAllPathsForTrafficCell(trafficCellDict)
 print(trafficCellDict[61059].shortestPaths[60101])
+
+#---saveTC
+#saveTC(trafficCellDict)
+
+
+
+
+for path in trafficCellDict[61059].shortestPaths[60101].values():
+    print(path)
+    print(len(path))
 
 
 # graphToJson(ConInfra.infraNetworkGraph)
 
 
+##### Start of destination choice
+publicTransportCost=[2.4,2.1,2.1,2,2,2,2,2,2,1.7,1.6,1.5,1.5,1.5,1.5,1.5]
+trafficCellDict[61059].calcConnectionParams(0.42, publicTransportCost)
 
-
-
-
+choseDestinationAndMode(trafficCellDict, 'work')
