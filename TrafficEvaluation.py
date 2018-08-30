@@ -50,12 +50,13 @@ def calcAllPathsForTrafficCell(trafficCellDict):
         for tempCell in trafficCellDict.values():
             path = ConInfra.getShortestPaths_withStartMode(startTrafficCell.cellID, tempCell.cellID, trafficCellDict)
             startTrafficCell.shortestPaths[tempCell.cellID] = path
+            #print(path)
         print("Kürzeste Wege der Gemeinde:" + str(startTrafficCell._name))
     print("End path evaluation") 
 
     
 def choseDestinationAndMode(trafficCellDict, purposForJourney):
-    tripsPerDay=3.4  # subsitute with Data !!!
+    tripsPerDay=3.4  ############### subsitute with Data !!!
     
     for trafficCell in trafficCellDict.values():
         #calc demand for each populationGroup in each trafficCell
@@ -76,7 +77,7 @@ def choseDestinationAndMode(trafficCellDict, purposForJourney):
                 for popGroup, popParams in trafficCell.populationParamsPerGroup.items():
                     resistance=popGroup.calcResistance(connectionParams['duration'], connectionParams['cost'], 1,
                                                         popParams['travelTimeBudget'],
-                                                        popParams['costBudget'], tripsPerDay)
+                                                        popParams['costBudget'], 1, tripsPerDay) #1 have to be reset with LoS 
                     attract= trafficCellDict[destination].attractivity[purposForJourney]
                     tempRatio=attract/resistance
                     sumRatio[popGroup] += tempRatio
@@ -98,10 +99,7 @@ def choseDestinationAndMode(trafficCellDict, purposForJourney):
         
         trafficCell.purposeSestinationModeGroup[purposForJourney]=groupPartDesMode
 
-#CONTINUE DEBUGGING HERE!!!!!!!!!
-                
-
-        
+      
 
 
 def calcSimulationStep(self, parameter_list):

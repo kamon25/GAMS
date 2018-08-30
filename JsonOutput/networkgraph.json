@@ -10,31 +10,13 @@
             "id": "60608"
         },
         {
-            "id": "60624"
-        },
-        {
-            "id": "60655"
-        },
-        {
-            "id": "61059"
-        },
-        {
-            "id": "61021"
-        },
-        {
-            "id": "61053"
-        },
-        {
-            "id": "61049"
-        },
-        {
-            "id": "61058"
-        },
-        {
             "id": "60611"
         },
         {
             "id": "60669"
+        },
+        {
+            "id": "60624"
         },
         {
             "id": "60662"
@@ -49,6 +31,9 @@
             "id": "60670"
         },
         {
+            "id": "60655"
+        },
+        {
             "id": "60656"
         },
         {
@@ -56,6 +41,9 @@
         },
         {
             "id": "61001"
+        },
+        {
+            "id": "61059"
         },
         {
             "id": "61055"
@@ -70,10 +58,19 @@
             "id": "61045"
         },
         {
+            "id": "61058"
+        },
+        {
             "id": "61012"
         },
         {
+            "id": "61021"
+        },
+        {
             "id": "61043"
+        },
+        {
+            "id": "61053"
         },
         {
             "id": "61016"
@@ -88,520 +85,932 @@
             "id": "61020"
         },
         {
+            "id": "61049"
+        },
+        {
             "id": "62347"
         }
     ],
     "links": [
         {
-            "weight": 6,
-            "infra": "car_countryroad",
+            "weight": 7,
+            "connect": "car_countryroad",
+            "dist": 7,
             "source": "60101",
             "target": "60608",
             "key": 0
         },
         {
-            "weight": 7,
-            "infra": "train",
+            "weight": 6,
+            "connect": "publicTransport_train",
+            "dist": 6,
             "source": "60101",
             "target": "60608",
             "key": 1
         },
         {
-            "weight": 6,
-            "infra": "bus_countryroad",
+            "weight": 7,
+            "connect": "publicTransport_bus",
+            "dist": 7,
             "source": "60101",
             "target": "60608",
             "key": 2
         },
         {
             "weight": 10,
-            "infra": "train",
+            "connect": "car_countryroad",
+            "dist": 10,
             "source": "60101",
             "target": "60611",
             "key": 0
         },
         {
+            "weight": 10,
+            "connect": "publicTransport_bus",
+            "dist": 10,
+            "source": "60101",
+            "target": "60611",
+            "key": 1
+        },
+        {
             "weight": 8,
-            "infra": "train",
+            "connect": "car_countryroad",
+            "dist": 8,
             "source": "60101",
             "target": "60669",
             "key": 0
         },
         {
             "weight": 8,
-            "infra": "car_autobahn",
+            "connect": "car_autobahn",
+            "dist": 8,
             "source": "60101",
             "target": "60669",
             "key": 1
         },
         {
-            "weight": 6,
-            "infra": "car_countryroad",
-            "source": "60608",
-            "target": "60624",
-            "key": 0
-        },
-        {
-            "weight": 5,
-            "infra": "train",
-            "source": "60608",
-            "target": "60624",
-            "key": 1
-        },
-        {
-            "weight": 6,
-            "infra": "bus_countryroad",
-            "source": "60608",
-            "target": "60624",
+            "weight": 8,
+            "connect": "publicTransport_bus",
+            "dist": 8,
+            "source": "60101",
+            "target": "60669",
             "key": 2
         },
         {
             "weight": 8,
-            "infra": "train",
+            "connect": "car_countryroad",
+            "dist": 8,
             "source": "60608",
             "target": "60611",
             "key": 0
         },
         {
+            "weight": 8,
+            "connect": "publicTransport_bus",
+            "dist": 8,
+            "source": "60608",
+            "target": "60611",
+            "key": 1
+        },
+        {
+            "weight": 5,
+            "connect": "car_countryroad",
+            "dist": 5,
+            "source": "60608",
+            "target": "60624",
+            "key": 0
+        },
+        {
+            "weight": 6,
+            "connect": "publicTransport_train",
+            "dist": 6,
+            "source": "60608",
+            "target": "60624",
+            "key": 1
+        },
+        {
+            "weight": 5,
+            "connect": "publicTransport_bus",
+            "dist": 5,
+            "source": "60608",
+            "target": "60624",
+            "key": 2
+        },
+        {
             "weight": 3,
-            "infra": "train",
+            "connect": "car_countryroad",
+            "dist": 3,
             "source": "60608",
             "target": "60669",
             "key": 0
         },
         {
-            "weight": 5,
-            "infra": "car_countryroad",
-            "source": "60624",
-            "target": "60655",
-            "key": 0
-        },
-        {
-            "weight": 4,
-            "infra": "train",
-            "source": "60624",
-            "target": "60655",
-            "key": 1
-        },
-        {
-            "weight": 5,
-            "infra": "bus_countryroad",
-            "source": "60624",
-            "target": "60655",
-            "key": 2
-        },
-        {
-            "weight": 5,
-            "infra": "train",
-            "source": "60624",
-            "target": "60656",
-            "key": 0
-        },
-        {
-            "weight": 6,
-            "infra": "car_autobahn",
-            "source": "60624",
-            "target": "60656",
-            "key": 1
-        },
-        {
             "weight": 3,
-            "infra": "train",
-            "source": "60624",
-            "target": "60662",
-            "key": 0
-        },
-        {
-            "weight": 6,
-            "infra": "train",
-            "source": "60624",
-            "target": "60670",
-            "key": 0
-        },
-        {
-            "weight": 9,
-            "infra": "car_autobahn",
-            "source": "60624",
+            "connect": "publicTransport_bus",
+            "dist": 3,
+            "source": "60608",
             "target": "60669",
-            "key": 0
-        },
-        {
-            "weight": 6,
-            "infra": "car_countryroad",
-            "source": "60655",
-            "target": "61059",
-            "key": 0
-        },
-        {
-            "weight": 7,
-            "infra": "train",
-            "source": "60655",
-            "target": "61059",
             "key": 1
         },
         {
             "weight": 6,
-            "infra": "bus_countryroad",
-            "source": "60655",
-            "target": "61059",
-            "key": 2
-        },
-        {
-            "weight": 3,
-            "infra": "train",
-            "source": "60655",
-            "target": "60656",
-            "key": 0
-        },
-        {
-            "weight": 11,
-            "infra": "train",
-            "source": "60655",
-            "target": "61001",
-            "key": 0
-        },
-        {
-            "weight": 4,
-            "infra": "car_countryroad",
-            "source": "61059",
-            "target": "61021",
-            "key": 0
-        },
-        {
-            "weight": 4,
-            "infra": "train",
-            "source": "61059",
-            "target": "61021",
-            "key": 1
-        },
-        {
-            "weight": 6,
-            "infra": "car_autobahn",
-            "source": "61059",
-            "target": "61021",
-            "key": 2
-        },
-        {
-            "weight": 4,
-            "infra": "bus_countryroad",
-            "source": "61059",
-            "target": "61021",
-            "key": 3
-        },
-        {
-            "weight": 2,
-            "infra": "train",
-            "source": "61059",
-            "target": "61001",
-            "key": 0
-        },
-        {
-            "weight": 7,
-            "infra": "train",
-            "source": "61059",
-            "target": "61017",
-            "key": 0
-        },
-        {
-            "weight": 8,
-            "infra": "train",
-            "source": "61059",
-            "target": "61055",
-            "key": 0
-        },
-        {
-            "weight": 6,
-            "infra": "car_autobahn",
-            "source": "61059",
-            "target": "60656",
-            "key": 0
-        },
-        {
-            "weight": 9,
-            "infra": "car_countryroad",
-            "source": "61021",
-            "target": "61053",
-            "key": 0
-        },
-        {
-            "weight": 8,
-            "infra": "car_autobahn",
-            "source": "61021",
-            "target": "61053",
-            "key": 1
-        },
-        {
-            "weight": 9,
-            "infra": "bus_countryroad",
-            "source": "61021",
-            "target": "61053",
-            "key": 2
-        },
-        {
-            "weight": 5,
-            "infra": "train",
-            "source": "61021",
-            "target": "61012",
-            "key": 0
-        },
-        {
-            "weight": 4,
-            "infra": "train",
-            "source": "61021",
-            "target": "61020",
-            "key": 0
-        },
-        {
-            "weight": 6,
-            "infra": "train",
-            "source": "61021",
-            "target": "61027",
-            "key": 0
-        },
-        {
-            "weight": 6,
-            "infra": "train",
-            "source": "61021",
-            "target": "61043",
-            "key": 0
-        },
-        {
-            "weight": 8,
-            "infra": "car_countryroad",
-            "source": "61053",
-            "target": "61049",
-            "key": 0
-        },
-        {
-            "weight": 8,
-            "infra": "bus_countryroad",
-            "source": "61053",
-            "target": "61049",
-            "key": 1
-        },
-        {
-            "weight": 3,
-            "infra": "train",
-            "source": "61053",
-            "target": "61012",
-            "key": 0
-        },
-        {
-            "weight": 9,
-            "infra": "train",
-            "source": "61053",
-            "target": "61016",
-            "key": 0
-        },
-        {
-            "weight": 6,
-            "infra": "train",
-            "source": "61053",
-            "target": "61043",
-            "key": 0
-        },
-        {
-            "weight": 3,
-            "infra": "train",
-            "source": "61053",
-            "target": "61045",
-            "key": 0
-        },
-        {
-            "weight": 11,
-            "infra": "car_autobahn",
-            "source": "61053",
-            "target": "61058",
-            "key": 0
-        },
-        {
-            "weight": 4,
-            "infra": "car_countryroad",
-            "source": "61049",
-            "target": "61058",
-            "key": 0
-        },
-        {
-            "weight": 5,
-            "infra": "train",
-            "source": "61049",
-            "target": "61058",
-            "key": 1
-        },
-        {
-            "weight": 4,
-            "infra": "bus_countryroad",
-            "source": "61049",
-            "target": "61058",
-            "key": 2
-        },
-        {
-            "weight": 7,
-            "infra": "train",
-            "source": "61049",
-            "target": "61045",
-            "key": 0
-        },
-        {
-            "weight": 2,
-            "infra": "train",
-            "source": "61049",
-            "target": "61050",
-            "key": 0
-        },
-        {
-            "weight": 7,
-            "infra": "train",
-            "source": "61058",
-            "target": "61008",
-            "key": 0
-        },
-        {
-            "weight": 4,
-            "infra": "train",
-            "source": "61058",
-            "target": "62347",
-            "key": 0
-        },
-        {
-            "weight": 6,
-            "infra": "train",
+            "connect": "car_countryroad",
+            "dist": 6,
             "source": "60611",
             "target": "60662",
             "key": 0
         },
         {
             "weight": 6,
-            "infra": "train",
+            "connect": "publicTransport_bus",
+            "dist": 6,
+            "source": "60611",
+            "target": "60662",
+            "key": 1
+        },
+        {
+            "weight": 6,
+            "connect": "car_countryroad",
+            "dist": 6,
             "source": "60669",
             "target": "60618",
             "key": 0
         },
         {
+            "weight": 6,
+            "connect": "publicTransport_bus",
+            "dist": 6,
+            "source": "60669",
+            "target": "60618",
+            "key": 1
+        },
+        {
             "weight": 5,
-            "infra": "train",
+            "connect": "car_countryroad",
+            "dist": 5,
             "source": "60669",
             "target": "60670",
             "key": 0
         },
         {
+            "weight": 5,
+            "connect": "publicTransport_bus",
+            "dist": 5,
+            "source": "60669",
+            "target": "60670",
+            "key": 1
+        },
+        {
+            "weight": 9,
+            "connect": "car_autobahn",
+            "dist": 9,
+            "source": "60669",
+            "target": "60624",
+            "key": 0
+        },
+        {
+            "weight": 4,
+            "connect": "car_countryroad",
+            "dist": 4,
+            "source": "60624",
+            "target": "60655",
+            "key": 0
+        },
+        {
+            "weight": 5,
+            "connect": "publicTransport_train",
+            "dist": 5,
+            "source": "60624",
+            "target": "60655",
+            "key": 1
+        },
+        {
+            "weight": 4,
+            "connect": "publicTransport_bus",
+            "dist": 4,
+            "source": "60624",
+            "target": "60655",
+            "key": 2
+        },
+        {
+            "weight": 5,
+            "connect": "car_countryroad",
+            "dist": 5,
+            "source": "60624",
+            "target": "60656",
+            "key": 0
+        },
+        {
+            "weight": 6,
+            "connect": "car_autobahn",
+            "dist": 6,
+            "source": "60624",
+            "target": "60656",
+            "key": 1
+        },
+        {
+            "weight": 5,
+            "connect": "publicTransport_bus",
+            "dist": 5,
+            "source": "60624",
+            "target": "60656",
+            "key": 2
+        },
+        {
+            "weight": 3,
+            "connect": "car_countryroad",
+            "dist": 3,
+            "source": "60624",
+            "target": "60662",
+            "key": 0
+        },
+        {
+            "weight": 3,
+            "connect": "publicTransport_bus",
+            "dist": 3,
+            "source": "60624",
+            "target": "60662",
+            "key": 1
+        },
+        {
+            "weight": 6,
+            "connect": "car_countryroad",
+            "dist": 6,
+            "source": "60624",
+            "target": "60670",
+            "key": 0
+        },
+        {
+            "weight": 6,
+            "connect": "publicTransport_bus",
+            "dist": 6,
+            "source": "60624",
+            "target": "60670",
+            "key": 1
+        },
+        {
             "weight": 8,
-            "infra": "train",
+            "connect": "car_countryroad",
+            "dist": 8,
             "source": "60662",
             "target": "61001",
             "key": 0
         },
         {
+            "weight": 8,
+            "connect": "publicTransport_bus",
+            "dist": 8,
+            "source": "60662",
+            "target": "61001",
+            "key": 1
+        },
+        {
             "weight": 2,
-            "infra": "train",
+            "connect": "car_countryroad",
+            "dist": 2,
             "source": "60618",
             "target": "60629",
             "key": 0
         },
         {
+            "weight": 2,
+            "connect": "publicTransport_bus",
+            "dist": 2,
+            "source": "60618",
+            "target": "60629",
+            "key": 1
+        },
+        {
             "weight": 7,
-            "infra": "train",
+            "connect": "car_countryroad",
+            "dist": 7,
             "source": "60618",
             "target": "60670",
             "key": 0
         },
         {
             "weight": 7,
-            "infra": "train",
+            "connect": "publicTransport_bus",
+            "dist": 7,
+            "source": "60618",
+            "target": "60670",
+            "key": 1
+        },
+        {
+            "weight": 7,
+            "connect": "car_countryroad",
+            "dist": 7,
             "source": "60629",
             "target": "60660",
             "key": 0
         },
         {
+            "weight": 7,
+            "connect": "publicTransport_bus",
+            "dist": 7,
+            "source": "60629",
+            "target": "60660",
+            "key": 1
+        },
+        {
             "weight": 6,
-            "infra": "train",
+            "connect": "car_countryroad",
+            "dist": 6,
             "source": "60670",
             "target": "60656",
             "key": 0
         },
         {
+            "weight": 6,
+            "connect": "publicTransport_bus",
+            "dist": 6,
+            "source": "60670",
+            "target": "60656",
+            "key": 1
+        },
+        {
             "weight": 7,
-            "infra": "train",
+            "connect": "car_countryroad",
+            "dist": 7,
             "source": "60670",
             "target": "60660",
             "key": 0
         },
         {
+            "weight": 7,
+            "connect": "publicTransport_bus",
+            "dist": 7,
+            "source": "60670",
+            "target": "60660",
+            "key": 1
+        },
+        {
+            "weight": 3,
+            "connect": "car_countryroad",
+            "dist": 3,
+            "source": "60655",
+            "target": "60656",
+            "key": 0
+        },
+        {
+            "weight": 3,
+            "connect": "publicTransport_bus",
+            "dist": 3,
+            "source": "60655",
+            "target": "60656",
+            "key": 1
+        },
+        {
+            "weight": 11,
+            "connect": "car_countryroad",
+            "dist": 11,
+            "source": "60655",
+            "target": "61001",
+            "key": 0
+        },
+        {
+            "weight": 11,
+            "connect": "publicTransport_bus",
+            "dist": 11,
+            "source": "60655",
+            "target": "61001",
+            "key": 1
+        },
+        {
+            "weight": 7,
+            "connect": "car_countryroad",
+            "dist": 7,
+            "source": "60655",
+            "target": "61059",
+            "key": 0
+        },
+        {
+            "weight": 6,
+            "connect": "publicTransport_train",
+            "dist": 6,
+            "source": "60655",
+            "target": "61059",
+            "key": 1
+        },
+        {
+            "weight": 7,
+            "connect": "publicTransport_bus",
+            "dist": 7,
+            "source": "60655",
+            "target": "61059",
+            "key": 2
+        },
+        {
             "weight": 4,
-            "infra": "train",
+            "connect": "car_countryroad",
+            "dist": 4,
             "source": "60656",
             "target": "60660",
             "key": 0
         },
         {
+            "weight": 4,
+            "connect": "publicTransport_bus",
+            "dist": 4,
+            "source": "60656",
+            "target": "60660",
+            "key": 1
+        },
+        {
             "weight": 6,
-            "infra": "train",
+            "connect": "car_autobahn",
+            "dist": 6,
+            "source": "60656",
+            "target": "61059",
+            "key": 0
+        },
+        {
+            "weight": 6,
+            "connect": "car_countryroad",
+            "dist": 6,
             "source": "61001",
             "target": "61055",
             "key": 0
         },
         {
+            "weight": 6,
+            "connect": "publicTransport_bus",
+            "dist": 6,
+            "source": "61001",
+            "target": "61055",
+            "key": 1
+        },
+        {
+            "weight": 2,
+            "connect": "car_countryroad",
+            "dist": 2,
+            "source": "61001",
+            "target": "61059",
+            "key": 0
+        },
+        {
+            "weight": 2,
+            "connect": "publicTransport_bus",
+            "dist": 2,
+            "source": "61001",
+            "target": "61059",
+            "key": 1
+        },
+        {
+            "weight": 7,
+            "connect": "car_countryroad",
+            "dist": 7,
+            "source": "61059",
+            "target": "61017",
+            "key": 0
+        },
+        {
+            "weight": 7,
+            "connect": "publicTransport_bus",
+            "dist": 7,
+            "source": "61059",
+            "target": "61017",
+            "key": 1
+        },
+        {
             "weight": 4,
-            "infra": "train",
+            "connect": "car_countryroad",
+            "dist": 4,
+            "source": "61059",
+            "target": "61021",
+            "key": 0
+        },
+        {
+            "weight": 4,
+            "connect": "publicTransport_train",
+            "dist": 4,
+            "source": "61059",
+            "target": "61021",
+            "key": 1
+        },
+        {
+            "weight": 6,
+            "connect": "car_autobahn",
+            "dist": 6,
+            "source": "61059",
+            "target": "61021",
+            "key": 2
+        },
+        {
+            "weight": 4,
+            "connect": "publicTransport_bus",
+            "dist": 4,
+            "source": "61059",
+            "target": "61021",
+            "key": 3
+        },
+        {
+            "weight": 8,
+            "connect": "car_countryroad",
+            "dist": 8,
+            "source": "61059",
+            "target": "61055",
+            "key": 0
+        },
+        {
+            "weight": 8,
+            "connect": "publicTransport_bus",
+            "dist": 8,
+            "source": "61059",
+            "target": "61055",
+            "key": 1
+        },
+        {
+            "weight": 4,
+            "connect": "car_countryroad",
+            "dist": 4,
             "source": "61055",
             "target": "61027",
             "key": 0
         },
         {
+            "weight": 4,
+            "connect": "publicTransport_bus",
+            "dist": 4,
+            "source": "61055",
+            "target": "61027",
+            "key": 1
+        },
+        {
             "weight": 7,
-            "infra": "train",
+            "connect": "car_countryroad",
+            "dist": 7,
             "source": "61008",
             "target": "61027",
             "key": 0
         },
         {
+            "weight": 7,
+            "connect": "publicTransport_bus",
+            "dist": 7,
+            "source": "61008",
+            "target": "61027",
+            "key": 1
+        },
+        {
             "weight": 3,
-            "infra": "train",
+            "connect": "car_countryroad",
+            "dist": 3,
             "source": "61008",
             "target": "61045",
             "key": 0
         },
         {
+            "weight": 3,
+            "connect": "publicTransport_bus",
+            "dist": 3,
+            "source": "61008",
+            "target": "61045",
+            "key": 1
+        },
+        {
+            "weight": 7,
+            "connect": "car_countryroad",
+            "dist": 7,
+            "source": "61008",
+            "target": "61058",
+            "key": 0
+        },
+        {
+            "weight": 7,
+            "connect": "publicTransport_bus",
+            "dist": 7,
+            "source": "61008",
+            "target": "61058",
+            "key": 1
+        },
+        {
             "weight": 4,
-            "infra": "train",
+            "connect": "car_countryroad",
+            "dist": 4,
             "source": "61027",
             "target": "61012",
             "key": 0
         },
         {
             "weight": 4,
-            "infra": "train",
+            "connect": "publicTransport_bus",
+            "dist": 4,
+            "source": "61027",
+            "target": "61012",
+            "key": 1
+        },
+        {
+            "weight": 6,
+            "connect": "car_countryroad",
+            "dist": 6,
+            "source": "61027",
+            "target": "61021",
+            "key": 0
+        },
+        {
+            "weight": 6,
+            "connect": "publicTransport_bus",
+            "dist": 6,
+            "source": "61027",
+            "target": "61021",
+            "key": 1
+        },
+        {
+            "weight": 7,
+            "connect": "car_countryroad",
+            "dist": 7,
+            "source": "61045",
+            "target": "61049",
+            "key": 0
+        },
+        {
+            "weight": 7,
+            "connect": "publicTransport_bus",
+            "dist": 7,
+            "source": "61045",
+            "target": "61049",
+            "key": 1
+        },
+        {
+            "weight": 3,
+            "connect": "car_countryroad",
+            "dist": 3,
+            "source": "61045",
+            "target": "61053",
+            "key": 0
+        },
+        {
+            "weight": 3,
+            "connect": "publicTransport_bus",
+            "dist": 3,
+            "source": "61045",
+            "target": "61053",
+            "key": 1
+        },
+        {
+            "weight": 5,
+            "connect": "car_countryroad",
+            "dist": 5,
+            "source": "61058",
+            "target": "61049",
+            "key": 0
+        },
+        {
+            "weight": 4,
+            "connect": "publicTransport_train",
+            "dist": 4,
+            "source": "61058",
+            "target": "61049",
+            "key": 1
+        },
+        {
+            "weight": 5,
+            "connect": "publicTransport_bus",
+            "dist": 5,
+            "source": "61058",
+            "target": "61049",
+            "key": 2
+        },
+        {
+            "weight": 4,
+            "connect": "car_countryroad",
+            "dist": 4,
+            "source": "61058",
+            "target": "62347",
+            "key": 0
+        },
+        {
+            "weight": 4,
+            "connect": "publicTransport_bus",
+            "dist": 4,
+            "source": "61058",
+            "target": "62347",
+            "key": 1
+        },
+        {
+            "weight": 11,
+            "connect": "car_autobahn",
+            "dist": 11,
+            "source": "61058",
+            "target": "61053",
+            "key": 0
+        },
+        {
+            "weight": 5,
+            "connect": "car_countryroad",
+            "dist": 5,
+            "source": "61012",
+            "target": "61021",
+            "key": 0
+        },
+        {
+            "weight": 5,
+            "connect": "publicTransport_bus",
+            "dist": 5,
+            "source": "61012",
+            "target": "61021",
+            "key": 1
+        },
+        {
+            "weight": 4,
+            "connect": "car_countryroad",
+            "dist": 4,
             "source": "61012",
             "target": "61043",
             "key": 0
         },
         {
+            "weight": 4,
+            "connect": "publicTransport_bus",
+            "dist": 4,
+            "source": "61012",
+            "target": "61043",
+            "key": 1
+        },
+        {
+            "weight": 3,
+            "connect": "car_countryroad",
+            "dist": 3,
+            "source": "61012",
+            "target": "61053",
+            "key": 0
+        },
+        {
+            "weight": 3,
+            "connect": "publicTransport_bus",
+            "dist": 3,
+            "source": "61012",
+            "target": "61053",
+            "key": 1
+        },
+        {
+            "weight": 4,
+            "connect": "car_countryroad",
+            "dist": 4,
+            "source": "61021",
+            "target": "61020",
+            "key": 0
+        },
+        {
+            "weight": 4,
+            "connect": "publicTransport_bus",
+            "dist": 4,
+            "source": "61021",
+            "target": "61020",
+            "key": 1
+        },
+        {
+            "weight": 6,
+            "connect": "car_countryroad",
+            "dist": 6,
+            "source": "61021",
+            "target": "61043",
+            "key": 0
+        },
+        {
+            "weight": 6,
+            "connect": "publicTransport_bus",
+            "dist": 6,
+            "source": "61021",
+            "target": "61043",
+            "key": 1
+        },
+        {
+            "weight": 9,
+            "connect": "publicTransport_train",
+            "dist": 9,
+            "source": "61021",
+            "target": "61053",
+            "key": 0
+        },
+        {
             "weight": 8,
-            "infra": "train",
+            "connect": "car_autobahn",
+            "dist": 8,
+            "source": "61021",
+            "target": "61053",
+            "key": 1
+        },
+        {
+            "weight": 8,
+            "connect": "car_countryroad",
+            "dist": 8,
             "source": "61043",
             "target": "61016",
             "key": 0
         },
         {
+            "weight": 8,
+            "connect": "publicTransport_bus",
+            "dist": 8,
+            "source": "61043",
+            "target": "61016",
+            "key": 1
+        },
+        {
             "weight": 4,
-            "infra": "train",
+            "connect": "car_countryroad",
+            "dist": 4,
             "source": "61043",
             "target": "61020",
             "key": 0
         },
         {
+            "weight": 4,
+            "connect": "publicTransport_bus",
+            "dist": 4,
+            "source": "61043",
+            "target": "61020",
+            "key": 1
+        },
+        {
+            "weight": 6,
+            "connect": "car_countryroad",
+            "dist": 6,
+            "source": "61043",
+            "target": "61053",
+            "key": 0
+        },
+        {
+            "weight": 6,
+            "connect": "publicTransport_bus",
+            "dist": 6,
+            "source": "61043",
+            "target": "61053",
+            "key": 1
+        },
+        {
+            "weight": 9,
+            "connect": "car_countryroad",
+            "dist": 9,
+            "source": "61053",
+            "target": "61016",
+            "key": 0
+        },
+        {
+            "weight": 9,
+            "connect": "publicTransport_bus",
+            "dist": 9,
+            "source": "61053",
+            "target": "61016",
+            "key": 1
+        },
+        {
+            "weight": 8,
+            "connect": "publicTransport_train",
+            "dist": 8,
+            "source": "61053",
+            "target": "61049",
+            "key": 0
+        },
+        {
             "weight": 11,
-            "infra": "train",
+            "connect": "car_countryroad",
+            "dist": 11,
             "source": "61016",
             "target": "61050",
             "key": 0
         },
         {
+            "weight": 11,
+            "connect": "publicTransport_bus",
+            "dist": 11,
+            "source": "61016",
+            "target": "61050",
+            "key": 1
+        },
+        {
+            "weight": 2,
+            "connect": "car_countryroad",
+            "dist": 2,
+            "source": "61050",
+            "target": "61049",
+            "key": 0
+        },
+        {
+            "weight": 2,
+            "connect": "publicTransport_bus",
+            "dist": 2,
+            "source": "61050",
+            "target": "61049",
+            "key": 1
+        },
+        {
             "weight": 8,
-            "infra": "train",
+            "connect": "car_countryroad",
+            "dist": 8,
             "source": "61017",
             "target": "61020",
             "key": 0
+        },
+        {
+            "weight": 8,
+            "connect": "publicTransport_bus",
+            "dist": 8,
+            "source": "61017",
+            "target": "61020",
+            "key": 1
         }
     ]
 }

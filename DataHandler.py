@@ -15,14 +15,15 @@ pathPopulationEmployment='Data/OGDEXT_AEST_GEMTAB_1.csv'
 
 #Filepaths traffic network
 pathAutobahnNeighbour='Data/Nachbarschaftsliste_Autobahn.csv'
-pathCountryRoadNeighbour='Data/Nachbarschaftsliste_Zug.csv'
-pathTrainNeighbour='Data/Nachbarschaftsliste_Standard.csv'
+pathCountryRoadNeighbour='Data/Nachbarschaftsliste_Standard.csv'
+pathTrainNeighbour='Data/Nachbarschaftsliste_Zug.csv'
 pathConnectionWeights='Data/weightConnections.csv'
 
 #Filepaths Output
 pathTrafficCellData = 'JsonOutput/trafficCellData2.json'
 pathBehaviouralHomogenousGroups = 'JsonOutput/behaviouralHomogenousGroups.json'
 pathNetworkgraph ='JsonOutput/networkgraph.json'
+pathDestinationsOfGroupsInCells ='JsonOutput/destinationsModesOfGroups.json'
 
 #Filepaths storage
 pathTrafficCellStorage = 'Storage/trafficCellObjects'
@@ -289,6 +290,32 @@ def graphToJson(networkGraph):
   with open(pathNetworkgraph, 'w') as fp:
     json.dump(d, fp, indent=4)
   print('Wrote node-link JSON data to' + pathNetworkgraph )
+
+
+def destinationsModesToJson(trafficCellDict):
+  outDict=defaultdict()
+
+  for tc in trafficCellDict.values():
+    tempPurposeDict=defaultdict()
+    for purp, desDict in tc.purposeSestinationModeGroup.items():
+      tempDesDict=defaultdict()
+      for des, modeDict in desDict.items():
+        tempModeDict = defaultdict()
+        for mode, popDict in modeDict.items():
+          tempPopDict=defaultdict()
+          for popGr, trip in popDict.items():
+            keystring= "bhg" + str(popGr._groupID)
+            tempPopDict[keystring] = trip
+          tempModeDict[mode]=tempPopDict
+        tempDesDict[des]=tempModeDict
+      tempPurposeDict[purp]=tempDesDict
+    outDict[tc.cellID]=tempPurposeDict
+        
+
+
+  with open(pathDestinationsOfGroupsInCells, 'w') as fp:
+    json.dump(outDict, fp, indent=4)
+  print('Wrote node-link JSON data to' + pathDestinationsOfGroupsInCells )
 
 #################################
 #

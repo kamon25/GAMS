@@ -5,6 +5,7 @@ from Infrastructure.TrafficCell import TrafficCell
 from DataHandler import cellListToJson
 from DataHandler import groupListToJson
 from DataHandler import graphToJson
+from DataHandler import destinationsModesToJson
 from DataHandler import saveTrafficCells as saveTC
 from DataHandler import loadTrafficCellDict as loadTC
 from Infrastructure import ConInfrastructure as ConInfra
@@ -27,8 +28,8 @@ print(groupList[0])
 
 #############################
 #---Generate TrafficCells
-#trafficCellDict=generateTrafficCells()
-#print("TrafficCells generated")
+# trafficCellDict=generateTrafficCells()
+# print("TrafficCells generated")
 # saveTC(trafficCellDict)
 
 
@@ -42,10 +43,10 @@ print(trafficCellDict[61059].inhabitants)
 #--- shortest Path:
 ConInfra.bildGraph()
 
-print(ConInfra.getShortestPaths_withStartMode(61059, 60101, trafficCellDict))
+print(ConInfra.getShortestPaths_withStartMode(60611, 60101, trafficCellDict))
 
 # Remove comment if changes in TrafficCell!!!
-#calcAllPathsForTrafficCell(trafficCellDict)
+calcAllPathsForTrafficCell(trafficCellDict)
 print(trafficCellDict[61059].shortestPaths[60101])
 
 #---saveTC
@@ -54,16 +55,21 @@ print(trafficCellDict[61059].shortestPaths[60101])
 
 
 
-for path in trafficCellDict[61059].shortestPaths[60101].values():
-    print(path)
-    print(len(path))
+# for path in trafficCellDict[61059].shortestPaths[60101].values():
+#     print(path)
+#     print(len(path))
 
 
-# graphToJson(ConInfra.infraNetworkGraph)
+#graphToJson(ConInfra.infraNetworkGraph)
 
 
 ##### Start of destination choice
 publicTransportCost=[2.4,2.1,2.1,2,2,2,2,2,2,1.7,1.6,1.5,1.5,1.5,1.5,1.5]
-trafficCellDict[61059].calcConnectionParams(0.42, publicTransportCost)
+for tC in trafficCellDict.values():
+    tC.calcConnectionParams(0.42, publicTransportCost)
+
 
 choseDestinationAndMode(trafficCellDict, 'work')
+
+destinationsModesToJson(trafficCellDict)
+

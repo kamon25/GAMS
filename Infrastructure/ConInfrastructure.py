@@ -33,6 +33,7 @@ def getShortestPaths_withStartMode(start, end, cellDict):
             otherPath[m]=path
         else:
             otherPath[m]=None
+            print("Start: " +str(start) + " End: " + str(end) + " Mode: " + m )
     
     return otherPath
 
@@ -75,7 +76,7 @@ def calc_dijkstra(start_node, target_node, trafficCells):
     ##Assign variable costs to all edges
     for u,v,d in data.edges(data=True):
         d['weight'] *= costModes[d['connect']]
-
+        
     #Unvisited nodes
     unvisited = list(data.nodes())
     #Dict for shortest paths
@@ -160,7 +161,6 @@ def calc_dijkstra_withStartMode(start_node, target_node, trafficCells, first_mod
     ##Assign variable costs to all edges
     for u,v,d in data.edges(data=True):
         d['weight'] *= costModes[d['connect']]
-
     #Unvisited nodes
     unvisited = list(data.nodes())
     #Dict for shortest paths
@@ -208,7 +208,7 @@ def calc_dijkstra_withStartMode(start_node, target_node, trafficCells, first_mod
         #Skip car edges if necessary
             if (d['connect'] == connections[0] or d['connect'] == connections[2]) and not expand_car_nodes:
                 continue
-        #Skip edges from start_node if they do not have de correct mode
+        #Skip edges from start_node if they do not have the correct mode
             if(u == start_node and d['connect'].split('_')[0] != first_mode):
                 continue
 

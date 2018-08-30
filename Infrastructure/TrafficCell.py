@@ -18,7 +18,7 @@ class TrafficCell():
         self.shortestPaths=defaultdict()    
         self.connectionParams = defaultdict() #{'duration': time, 'cost': cost, 'distance': distance}
 
-        self.purposeSestinationModeGroup=defaultdict() #{Purpose{destination: { mode:{popGroup: ratio}}}}
+        self.purposeSestinationModeGroup=defaultdict() #{Purpose{destination: { mode:{popGroup: trips}}}}
     
     def __str__(self):
         return str(self._name)   

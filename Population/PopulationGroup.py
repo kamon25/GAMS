@@ -33,7 +33,7 @@ class PopulationGroup():
     ######################
     def __init__(self, groupID, attributes):
         self._attributes = attributes #dict with attributes like {"gender":"male"}
-        self._groupID = groupID
+        self._groupID = groupID #Counter from 1 to 10
         #attributes for resistance
         self.k={'cost':0.5, 'duration':0.5, 'los':0.0}
     
