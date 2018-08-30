@@ -102,6 +102,30 @@ def choseDestinationAndMode(trafficCellDict, purposForJourney):
       
 
 
-def calcSimulationStep(self, parameter_list):
-    pass
+def calcSimulationStep(trafficCellDict):
+
+    choseDestinationAndMode(trafficCellDict, 'work')
+
+
+
+def runSimulation(trafficCellDict, years):
+    stepsPerYear=12
+    steps = years*stepsPerYear
+
+    resultOfSimulation= defaultdict() #{timestep:{startCell:{Purpose{destination: { mode:{popGroup: trips}}}}
+
+    for st in range(0,steps):
+        calcSimulationStep(trafficCellDict)
+        startCellDict= defaultdict()
+        for cell in trafficCellDict.values():
+            startCellDict[cell]=cell.purposeSestinationModeGroup
+        resultOfSimulation[st]=startCellDict
+
+        if st % stepsPerYear == 0:
+            print("year: " + str(st/stepsPerYear))
+    
+    return resultOfSimulation
+
+
+
     

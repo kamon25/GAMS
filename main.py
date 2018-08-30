@@ -6,6 +6,7 @@ from DataHandler import cellListToJson
 from DataHandler import groupListToJson
 from DataHandler import graphToJson
 from DataHandler import destinationsModesToJson
+from DataHandler import resultOfSimulationToJson
 from DataHandler import saveTrafficCells as saveTC
 from DataHandler import loadTrafficCellDict as loadTC
 from Infrastructure import ConInfrastructure as ConInfra
@@ -14,6 +15,7 @@ from TrafficEvaluation import generatePopulationGroups as generatePopulationGrou
 from TrafficEvaluation import generateTrafficCells as generateTrafficCells
 from TrafficEvaluation import calcAllPathsForTrafficCell
 from TrafficEvaluation import choseDestinationAndMode
+from TrafficEvaluation import runSimulation
 
 
 
@@ -69,7 +71,5 @@ for tC in trafficCellDict.values():
     tC.calcConnectionParams(0.42, publicTransportCost)
 
 
-choseDestinationAndMode(trafficCellDict, 'work')
-
-destinationsModesToJson(trafficCellDict)
-
+resultDict=runSimulation(trafficCellDict, 2)
+resultOfSimulationToJson(resultDict)
