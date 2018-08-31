@@ -70,10 +70,10 @@ class Inhabitant():
         else:
             raise NotImplementedError("Implement setGender -> inhabitants != sum of genderGroups")
 
-    def setEmployment(self, i , employmentRate, grouplist, employmentKey, agegroupKey):
+    def setEmployment(self, i , employmentRate, groupDict, employmentKey, agegroupKey):
         #-- is employment possible (ageroupe)? 
         employmentPossible=False
-        for group in grouplist:
+        for group in groupDict.values():
             if group._attributes[agegroupKey] == self.attributes[agegroupKey] and group._attributes[employmentKey]=="employed":
                 employmentPossible=True
             #print("Group" + str(group._attributes[agegroupKey]))

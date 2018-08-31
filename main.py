@@ -3,7 +3,7 @@ from collections import defaultdict
 from Population.PopulationGroup import PopulationGroup
 from Infrastructure.TrafficCell import TrafficCell
 from DataHandler import cellListToJson
-from DataHandler import groupListToJson
+from DataHandler import groupDictToJson
 from DataHandler import graphToJson
 from DataHandler import destinationsModesToJson
 from DataHandler import resultOfSimulationToJson
@@ -22,10 +22,10 @@ from TrafficEvaluation import runSimulation
 
 
 #---List of populationgroups in the area
-groupList = generatePopulationGroups()
-print(groupList[0])
+groupDict = generatePopulationGroups()
+print(groupDict.keys())
 
-# groupListToJson(groupList)
+# groupDictToJson(groupDict)
 
 
 #############################
@@ -71,5 +71,5 @@ for tC in trafficCellDict.values():
     tC.calcConnectionParams(0.42, publicTransportCost)
 
 
-resultDict=runSimulation(trafficCellDict, 2)
+resultDict=runSimulation(trafficCellDict, groupDict, 2)
 resultOfSimulationToJson(resultDict)

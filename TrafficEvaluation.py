@@ -55,15 +55,17 @@ def calcAllPathsForTrafficCell(trafficCellDict):
     print("End path evaluation") 
 
     
-def choseDestinationAndMode(trafficCellDict, purposForJourney):
+def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney):
     tripsPerDay=3.4  ############### subsitute with Data !!!
     
     for trafficCell in trafficCellDict.values():
         #calc demand for each populationGroup in each trafficCell
-        trafficDemandPerGroup={(popGroup):(count if popGroup._attributes["employment"]==PopulationGroup.possibleAttributes["employment"][0] else 0) 
-                                for popGroup, count in trafficCell.popPerGroup.items()}
-              
-        trafficDemandPerGroup = {(popGroup):(demand*trafficCell.populationParamsPerGroup[popGroup]['tripRate']) for popGroup, demand in trafficDemandPerGroup.items()}
+
+        
+        trafficDemandPerGroup={(popGroupKey):(count if groupDict[popGroupKey]._attributes["employment"]==PopulationGroup.possibleAttributes["employment"][0] else 0) 
+                                for popGroupKey, count in trafficCell.popPerGroup.items()}
+           
+        trafficDemandPerGroup = {(popGroupKey):(demand*trafficCell.populationParamsPerGroup[popGroupKey]['tripRate']) for popGroupKey, demand in trafficDemandPerGroup.items()}
 
        
         #calc ratio attractivity to resistance und sum for each popGroup
@@ -74,14 +76,14 @@ def choseDestinationAndMode(trafficCellDict, purposForJourney):
             modeRatio = defaultdict() #{mode: {group: ratio }}
             for mode, connectionParams in modes.items():
                 groupRatio=defaultdict()
-                for popGroup, popParams in trafficCell.populationParamsPerGroup.items():
-                    resistance=popGroup.calcResistance(connectionParams['duration'], connectionParams['cost'], 1,
+                for popGroupKey, popParams in trafficCell.populationParamsPerGroup.items():
+                    resistance=groupDict[popGroupKey].calcResistance(connectionParams['duration'], connectionParams['cost'], 1,
                                                         popParams['travelTimeBudget'],
                                                         popParams['costBudget'], 1, tripsPerDay) #1 have to be reset with LoS 
                     attract= trafficCellDict[destination].attractivity[purposForJourney]
                     tempRatio=attract/resistance
-                    sumRatio[popGroup] += tempRatio
-                    groupRatio[popGroup] = tempRatio
+                    sumRatio[popGroupKey] += tempRatio
+                    groupRatio[popGroupKey] = tempRatio
                 modeRatio[mode] = groupRatio
             ratioAttractivityResistance[destination]=modeRatio
 
@@ -102,23 +104,23 @@ def choseDestinationAndMode(trafficCellDict, purposForJourney):
       
 
 
-def calcSimulationStep(trafficCellDict):
+def calcSimulationStep(trafficCellDict, groupDict):
 
-    choseDestinationAndMode(trafficCellDict, 'work')
+    choseDestinationAndMode(trafficCellDict, groupDict, 'work')
 
 
 
-def runSimulation(trafficCellDict, years):
-    stepsPerYear=12
+def runSimulation(trafficCellDict, groupDict ,  years):
+    stepsPerYear=6
     steps = years*stepsPerYear
 
     resultOfSimulation= defaultdict() #{timestep:{startCell:{Purpose{destination: { mode:{popGroup: trips}}}}
 
     for st in range(0,steps):
-        calcSimulationStep(trafficCellDict)
+        calcSimulationStep(trafficCellDict, groupDict)
         startCellDict= defaultdict()
-        for cell in trafficCellDict.values():
-            startCellDict[cell]=cell.purposeSestinationModeGroup
+        for cellKey ,cell in trafficCellDict.items():
+            startCellDict[cellKey]=cell.purposeSestinationModeGroup
         resultOfSimulation[st]=startCellDict
 
         if st % stepsPerYear == 0:

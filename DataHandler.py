@@ -273,12 +273,11 @@ def cellListToJson(trafficCellDict):
   print("Output updated: TrafficCells")
 
 
-def groupListToJson(groupList):
+def groupDictToJson(groupDict):
   outDict=defaultdict()
 
-  for group in groupList:
-    keystring= "bhg" + str(group._groupID)
-    outDict[keystring]=group._attributes
+  for key,group in groupDict.items():
+    outDict[key]=group._attributes
   
 
   with open(pathBehaviouralHomogenousGroups, 'w') as fp:
@@ -305,12 +304,11 @@ def destinationsModesToJson(trafficCellDict):
         for mode, popDict in modeDict.items():
           tempPopDict=defaultdict()
           for popGr, trip in popDict.items():
-            keystring= "bhg" + str(popGr._groupID)
-            tempPopDict[keystring] = trip
+            tempPopDict[popGr] = trip
           tempModeDict[mode]=tempPopDict
         tempDesDict[des]=tempModeDict
       tempPurposeDict[purp]=tempDesDict
-    outDict[tc.cellID]=tempPurposeDict
+    outDict[tc]=tempPurposeDict
         
 
 
@@ -319,26 +317,8 @@ def destinationsModesToJson(trafficCellDict):
   print('Wrote node-link JSON data to' + pathDestinationsOfGroupsInCells )
 
 def resultOfSimulationToJson(resultDict):
-  outDict=defaultdict()  #{timestep:{startCell.ID:{Purpose{destination_ID: { mode:{popGroup: trips}}}}
+  outDict=resultDict  #{timestep:{startCell.ID:{Purpose{destination_ID: { mode:{popGroup: trips}}}}
 
-  for step, celldict in resultDict.items():
-    tempCellDict = defaultdict()
-    for tc, purpDict in celldict.items():
-      tempPurposeDict=defaultdict()
-      for purp, desDict in purpDict.items():
-        tempDesDict=defaultdict()
-        for des, modeDict in desDict.items():
-          tempModeDict = defaultdict()
-          for mode, popDict in modeDict.items():
-            tempPopDict=defaultdict()
-            for popGr, trip in popDict.items():
-              keystring= "bhg" + str(popGr._groupID)
-              tempPopDict[keystring] = trip
-            tempModeDict[mode]=tempPopDict
-          tempDesDict[des]=tempModeDict
-        tempPurposeDict[purp]=tempDesDict
-      tempCellDict[tc.cellID]=tempPurposeDict
-    outDict[step]=tempCellDict        
 
 
   with open(pathSimResult, 'w') as fp:

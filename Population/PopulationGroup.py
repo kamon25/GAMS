@@ -25,7 +25,7 @@ class PopulationGroup():
                         "employment":["employed", "unemployed"]}
     impossibleCombinations=[((0,14),"employed"), 
                             ((60,100),"employed")]
-    grouplist=[]
+    groupDict=defaultdict()
 
     
     ######################
@@ -65,7 +65,7 @@ class PopulationGroup():
         #  -car aviable?!
         ################
 
-        if not PopulationGroup.grouplist:
+        if not PopulationGroup.groupDict:
             print("Groups are not generated -> genaration")
             PopulationGroup.generateGroups(PopulationGroup.possibleAttributes, PopulationGroup.impossibleCombinations)
         ####
@@ -100,7 +100,7 @@ class PopulationGroup():
             #print(time.clock() - c1)
             #-- set employment
             #c1=time.clock()
-            tempInhab.setEmployment(i, attributesWithValues["employment"]["employmentRate_15_64"], PopulationGroup.grouplist, "employment" , "agegroup")
+            tempInhab.setEmployment(i, attributesWithValues["employment"]["employmentRate_15_64"], PopulationGroup.groupDict, "employment" , "agegroup")
             #print(time.clock() - c1)
 
             ##-- set traffic relevant attributes
@@ -127,7 +127,7 @@ class PopulationGroup():
         #--- split up inhabitants to groups
         peoplePerGroupe = defaultdict(int)
         trafficParamsGroupe = defaultdict()
-        for group in PopulationGroup.grouplist:
+        for groupKey, group in PopulationGroup.groupDict.items():
             tempInhabitantList = []
             for inhab in sampledInhabitants:
                 #check if inhabitant match group
@@ -143,7 +143,7 @@ class PopulationGroup():
             # set count of groupmembers
             print(group)                  
             print(len(tempInhabitantList))
-            peoplePerGroupe[group] = len(tempInhabitantList)            
+            peoplePerGroupe[groupKey] = len(tempInhabitantList)            
 
             # set params for group
             timebudget=None
@@ -156,13 +156,13 @@ class PopulationGroup():
                     timebudget = timebudget + inhab.travelTimeBudget
                     tripRate = tripRate + inhab.tripRate
 
-            timebudget = timebudget/float(peoplePerGroupe[group])
-            tripRate = tripRate/float(peoplePerGroupe[group])
+            timebudget = timebudget/float(peoplePerGroupe[groupKey])
+            tripRate = tripRate/float(peoplePerGroupe[groupKey])
             #print(timebudget)
             #print(tripRate)
             
 
-            trafficParamsGroupe[group]={"travelTimeBudget":timebudget, "tripRate" : tripRate, "costBudget": costBudget}
+            trafficParamsGroupe[groupKey]={"travelTimeBudget":timebudget, "tripRate" : tripRate, "costBudget": costBudget}
 
         trafficCell.SetPopulationGroups(peoplePerGroupe)
         trafficCell.SetPopulationParams(trafficParamsGroupe)
@@ -198,12 +198,15 @@ class PopulationGroup():
         #genarate a list of objects for the groups
         
         for idx, group in enumerate(poplist): #enumerate to generate a idividual ID
-            #print(dict(zip(attributeNameList,group)))
-            PopulationGroup.grouplist.append(PopulationGroup(idx,dict(zip(attributeNameList,group))))
+            print(dict(zip(attributeNameList,group)))
+            keystring='bhg' + str(idx)
+            print(keystring)
+            PopulationGroup.groupDict[keystring]=(PopulationGroup(idx,dict(zip(attributeNameList,group))))
+
 
 
         #print(poplist)           
-        return PopulationGroup.grouplist
+        return PopulationGroup.groupDict
     
 
 
