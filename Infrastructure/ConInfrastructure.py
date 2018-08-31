@@ -17,7 +17,7 @@ costModes=None
 
 def getShortestPath(start, end, cellDict):
   
-    otherPath = calc_dijkstra(str(start), str(end), cellDict)
+    otherPath = calc_dijkstra(start, end, cellDict)
     
     return otherPath
 
@@ -28,12 +28,12 @@ def getShortestPaths_withStartMode(start, end, cellDict):
     otherPath=defaultdict()
 
     for m in modes:
-        path = calc_dijkstra_withStartMode(str(start), str(end), cellDict, m)
+        path = calc_dijkstra_withStartMode(start, end, cellDict, m)
         if path:
             otherPath[m]=path
         else:
             otherPath[m]=None
-            print("Start: " +str(start) + " End: " + str(end) + " Mode: " + m )
+            print("Start: " +start + " End: " + end + " Mode: " + m )
     
     return otherPath
 
@@ -144,11 +144,11 @@ def calc_dijkstra(start_node, target_node, trafficCells):
     if target_node in shortest_paths:
       ###Trace back from target###
       curr_node = target_node
-      path.insert(0, trafficCells[int(curr_node)].cellID)
+      path.insert(0, trafficCells[curr_node].cellID)
       while curr_node in prev:
         #Look up city
         previous = prev[curr_node]
-        city = trafficCells[int(previous[0])].cellID
+        city = trafficCells[previous[0]].cellID
 
         path.insert(0, (city, previous[1], previous[2]))
         curr_node = previous[0]
@@ -231,11 +231,11 @@ def calc_dijkstra_withStartMode(start_node, target_node, trafficCells, first_mod
     if target_node in shortest_paths:
       ###Trace back from target###
       curr_node = target_node
-      path.insert(0, trafficCells[int(curr_node)].cellID)
+      path.insert(0, trafficCells[curr_node].cellID)
       while curr_node in prev:
         #Look up city
         previous = prev[curr_node]
-        city = trafficCells[int(previous[0])].cellID
+        city = trafficCells[previous[0]].cellID
 
         path.insert(0, (city, previous[1], previous[2]))
         curr_node = previous[0]

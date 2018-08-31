@@ -30,14 +30,14 @@ print(groupList[0])
 
 #############################
 #---Generate TrafficCells
-# trafficCellDict=generateTrafficCells()
-# print("TrafficCells generated")
-# saveTC(trafficCellDict)
+trafficCellDict=generateTrafficCells()
+print("TrafficCells generated")
+saveTC(trafficCellDict)
 
 
 #-----reload TrafficCells
-trafficCellDict=loadTC()
-print(trafficCellDict[61059].inhabitants)
+# trafficCellDict=loadTC()
+# print(trafficCellDict['61059'].inhabitants)
 #######################################
 
 # cellListToJson(trafficCellDict)
@@ -45,11 +45,11 @@ print(trafficCellDict[61059].inhabitants)
 #--- shortest Path:
 ConInfra.bildGraph()
 
-print(ConInfra.getShortestPaths_withStartMode(60611, 60101, trafficCellDict))
+print(ConInfra.getShortestPaths_withStartMode('60611', '60101', trafficCellDict))
 
 # Remove comment if changes in TrafficCell!!!
 calcAllPathsForTrafficCell(trafficCellDict)
-print(trafficCellDict[61059].shortestPaths[60101])
+print(trafficCellDict['61059'].shortestPaths['60101'])
 
 #---saveTC
 #saveTC(trafficCellDict)

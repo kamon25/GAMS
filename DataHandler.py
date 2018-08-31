@@ -45,13 +45,13 @@ def TrafficCellReaderCSV():
           skip = False
           continue      
         
-        TarfficCells[int(row[0])] = row[1]
+        TarfficCells[row[0]] = row[1]
     
     return TarfficCells
 
 def attractionReaderCSV(cellID, tripPrupose):
   if tripPrupose is "work":
-    df=pd.read_csv('Data/OGDEXT_AEST_GEMTAB_1.csv', sep=';',  na_values=['NA'], thousands="." )
+    df=pd.read_csv('Data/OGDEXT_AEST_GEMTAB_1.csv', sep=';',  na_values=['NA'], thousands="." , dtype={'GCD':str})
     df2=df[df["JAHR"]==df["JAHR"].max()]
     dfBetrachtung=df2.set_index('GCD')
     workplaceCorresponding={"work":"BESCH_AST"}
@@ -60,25 +60,25 @@ def attractionReaderCSV(cellID, tripPrupose):
     return attractionWork
 
 def inhabitantReaderCSV(trafficCellDict, *paramsToRead):
-    dfGemList=pd.read_csv(pathTrafficCellsCSV,encoding = "ISO-8859-1",  sep=';',  na_values=['NA'])
+    dfGemList=pd.read_csv(pathTrafficCellsCSV,encoding = "ISO-8859-1",  sep=';',  na_values=['NA'], dtype={"GKZ":str})
 
     # reading Agegroups is currently not in use. Ageroups are set de AttributeReaderCSV
-    if ("agegroupe" in paramsToRead):
-      df=pd.read_csv(pathPopulationAgeGroupsCSV, encoding = "ISO-8859-1", sep=';',  na_values=['NA'])
-      dfBetrachtung=df[df["LAU_CODE"].isin(dfGemList["GKZ"])]
+    # if ("agegroupe" in paramsToRead):
+    #   df=pd.read_csv(pathPopulationAgeGroupsCSV, encoding = "ISO-8859-1", sep=';',  na_values=['NA'])
+    #   dfBetrachtung=df[df["LAU_CODE"].isin(dfGemList["GKZ"])]
 
-      pop_0_14=dfBetrachtung.set_index('LAU_CODE')["POP_0_14"]
-      pop_15_59=dfBetrachtung.set_index('LAU_CODE')["POP_15_29"] + dfBetrachtung.set_index('LAU_CODE')["POP_30_44"] +dfBetrachtung.set_index('LAU_CODE')["POP_45_59"]
-      pop_60=dfBetrachtung.set_index('LAU_CODE')["POP_45_59"]+dfBetrachtung.set_index('LAU_CODE')["POP_60_74"] +dfBetrachtung.set_index('LAU_CODE')["POP_75"]
+    #   pop_0_14=dfBetrachtung.set_index('LAU_CODE')["POP_0_14"]
+    #   pop_15_59=dfBetrachtung.set_index('LAU_CODE')["POP_15_29"] + dfBetrachtung.set_index('LAU_CODE')["POP_30_44"] +dfBetrachtung.set_index('LAU_CODE')["POP_45_59"]
+    #   pop_60=dfBetrachtung.set_index('LAU_CODE')["POP_45_59"]+dfBetrachtung.set_index('LAU_CODE')["POP_60_74"] +dfBetrachtung.set_index('LAU_CODE')["POP_75"]
 
-      popGroupDistribution=[pop_0_14, pop_15_59, pop_60]
+    #   popGroupDistribution=[pop_0_14, pop_15_59, pop_60]
 
-      for popGroupCount in popGroupDistribution:
-        for GKZ, popCount in popGroupCount.to_dict().items():
-          trafficCellDict[GKZ]
+    #   for popGroupCount in popGroupDistribution:
+    #     for GKZ, popCount in popGroupCount.to_dict().items():
+    #       trafficCellDict[GKZ]
 
     if("inhabitants" in paramsToRead):
-      df=pd.read_csv(pathPopulationAgeGroupsCSV, encoding = "ISO-8859-1", sep=';',  na_values=['NA'])
+      df=pd.read_csv(pathPopulationAgeGroupsCSV, encoding = "ISO-8859-1", sep=';',  na_values=['NA'], dtype={'LAU_CODE':str})
       # print(df.head())
       # print(dfGemList.head())
       dfBetrachtung=df[df["LAU_CODE"].isin(dfGemList["GKZ"])]
@@ -87,14 +87,14 @@ def inhabitantReaderCSV(trafficCellDict, *paramsToRead):
       # print(pop_total.to_dict().keys())
 
       for cellID, cell in trafficCellDict.items():
-        cell.inhabitants=pop_total.to_dict()[cellID]
+        cell.inhabitants=pop_total.to_dict()[cellID] #Convertation to int maybe needed
         
 
 def AttributeReaderCSV(cellID, popGroup, paramToRead):
 
   #---read agegroups
   if paramToRead is "agegroup":
-    df=pd.read_csv(pathPopulationAgeGroupsCSV, encoding = "ISO-8859-1", sep=';',  na_values=['NA'])
+    df=pd.read_csv(pathPopulationAgeGroupsCSV, encoding = "ISO-8859-1", sep=';',  na_values=['NA'], dtype={'LAU_CODE':str})
     dfBetrachtung=df.set_index('LAU_CODE')
     agegroupCount = defaultdict(int)
 
@@ -137,7 +137,7 @@ def AttributeReaderCSV(cellID, popGroup, paramToRead):
 
   #---read gender
   if paramToRead is "gender":
-    df=pd.read_csv(pathPopulationSexCSV, encoding = "ISO-8859-1", sep=';',  na_values=['NA'])
+    df=pd.read_csv(pathPopulationSexCSV, encoding = "ISO-8859-1", sep=';',  na_values=['NA'], dtype={'LAU_CODE':str})
     dfBetrachtung=df.set_index('LAU_CODE')
     genderCount = defaultdict(int)
     genderCorresponding={"male":"MEN", "female":"WOMEN"}
@@ -155,7 +155,7 @@ def AttributeReaderCSV(cellID, popGroup, paramToRead):
 
   #---read employment rate
   if paramToRead is "employment":
-    df=pd.read_csv('Data/OGDEXT_AEST_GEMTAB_1.csv', sep=';',  na_values=['NA'], decimal=',' )
+    df=pd.read_csv('Data/OGDEXT_AEST_GEMTAB_1.csv', sep=';',  na_values=['NA'], decimal=',' , dtype={'GCD':str})
     df2=df[df["JAHR"]==df["JAHR"].max()]
     dfBetrachtung=df2.set_index('GCD')
     employmentCorresponding={"employment":"EWTQ_15BIS64"}

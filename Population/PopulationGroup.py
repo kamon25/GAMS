@@ -68,7 +68,7 @@ class PopulationGroup():
         if not PopulationGroup.grouplist:
             print("Groups are not generated -> genaration")
             PopulationGroup.generateGroups(PopulationGroup.possibleAttributes, PopulationGroup.impossibleCombinations)
-        ################################
+        ####
         #--- read all necesary Attributes
         attributesWithValues=defaultdict(dict)
         for attribute in PopulationGroup.possibleAttributes.keys():
@@ -80,7 +80,7 @@ class PopulationGroup():
         for attribute in trafficBehaviorAttributes:
             attributesWithValues[attribute] = BehaviorReader(attribute, PopulationGroup.possibleAttributes)
         
-        ########################################
+        ####
         #--- sample attributes for each inhabitant  ######## slow part
         time.clock()
         sampledInhabitants = []
@@ -123,7 +123,7 @@ class PopulationGroup():
         print(time.clock())              
         print(len(sampledInhabitants))
                     
-        ########################################
+        ####
         #--- split up inhabitants to groups
         peoplePerGroupe = defaultdict(int)
         trafficParamsGroupe = defaultdict()

@@ -34,12 +34,12 @@ def generateTrafficCells():
 
     #---populate TrafficCell
     inhabitantReader(trafficCellDict,"inhabitants")
-    print(trafficCellDict[61059].inhabitants)
+    print(trafficCellDict['61059'].inhabitants)
 
     for tc in trafficCellDict.values():
         PopulationGroup.calculatePopulation(tc)
     #PopulationGroup.calculatePopulation(trafficCellDict[61059])
-    print(trafficCellDict[61059].populationParamsPerGroup)
+    print(trafficCellDict['61059'].populationParamsPerGroup)
 
     return trafficCellDict
 
