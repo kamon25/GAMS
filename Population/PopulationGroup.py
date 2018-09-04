@@ -199,7 +199,7 @@ class PopulationGroup():
         
         for idx, group in enumerate(poplist): #enumerate to generate a idividual ID
             print(dict(zip(attributeNameList,group)))
-            keystring='bhg' + str(idx)
+            keystring='popGroup' + str(idx)
             print(keystring)
             PopulationGroup.groupDict[keystring]=(PopulationGroup(idx,dict(zip(attributeNameList,group))))
 

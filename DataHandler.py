@@ -25,6 +25,7 @@ pathBehaviouralHomogenousGroups = 'JsonOutput/behaviouralHomogenousGroups.json'
 pathNetworkgraph ='JsonOutput/networkgraph.json'
 pathDestinationsOfGroupsInCells ='JsonOutput/destinationsModesOfGroups.json'
 pathSimResult ='JsonOutput/simResult.json'
+pathSimResultPerStep ='JsonOutput/simResultsPerStep/simResult-step'
 
 #Filepaths storage
 pathTrafficCellStorage = 'Storage/trafficCellObjects'
@@ -294,7 +295,6 @@ def graphToJson(networkGraph):
 
 def destinationsModesToJson(trafficCellDict):
   outDict=defaultdict()
-
   for tc in trafficCellDict.values():
     tempPurposeDict=defaultdict()
     for purp, desDict in tc.purposeSestinationModeGroup.items():
@@ -316,14 +316,21 @@ def destinationsModesToJson(trafficCellDict):
     json.dump(outDict, fp, indent=4)
   print('Wrote node-link JSON data to' + pathDestinationsOfGroupsInCells )
 
+
 def resultOfSimulationToJson(resultDict):
   outDict=resultDict  #{timestep:{startCell.ID:{Purpose{destination_ID: { mode:{popGroup: trips}}}}
-
-
-
   with open(pathSimResult, 'w') as fp:
     json.dump(outDict, fp, indent=4)
-  print('Wrote node-link JSON data to' + pathSimResult )
+  print('Wrote result JSON data to' + pathSimResult )
+
+def resultSimStepsToJson(stepResultDic, step):
+  outDict =stepResultDic #{startCell.ID:{Purpose{destination_ID: { mode:{popGroup: trips}}}}
+  outpath = pathSimResultPerStep + '-' + str(step) + '.json'
+
+  with open(outpath, 'w') as fp:
+    json.dump(outDict, fp, indent=4)
+    print('Wrote step result JSON data to' + outpath )
+
 
 #################################
 #

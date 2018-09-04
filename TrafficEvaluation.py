@@ -4,6 +4,7 @@ from DataHandler import TrafficCellReaderCSV as TrafficCellReader
 from DataHandler import inhabitantReaderCSV as inhabitantReader
 from DataHandler import attractionReaderCSV as attractionReader
 from DataHandler import cellListToJson
+from DataHandler import resultSimStepsToJson
 from DataHandler import saveTrafficCells as saveTC
 from Infrastructure import ConInfrastructure as ConInfra
 
@@ -121,6 +122,9 @@ def runSimulation(trafficCellDict, groupDict ,  years):
         startCellDict= defaultdict()
         for cellKey ,cell in trafficCellDict.items():
             startCellDict[cellKey]=cell.purposeSestinationModeGroup
+        # Save results of simulation stepwise in JSON 
+        resultSimStepsToJson(startCellDict, st)
+        # Save result of simulation in Dict 
         resultOfSimulation[st]=startCellDict
 
         if st % stepsPerYear == 0:

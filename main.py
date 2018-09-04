@@ -18,9 +18,6 @@ from TrafficEvaluation import choseDestinationAndMode
 from TrafficEvaluation import runSimulation
 
 
-
-
-
 #---List of populationgroups in the area
 groupDict = generatePopulationGroups()
 print(groupDict.keys())
@@ -72,4 +69,4 @@ for tC in trafficCellDict.values():
 
 
 resultDict=runSimulation(trafficCellDict, groupDict, 2)
-resultOfSimulationToJson(resultDict)
+
