@@ -42,7 +42,7 @@ class TrafficCell():
             popGroupAttributeDict["inhabitants"] = count
             popGroupDict[groupKey]=popGroupAttributeDict
             
-        tempDict={'name':self._name, 'inhabitants': self.inhabitants, "inhabitantGroups": popGroupDict}
+        tempDict={'name':self._name, 'inhabitants': self.inhabitants, "populationGroups": popGroupDict}
         
         return tempDict
     
