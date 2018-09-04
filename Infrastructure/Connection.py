@@ -5,7 +5,7 @@ class Connection():
         self.end_node = end_node
         self.distance = distance
         self.losData = losData
-        self.weight = distance
+        self.weight = distance #initial weight
 
         #Split connection type
         self.mode= connectionType.split("_")[0]

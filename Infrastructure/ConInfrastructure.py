@@ -73,7 +73,7 @@ def addEdges(data, connection):
         con = Connection(location_1, location_2, connection, dist, losData)
         
         #Save edge
-        infraNetworkGraph.add_edge(location_1, location_2, weight=dist, connect=connection, dist=dist, con=con)
+        infraNetworkGraph.add_edge(location_1, location_2, con=con)
 
 ##---- MAIN Djikstra
 def calc_dijkstra(start_node, target_node, trafficCells):
@@ -81,9 +81,6 @@ def calc_dijkstra(start_node, target_node, trafficCells):
     
     ##Assign variable costs to all edges
     for u,v,d in data.edges(data=True):
-        d['weight'] *= costModes[d['connect']]
-        #new weight calculation
-        d['con'].setWeight(d['weight'])
         d['con'].calcWeightGlobalFactors(costModes[d['con'].getConnectionType()])
 
 
@@ -170,7 +167,6 @@ def calc_dijkstra_withStartMode(start_node, target_node, trafficCells, first_mod
     
     ##Assign variable costs to all edges
     for u,v,d in data.edges(data=True):
-        d['con'].setWeight(d['weight'])
         d['con'].calcWeightGlobalFactors(costModes[d['con'].getConnectionType()])
     #Unvisited nodes
     unvisited = list(data.nodes())
