@@ -27,14 +27,14 @@ print(groupDict.keys())
 
 #############################
 #---Generate TrafficCells
-trafficCellDict=generateTrafficCells()
-print("TrafficCells generated")
-saveTC(trafficCellDict)
+# trafficCellDict=generateTrafficCells()
+# print("TrafficCells generated")
+# saveTC(trafficCellDict)
 
 
 #-----reload TrafficCells
-# trafficCellDict=loadTC()
-# print(trafficCellDict['61059'].inhabitants)
+trafficCellDict=loadTC()
+print(trafficCellDict['61059'].inhabitants)
 #######################################
 
 # cellListToJson(trafficCellDict)
