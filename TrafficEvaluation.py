@@ -111,7 +111,7 @@ def calcSimulationStep(trafficCellDict, groupDict):
 
 
 
-def runSimulation(trafficCellDict, groupDict ,  years):
+def runSimulation(trafficCellDict, groupDict, years):
     stepsPerYear=6
     steps = years*stepsPerYear
 

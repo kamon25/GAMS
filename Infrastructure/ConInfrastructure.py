@@ -3,6 +3,7 @@ import networkx as nx
 from collections import defaultdict 
 from DataHandler import readConnectionRows as conReader
 from DataHandler import redConnectionWeights as weightReader
+from DataHandler import readDefaultCapacity
 from Infrastructure.Connection import Connection 
 
 #Networkgraph
@@ -47,18 +48,21 @@ def bildGraph():
     for infraElement in infra:
         infraConnections[infraElement]=conReader(infraElement)
 
+    #--- read Capacity of Connections
+    defaultCapacity = readDefaultCapacity()
+
     #--- add all edges to graph
-    addEdges(infraConnections[infra[0]], connections[0])
-    addEdges(infraConnections[infra[1]], connections[1])
-    addEdges(infraConnections[infra[2]], connections[2])
-    addEdges(infraConnections[infra[0]], connections[3])
+    addEdges(infraConnections[infra[0]], connections[0], defaultCapacity[connections[0]])
+    addEdges(infraConnections[infra[1]], connections[1], defaultCapacity[connections[1]])
+    addEdges(infraConnections[infra[2]], connections[2], defaultCapacity[connections[2]])
+    addEdges(infraConnections[infra[0]], connections[3], defaultCapacity[connections[3]])
 
     #--- read Cost
     global costModes
     costModes = weightReader()
     
         
-def addEdges(data, connection):
+def addEdges(data, connection, capacity):
     for row in data:
         str = row.split(";")
         #Get Gemeindekennzahlen
@@ -70,7 +74,7 @@ def addEdges(data, connection):
         losData=1
 
         #Generate connection object
-        con = Connection(location_1, location_2, connection, dist, losData)
+        con = Connection(location_1, location_2, connection, dist, losData, capacity)
         
         #Save edge
         infraNetworkGraph.add_edge(location_1, location_2, con=con)

@@ -18,6 +18,7 @@ pathAutobahnNeighbour='Data/Nachbarschaftsliste_Autobahn.csv'
 pathCountryRoadNeighbour='Data/Nachbarschaftsliste_Standard.csv'
 pathTrainNeighbour='Data/Nachbarschaftsliste_Zug.csv'
 pathConnectionWeights='Data/weightConnections.csv'
+pathDefaultCapacity ='Data/defaultCapacity.csv'
 
 #Filepaths Output
 pathTrafficCellData = 'JsonOutput/trafficCellData2.json'
@@ -248,6 +249,22 @@ def redConnectionWeights():
         variables[row[0]] = float(row[1])
     
     return variables
+
+
+# read default capacity for connectiontypes (estimation)
+def readDefaultCapacity():
+    capacity = defaultdict(float)
+    with open(pathDefaultCapacity) as f:
+      reader = csv.reader(f, delimiter=';')
+      skip = True
+      for row in reader:
+        if(skip):
+          skip = False
+          continue      
+        
+        capacity[row[0]] = float(capacity[1])
+    
+    return capacity
 
 #################################
 #
