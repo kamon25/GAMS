@@ -28,16 +28,19 @@ def getShortestPaths_withStartMode(start, end, cellDict):
     
     #dict of shortest paths
     otherPath=defaultdict()
+    otherConnections = defaultdict()
 
     for m in modes:
-        path = calc_dijkstra_withStartMode(start, end, cellDict, m)
+        path, connections = calc_dijkstra_withStartMode(start, end, cellDict, m)
         if path:
             otherPath[m]=path
+            otherConnections[m]=connections
         else:
             otherPath[m]=None
+            otherConnections[m]=None
             print("Start: " +start + " End: " + end + " Mode: " + m )
     
-    return otherPath
+    return otherPath, otherConnections
 
 
 def bildGraph(): 
@@ -75,6 +78,7 @@ def addEdges(data, connection, capacity):
 
         #Generate connection object
         con = Connection(location_1, location_2, connection, dist, losData, capacity)
+
         
         #Save edge
         infraNetworkGraph.add_edge(location_1, location_2, con=con)
@@ -234,15 +238,16 @@ def calc_dijkstra_withStartMode(start_node, target_node, trafficCells, first_mod
 
             if cur not in shortest_paths or (weight + curr_min_weight) < shortest_paths[cur]:
                 shortest_paths[cur] = (weight + curr_min_weight)
-                prev[cur] = (min_node, d['con'].getConnectionType(), d['con'].distance)
+                prev[cur] = (min_node, d['con'].getConnectionType(), d['con'].distance, d['con'])
 
     #End Algorithm
     path = []
+    connectionsList=[]
     #print(shortest_paths[target_node])
     if target_node in shortest_paths:
       ###Trace back from target###
       curr_node = target_node
-      path.insert(0, trafficCells[curr_node].cellID)
+      path.insert(0, trafficCells[curr_node].cellID)      
       while curr_node in prev:
         #Look up city
         previous = prev[curr_node]
@@ -251,4 +256,7 @@ def calc_dijkstra_withStartMode(start_node, target_node, trafficCells, first_mod
         path.insert(0, (city, previous[1], previous[2]))
         curr_node = previous[0]
 
-    return path
+        #add sonnection to set of connections
+        connectionsList.insert(0,previous[3])
+
+    return path, connectionsList

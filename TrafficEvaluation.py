@@ -49,14 +49,16 @@ def calcAllPathsForTrafficCell(trafficCellDict):
     print("Start path evaluation")
     for startTrafficCell in trafficCellDict.values():
         for tempCell in trafficCellDict.values():
-            path = ConInfra.getShortestPaths_withStartMode(startTrafficCell.cellID, tempCell.cellID, trafficCellDict)
+            path, connections = ConInfra.getShortestPaths_withStartMode(startTrafficCell.cellID, tempCell.cellID, trafficCellDict)
             startTrafficCell.shortestPaths[tempCell.cellID] = path
+            startTrafficCell.pathConnectionList[tempCell.cellID] = connections
+
             #print(path)
         print("Kürzeste Wege der Gemeinde:" + str(startTrafficCell._name))
     print("End path evaluation") 
 
     
-def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney):
+def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
     tripsPerDay=3.4  ############### subsitute with Data !!!
     
     for trafficCell in trafficCellDict.values():
@@ -89,15 +91,21 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney):
             ratioAttractivityResistance[destination]=modeRatio
 
         # calcGroupPart for purpose destination mode
-        groupPartDesMode=defaultdict()  # {destination:{mode:{group: numberOfrides}}} 
+        groupPartDesMode=defaultdict()  # {destination:{mode:{group: trips}}} 
 
         for destination, modes in ratioAttractivityResistance.items():
             modeGroupPart = defaultdict()
             for mode, groups in modes.items():
-                groupPart=defaultdict()
+                groupPartDemand=defaultdict()
+                sumTripsPerMode=0
                 for group, ratio in groups.items():
-                    groupPart[group]=(ratio/sumRatio[group])*trafficDemandPerGroup[group]
-                modeGroupPart[mode]=groupPart
+                    groupPartDemand[group]=(ratio/sumRatio[group])*trafficDemandPerGroup[group]
+                    sumTripsPerMode += groupPartDemand[group]
+                modeGroupPart[mode]=groupPartDemand
+                #add load to the connections of the shortest paht
+                for connection in trafficCell.pathConnectionSet[destination][mode]:
+                    connection.setStepLoad(sumTripsPerMode, step)
+
             groupPartDesMode[destination]=modeGroupPart
         
         trafficCell.purposeSestinationModeGroup[purposForJourney]=groupPartDesMode
@@ -105,9 +113,9 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney):
       
 
 
-def calcSimulationStep(trafficCellDict, groupDict):
+def calcSimulationStep(trafficCellDict, groupDict, step):
 
-    choseDestinationAndMode(trafficCellDict, groupDict, 'work')
+    choseDestinationAndMode(trafficCellDict, groupDict, 'work', step)
 
 
 
@@ -118,7 +126,9 @@ def runSimulation(trafficCellDict, groupDict, years):
     resultOfSimulation= defaultdict() #{timestep:{startCell:{Purpose{destination: { mode:{popGroup: trips}}}}
 
     for st in range(0,steps):
-        calcSimulationStep(trafficCellDict, groupDict)
+        #MAIN Calculation
+        calcSimulationStep(trafficCellDict, groupDict, st)
+        #write values
         startCellDict= defaultdict()
         for cellKey ,cell in trafficCellDict.items():
             startCellDict[cellKey]=cell.purposeSestinationModeGroup

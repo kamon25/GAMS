@@ -24,6 +24,7 @@ pathDefaultCapacity ='Data/defaultCapacity.csv'
 pathTrafficCellData = 'JsonOutput/trafficCellData2.json'
 pathBehaviouralHomogenousGroups = 'JsonOutput/behaviouralHomogenousGroups.json'
 pathNetworkgraph ='JsonOutput/networkgraph.json'
+pathConnections = 'JsonOutput/connections.json'
 pathDestinationsOfGroupsInCells ='JsonOutput/destinationsModesOfGroups.json'
 pathSimResult ='JsonOutput/simResult.json'
 pathSimResultPerStep ='JsonOutput/simResultsPerStep/simResult-step'
@@ -262,7 +263,7 @@ def readDefaultCapacity():
           skip = False
           continue      
         
-        capacity[row[0]] = float(capacity[1])
+        capacity[row[0]] = float(row[1])
     
     return capacity
 
@@ -307,7 +308,28 @@ def graphToJson(networkGraph):
   d = json_graph.node_link_data(networkGraph)
   with open(pathNetworkgraph, 'w') as fp:
     json.dump(d, fp, indent=4)
-  print('Wrote node-link JSON data to' + pathNetworkgraph )
+  print('Wrote node-link as JSON to' + pathNetworkgraph )
+
+def connectionsToJson(trafficCellDict, step):
+  connections = set()
+  outputList = []
+  outpath = pathConnections + '-' + str(step) + '.json'
+
+  for trafficCell in trafficCellDict.values():
+    for cellValues in trafficCell.pathConnectionSet.values():
+      for modeValues in cellValues.values():
+        connections=connections.union(set(modeValues))
+  
+  for tempConnection in connections:
+  
+    outputList.append(tempConnection.toDict(step))
+  
+  #d={'links': outputSet}
+  
+  with open(outpath, 'w') as fp:
+    json.dump(outputList, fp, indent=4)
+  print('Wrote connections as JSON  to' + outpath )
+
 
 
 def destinationsModesToJson(trafficCellDict):
