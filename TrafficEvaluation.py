@@ -4,7 +4,7 @@ from DataHandler import TrafficCellReaderCSV as TrafficCellReader
 from DataHandler import inhabitantReaderCSV as inhabitantReader
 from DataHandler import attractionReaderCSV as attractionReader
 from DataHandler import cellListToJson
-from DataHandler import resultSimStepsToJson
+from DataHandler import resultPerStepInFolders
 from DataHandler import saveTrafficCells as saveTC
 from Infrastructure import ConInfrastructure as ConInfra
 
@@ -103,7 +103,7 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
                     sumTripsPerMode += groupPartDemand[group]
                 modeGroupPart[mode]=groupPartDemand
                 #add load to the connections of the shortest paht
-                for connection in trafficCell.pathConnectionSet[destination][mode]:
+                for connection in trafficCell.pathConnectionList[destination][mode]:
                     connection.setStepLoad(sumTripsPerMode, step)
 
             groupPartDesMode[destination]=modeGroupPart
@@ -133,7 +133,7 @@ def runSimulation(trafficCellDict, groupDict, years):
         for cellKey ,cell in trafficCellDict.items():
             startCellDict[cellKey]=cell.purposeSestinationModeGroup
         # Save results of simulation stepwise in JSON 
-        resultSimStepsToJson(startCellDict, st)
+        resultPerStepInFolders(startCellDict, st)
         # Save result of simulation in Dict 
         resultOfSimulation[st]=startCellDict
 

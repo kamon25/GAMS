@@ -6,6 +6,7 @@ from collections import defaultdict
 import json
 from networkx.readwrite import json_graph
 import pickle
+import os
 
 #Filepaths Data
 pathTrafficCellsCSV = './Data/Gemeinde_Liste_V1.csv'
@@ -28,6 +29,7 @@ pathConnections = 'JsonOutput/connections.json'
 pathDestinationsOfGroupsInCells ='JsonOutput/destinationsModesOfGroups.json'
 pathSimResult ='JsonOutput/simResult.json'
 pathSimResultPerStep ='JsonOutput/simResultsPerStep/simResult-step'
+pathSimResultPerStepinFolder ='JsonOutput/simResul-1'
 
 #Filepaths storage
 pathTrafficCellStorage = 'Storage/trafficCellObjects'
@@ -316,7 +318,7 @@ def connectionsToJson(trafficCellDict, step):
   outpath = pathConnections + '-' + str(step) + '.json'
 
   for trafficCell in trafficCellDict.values():
-    for cellValues in trafficCell.pathConnectionSet.values():
+    for cellValues in trafficCell.pathConnectionList:
       for modeValues in cellValues.values():
         connections=connections.union(set(modeValues))
   
@@ -369,6 +371,25 @@ def resultSimStepsToJson(stepResultDic, step):
   with open(outpath, 'w') as fp:
     json.dump(outDict, fp, indent=4)
     print('Wrote step result JSON data to' + outpath )
+
+
+def resultPerStepInFolders(stepResultDic, step):
+  #pathSimResultPerStepinFolder  
+  for keys, outDict in stepResultDic.items():
+    #createFolders
+    folderPath = pathSimResultPerStepinFolder + '/' + keys  
+    if not os.path.exists(folderPath):
+      os.makedirs(folderPath)
+
+    #writeFiles
+    filename='simResult'
+    outpath = folderPath + '/' + filename + '-' + str(step) + '.json'
+
+    with open(outpath, 'w') as fp:
+      json.dump(outDict, fp, indent=4)
+      print('Wrote step result JSON data to' + outpath )
+
+
 
 
 #################################
