@@ -1,641 +1,763 @@
 {
-    "work": {
-        "60101": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 479.84928915279374,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 452.0378688717365,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+    "Sum_Trips_per_Mode": {
+        "work": {
+            "60101": {
+                "car": 946.3885038664802,
+                "publicTransport": 934.5461716636553
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 473.848983441463,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 446.3640766807745,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "60669": {
+                "car": 39.42615858054079,
+                "publicTransport": 35.32082536792108
+            },
+            "60608": {
+                "car": 18.052918829011873,
+                "publicTransport": 17.849163933702187
+            },
+            "60611": {
+                "car": 9.213922354605664,
+                "publicTransport": 7.297134885638094
+            },
+            "60670": {
+                "car": 35.477999146179144,
+                "publicTransport": 29.228914930681604
+            },
+            "60662": {
+                "car": 7.729761410459087,
+                "publicTransport": 6.743203391551491
+            },
+            "60656": {
+                "car": 8.806343063432925,
+                "publicTransport": 7.442205363852125
+            },
+            "60655": {
+                "car": 13.38465939331721,
+                "publicTransport": 13.207979246462582
+            },
+            "60624": {
+                "car": 28.755181213323695,
+                "publicTransport": 28.374157564362026
+            },
+            "60660": {
+                "car": 9.130950988739631,
+                "publicTransport": 7.455541104915225
+            },
+            "60629": {
+                "car": 13.215409101993206,
+                "publicTransport": 8.55791323448467
+            },
+            "60618": {
+                "car": 3.1341409714627604,
+                "publicTransport": 2.4124286781322883
+            },
+            "61059": {
+                "car": 14.746413797256789,
+                "publicTransport": 14.423964713378304
+            },
+            "61001": {
+                "car": 2.8425008718514784,
+                "publicTransport": 2.6427749213573133
+            },
+            "61055": {
+                "car": 2.83764159945978,
+                "publicTransport": 2.5781467935546836
+            },
+            "61021": {
+                "car": 13.59764903745645,
+                "publicTransport": 13.32217101559679
+            },
+            "61017": {
+                "car": 3.295593499097312,
+                "publicTransport": 3.295593499097312
+            },
+            "61020": {
+                "car": 4.122538224907318,
+                "publicTransport": 4.059381666623631
+            },
+            "61012": {
+                "car": 6.634132890424606,
+                "publicTransport": 5.43171149028443
+            },
+            "61043": {
+                "car": 7.647617055839544,
+                "publicTransport": 7.255378772393285
+            },
+            "61053": {
+                "car": 48.91987561997466,
+                "publicTransport": 48.29117598079584
+            },
+            "61027": {
+                "car": 3.2837972425551714,
+                "publicTransport": 3.1422329208158475
+            },
+            "61016": {
+                "car": 2.5661978098188714,
+                "publicTransport": 2.024762480716748
+            },
+            "61045": {
+                "car": 9.2587310692758,
+                "publicTransport": 10.777749297756802
+            },
+            "61008": {
+                "car": 3.8297977162886156,
+                "publicTransport": 3.5346369052901414
+            },
+            "61050": {
+                "car": 4.820407834712865,
+                "publicTransport": 5.435537476638617
+            },
+            "61049": {
+                "car": 4.520509209492603,
+                "publicTransport": 4.467760627096878
+            },
+            "61058": {
+                "car": 9.384654245627654,
+                "publicTransport": 9.306109964975203
+            },
+            "62347": {
+                "car": 1.080103298541943,
+                "publicTransport": 1.0699053521388453
             }
-        },
-        "60669": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 19.990141704019916,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 18.832484215156217,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+        }
+    },
+    "Trips_per_group": {
+        "work": {
+            "60101": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 472.4631088235167,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 473.9253950429635,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 466.551591250584,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 467.9945804130713,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 17.908891534236066,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 16.870394279406092,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "60608": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 9.153301281181,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 8.623337641788744,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "60669": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 19.68259797478229,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 19.743560605758503,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 17.633137450144254,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 17.687687917776827,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 9.05006431425422,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 8.525707470104742,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "60611": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 4.671732984388319,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 4.401072626038489,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "60608": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 9.012499516478762,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 9.040419312533112,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 8.91078833509443,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 8.938375598607758,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 3.699988370378846,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 3.4849910101334203,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "60670": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 17.988104386880654,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 16.94747945069684,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "60611": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 4.599840342884971,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 4.614082011720693,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 3.642942909936961,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 3.6541919757011327,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 14.820088863790007,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 13.960660369871519,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "60662": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 3.919161763660644,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 3.692397365121825,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "60670": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 17.71154501808036,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 17.76645412809878,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 14.591887527495741,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 14.637027403185863,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 3.4189976464507534,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 3.220952749642376,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "60656": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 4.464943333614314,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 4.206956416257567,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "60662": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 3.8588999439445946,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 3.870861466514493,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 3.366389440958579,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 3.3768139505929127,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 3.7733758203609966,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 3.554988077883406,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "60655": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 6.7862361255127785,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 6.394019895943456,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "60656": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 4.3963494037421,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 4.409993659690825,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 3.7153457886627037,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 3.7268595751894207,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 6.696700182724099,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 6.309434071597077,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "60624": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 14.579464574665842,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 13.736172410095064,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "60655": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 6.68196326039008,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 6.70269613292713,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 6.593765306352027,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 6.614213940110555,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 14.386379701358182,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 13.55373201521066,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "60660": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 4.6295660903934905,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 4.36185210150043,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "60624": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 14.355335185107444,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 14.39984602821625,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 14.165130567817231,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 14.209026996544795,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 3.7801878042686075,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 3.5611465358457064,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "60629": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 6.7005741907563525,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 6.312534425632728,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "60660": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 4.5584069523845825,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 4.5725440363550485,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 3.7220094367773626,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 3.733531668137863,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 4.339285038847892,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 4.087020787011477,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "60618": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 1.589102950257588,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 1.497036269975247,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "60629": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 6.597487399018194,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 6.617921702975013,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 4.272363087723185,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 4.2855501467614845,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 1.223214484538713,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 1.15213431133816,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "61059": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 7.476588062995368,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 7.044879968354178,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "60618": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 1.5646483332970096,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 1.5694926381657508,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 1.2043549219259313,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 1.2080737562063568,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 7.313144288482367,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 6.890661222955884,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "61001": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 1.4411845624205133,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 1.3579352544456125,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "61059": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 7.361776202913613,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 7.384637594343177,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 7.200806599863458,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 7.223158113514847,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 1.3399296817269397,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 1.2624843390010427,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "61055": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 1.4387408524632086,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 1.3555298823791717,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "61001": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 1.4190478538313656,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 1.4234530180201126,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 1.319340698045521,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 1.3234342233117926,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 1.3071887750234157,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 1.2314990674670248,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "61021": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 6.832297340009815,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 6.437563843323195,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "61055": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 1.4166243993090184,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 1.421017200150762,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 1.2870799001998074,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 1.291066893354876,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 6.754567430898043,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 6.364110019226046,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "61017": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 1.6708752853044024,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 1.57452802612278,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "61021": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 6.788291851492486,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 6.809357185963962,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 6.650769149230258,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 6.671401866366533,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 1.6708752853044024,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 1.57452802612278,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "61020": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 2.0901752625400993,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 1.969461637064279,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "61017": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 1.6452390819643963,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 1.6503544171329156,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 1.6452390819643963,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 1.6503544171329156,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 2.058168348770328,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 1.939230212859085,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "61012": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 3.363645589742073,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 3.1690648791876024,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "61020": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 2.0580740905461083,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 2.06446413436121,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 2.0265464741556154,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 2.0328351924680153,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 2.7540477545598385,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 2.5944472956159195,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "61043": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 3.8774670548863517,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 3.6533499530510585,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "61012": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 3.311932436270271,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 3.3222004541543346,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 2.7116589347717652,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 2.720052555512665,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 3.6786351673490136,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 3.465808299363148,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "61053": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 24.859045547414425,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 23.420588542635326,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "61043": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 3.817885805780574,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 3.82973125005897,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 3.6220751867825456,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 3.633303585610739,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 24.484906496631492,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 23.067165273874725,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "61027": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 1.5619266130879847,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 1.4715141482272378,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "61053": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 24.42209799858377,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 24.49777762139089,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 24.108247876839034,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 24.18292810395681,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 1.5931983960391949,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 1.5009325533728834,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "61016": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 1.3011290755480187,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 1.2257966522865578,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "61027": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 1.6393578433191196,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 1.644439399236052,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 1.568687158700979,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 1.5735457621148683,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 1.0266462102347296,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 0.9670056112195501,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "61045": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 4.402798361995511,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 4.147374707270077,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "61016": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 1.281114496897337,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 1.2850833129215347,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 1.0108202206797468,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 1.0139422600370016,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 5.464656270088764,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 5.147972709597518,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "61008": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 1.8213151550367375,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 1.7157253455107628,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "61045": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 4.6222157861858815,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 4.636515283089918,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 5.38054722388467,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 5.397202073872133,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 1.792188560636922,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 1.6882416269818112,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "61050": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 2.4441401768589004,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 2.30228074587359,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "61008": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 1.911939645060244,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 1.9178580712283717,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 1.7645894704955982,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 1.7700474347945434,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 2.7560252293802376,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 2.596117029248685,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "61049": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 2.299946682672757,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 2.1666649300410405,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "61050": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 2.4064845656859477,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 2.4139232690269172,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 2.7135735111854005,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 2.7219639654532166,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 2.2653134785106652,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 2.133938196477378,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "61058": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 4.787466875458725,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 4.509862710158426,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "61049": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 2.25676268706643,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 2.2637465224261732,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 2.230430592911389,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 2.237330034185489,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 4.718563360500259,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 4.444734944042824,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
-            }
-        },
-        "62347": {
-            "car": {
-                "popGroup0": 0.0,
-                "popGroup1": 0.5513512428988551,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 0.519341658673011,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "61058": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 4.685081820833021,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 4.699572424794634,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 4.645873593952787,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 4.660236371022417,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             },
-            "publicTransport": {
-                "popGroup0": 0.0,
-                "popGroup1": 0.5424919882029227,
-                "popGroup2": 0.0,
-                "popGroup3": 0.0,
-                "popGroup4": 0.0,
-                "popGroup5": 0.5109691945447552,
-                "popGroup6": 0.0,
-                "popGroup7": 0.0
+            "62347": {
+                "car": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 0.539218703424331,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 0.540884595117612,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                },
+                "publicTransport": {
+                    "popGroup0": 0.0,
+                    "popGroup1": 0.5341280050577185,
+                    "popGroup2": 0.0,
+                    "popGroup3": 0.0,
+                    "popGroup4": 0.0,
+                    "popGroup5": 0.5357773470811268,
+                    "popGroup6": 0.0,
+                    "popGroup7": 0.0
+                }
             }
         }
     }

@@ -25,13 +25,15 @@ def getShortestPath(start, end, cellDict):
 
 
 def getShortestPaths_withStartMode(start, end, cellDict):
-    
+    #Weight to punish mode interchangig
+    changingWeight=5
+
     #dict of shortest paths
     otherPath=defaultdict()
     otherConnections = defaultdict()
 
     for m in modes:
-        path, connections = calc_dijkstra_withStartMode(start, end, cellDict, m)
+        path, connections = calc_dijkstra_withStartMode(start, end, cellDict, m, changingWeight)
         if path:
             otherPath[m]=path
             otherConnections[m]=connections
@@ -170,7 +172,7 @@ def calc_dijkstra(start_node, target_node, trafficCells):
 
     return path
       
-def calc_dijkstra_withStartMode(start_node, target_node, trafficCells, first_mode):
+def calc_dijkstra_withStartMode(start_node, target_node, trafficCells, first_mode, changingWeight):
     data = infraNetworkGraph.copy()
     
     ##Assign variable costs to all edges
@@ -218,6 +220,8 @@ def calc_dijkstra_withStartMode(start_node, target_node, trafficCells, first_mod
         if last_type!=None:
             if last_type == connections[1] or last_type == connections[3]:
                 expand_car_nodes = False
+        
+        #
 
         for u,v,d in data.edges(min_node, data=True):        
         #Skip car edges if necessary
@@ -228,7 +232,13 @@ def calc_dijkstra_withStartMode(start_node, target_node, trafficCells, first_mod
                 continue
 
             #Get weight
-            weight = d['con'].weight
+            #punish mode change
+            if last_type == d['con'].getConnectionType():
+                weight = d['con'].weight
+            else:
+                weight = d['con'].weight + changingWeight
+
+
 
             #Get next node
             if u != min_node:

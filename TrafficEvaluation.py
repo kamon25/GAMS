@@ -88,27 +88,33 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
                     sumRatio[popGroupKey] += tempRatio
                     groupRatio[popGroupKey] = tempRatio
                 modeRatio[mode] = groupRatio
-            ratioAttractivityResistance[destination]=modeRatio
+            ratioAttractivityResistance[destination] = modeRatio
 
         # calcGroupPart for purpose destination mode
         groupPartDesMode=defaultdict()  # {destination:{mode:{group: trips}}} 
+        # add sums for modes {destination:{mode: trips}}
+        desModeTrips=defaultdict()
 
         for destination, modes in ratioAttractivityResistance.items():
             modeGroupPart = defaultdict()
+            modeTrips =defaultdict()            
             for mode, groups in modes.items():
                 groupPartDemand=defaultdict()
-                sumTripsPerMode=0
+                sumTripsPerMode = 0
                 for group, ratio in groups.items():
                     groupPartDemand[group]=(ratio/sumRatio[group])*trafficDemandPerGroup[group]
                     sumTripsPerMode += groupPartDemand[group]
                 modeGroupPart[mode]=groupPartDemand
+                modeTrips[mode]=sumTripsPerMode
                 #add load to the connections of the shortest paht
                 for connection in trafficCell.pathConnectionList[destination][mode]:
                     connection.setStepLoad(sumTripsPerMode, step)
 
             groupPartDesMode[destination]=modeGroupPart
+            desModeTrips[destination]=modeTrips
         
         trafficCell.purposeSestinationModeGroup[purposForJourney]=groupPartDesMode
+        trafficCell.purposeDestinationMode[purposForJourney] = desModeTrips
 
       
 
@@ -131,7 +137,11 @@ def runSimulation(trafficCellDict, groupDict, years):
         #write values
         startCellDict= defaultdict()
         for cellKey ,cell in trafficCellDict.items():
-            startCellDict[cellKey]=cell.purposeSestinationModeGroup
+            startCellDict[cellKey]=dict([('Sum_Trips_per_Mode' , cell.purposeDestinationMode),
+            ('Trips_per_group' , cell.purposeSestinationModeGroup)])
+            #startCellDict[cellKey]=cell.purposeSestinationModeGroup
+
+
         # Save results of simulation stepwise in JSON 
         resultPerStepInFolders(startCellDict, st)
         # Save result of simulation in Dict 

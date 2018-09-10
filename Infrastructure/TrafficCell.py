@@ -16,11 +16,12 @@ class TrafficCell():
         self.attractivity=defaultdict()     #{purpose: attractivity}
         
         self.shortestPaths=defaultdict()    #{targetCell: {mode:[(start, connectionType, dist),(start,...)]}}
-        self.pathConnectionList=defaultdict() #{targetCell: {mode:{list of connections}}}
+        self.pathConnectionList=defaultdict() #{targetCell: {mode:[list of connections]}}
         self.connectionParams = defaultdict() #{'duration': time, 'cost': cost, 'distance': distance}
 
         self.purposeSestinationModeGroup=defaultdict() #{Purpose{destination: { mode:{popGroup: trips}}}}
-    
+        self.purposeDestinationMode =defaultdict() #{Purpose{destination: { mode:trips}}}
+
     def __str__(self):
         return str(self._name)   
 

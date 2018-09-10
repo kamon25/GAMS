@@ -250,6 +250,8 @@ def redConnectionWeights():
           continue      
         
         variables[row[0]] = float(row[1])
+        print(row[0] + " " + row[1])
+        print("float " + str(1/variables[row[0]]))
     
     return variables
 
@@ -318,7 +320,7 @@ def connectionsToJson(trafficCellDict, step):
   outpath = pathConnections + '-' + str(step) + '.json'
 
   for trafficCell in trafficCellDict.values():
-    for cellValues in trafficCell.pathConnectionList:
+    for cellValues in trafficCell.pathConnectionList.values():
       for modeValues in cellValues.values():
         connections=connections.union(set(modeValues))
   

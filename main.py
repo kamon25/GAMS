@@ -47,7 +47,7 @@ print(ConInfra.getShortestPaths_withStartMode('60611', '60101', trafficCellDict)
 
 # Remove comment if changes in TrafficCell!!!
 calcAllPathsForTrafficCell(trafficCellDict)
-print(trafficCellDict['61059'].shortestPaths['60101'])
+
 for connection in trafficCellDict['61059'].pathConnectionList['60101']['car']:
     print("here connection distance: " + str(connection.distance))
 
