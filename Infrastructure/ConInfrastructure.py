@@ -80,7 +80,6 @@ def addEdges(data, connection, capacity):
 
         #Generate connection object
         con = Connection(location_1, location_2, connection, dist, losData, capacity)
-
         
         #Save edge
         infraNetworkGraph.add_edge(location_1, location_2, con=con)
@@ -90,8 +89,9 @@ def calc_dijkstra(start_node, target_node, trafficCells):
     data = infraNetworkGraph.copy()
     
     ##Assign variable costs to all edges
+    #################################################Hier ist der Fehler :)
     for u,v,d in data.edges(data=True):
-        d['con'].calcWeightGlobalFactors(costModes[d['con'].getConnectionType()])
+        d['con'].setGlobalWeightFactors(costModes[d['con'].getConnectionType()])
 
 
     #Unvisited nodes
@@ -143,7 +143,7 @@ def calc_dijkstra(start_node, target_node, trafficCells):
                 continue
 
             #Get weight
-            weight = d['con'].weight
+            weight = d['con'].getWeight()
 
             #Get next node
             if u != min_node:
@@ -177,7 +177,7 @@ def calc_dijkstra_withStartMode(start_node, target_node, trafficCells, first_mod
     
     ##Assign variable costs to all edges
     for u,v,d in data.edges(data=True):
-        d['con'].calcWeightGlobalFactors(costModes[d['con'].getConnectionType()])
+        d['con'].setGlobalWeightFactors(costModes[d['con'].getConnectionType()], 80)
     #Unvisited nodes
     unvisited = list(data.nodes())
     #Dict for shortest paths
@@ -220,8 +220,6 @@ def calc_dijkstra_withStartMode(start_node, target_node, trafficCells, first_mod
         if last_type!=None:
             if last_type == connections[1] or last_type == connections[3]:
                 expand_car_nodes = False
-        
-        #
 
         for u,v,d in data.edges(min_node, data=True):        
         #Skip car edges if necessary
@@ -234,11 +232,9 @@ def calc_dijkstra_withStartMode(start_node, target_node, trafficCells, first_mod
             #Get weight
             #punish mode change
             if last_type == d['con'].getConnectionType():
-                weight = d['con'].weight
+                weight = d['con'].getWeight()
             else:
-                weight = d['con'].weight + changingWeight
-
-
+                weight = d['con'].getWeight() + changingWeight
 
             #Get next node
             if u != min_node:
