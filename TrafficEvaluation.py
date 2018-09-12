@@ -68,9 +68,13 @@ def calcAllPathsForTrafficCell(trafficCellDict):
 
 def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
     tripsPerDay = 3.4  # subsitute with Data !!!
+    # part of Group wich evaluate thier traffic situation
     evaluatorGroup = 0.2
     if step == 0:
         evaluatorGroup = 1.0
+    #weight for exponational smoothing in resistance forecasting
+    weightSmoothing=0.3
+
 
     for trafficCell in trafficCellDict.values():
         # calc demand for each populationGroup in each trafficCell
@@ -85,21 +89,35 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
         # {destination:{mode:{group: ratio}}}
         ratioAttractivityResistance = defaultdict()
         sumRatio = defaultdict(float)  # {popGroup: sumRatio}
+        # {destination:{mode:{group: resistance}}}
+        expextedResistanceDesModeGroup= defaultdict()
 
         for destination, modes in trafficCell.connectionParams.items():
             modeRatio = defaultdict()  # {mode: {group: ratio }}
+            expextedResistanceModeGroup= defaultdict()
             for mode, connectionParams in modes.items():
                 groupRatio = defaultdict()
+                expextedResistanceGroup= defaultdict()
                 for popGroupKey, popParams in trafficCell.populationParamsPerGroup.items():
+                    #calcResistance
                     resistance = groupDict[popGroupKey].calcResistance(connectionParams['duration'], connectionParams['cost'], connectionParams['los'],
                                                                        popParams['travelTimeBudget'],
                                                                        popParams['costBudget'], 1, tripsPerDay)  # 1 have to be reset with LoS
+                    #calcAttraction
                     attract = trafficCellDict[destination].attractivity[purposForJourney]
+                    #calc excpected resistance
+                    if step == 0 :
+                        expextedResistanceGroup[popGroupKey] = resistance
+                    else:
+                        expextedResistanceGroup[popGroupKey] = weightSmoothing * resistance + (1-weightSmoothing)*trafficCell.expectedResistance[purposForJourney][destination][mode][popGroupKey]
+
                     tempRatio = attract/resistance
                     sumRatio[popGroupKey] += tempRatio
                     groupRatio[popGroupKey] = tempRatio
                 modeRatio[mode] = groupRatio
+                expextedResistanceModeGroup[mode] = expextedResistanceGroup
             ratioAttractivityResistance[destination] = modeRatio
+            expextedResistanceDesModeGroup[destination] = expextedResistanceModeGroup
 
         # calcGroupPart for purpose, destination and mode
         groupPartDesMode = defaultdict()  # {destination:{mode:{group: trips}}}
@@ -113,7 +131,7 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
                 groupPartDemand = defaultdict()
                 sumTripsPerMode = 0
                 for group, ratio in groups.items():
-                    if evaluatorGroup == 1.0:
+                    if step == 0:
                         groupPartDemand[group] = (ratio/sumRatio[group])*trafficDemandPerGroup[group]
                     else:
                         groupPartDemand[group] = (ratio/sumRatio[group])*trafficDemandPerGroup[group]*evaluatorGroup + (1-evaluatorGroup) * trafficCell.purposeSestinationModeGroup[purposForJourney][destination][mode][group]
@@ -129,6 +147,7 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
 
         trafficCell.purposeSestinationModeGroup[purposForJourney] = groupPartDesMode
         trafficCell.purposeDestinationMode[purposForJourney] = desModeTrips
+        trafficCell.expectedResistance[purposForJourney] = expextedResistanceDesModeGroup
 
 
 def updateConnectionParamsAll(trafficCellDict):

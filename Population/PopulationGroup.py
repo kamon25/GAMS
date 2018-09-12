@@ -1,5 +1,6 @@
 import time
 import math
+import numpy as np
 from collections import defaultdict
 
 from Population.Inhabitant import Inhabitant
@@ -36,6 +37,7 @@ class PopulationGroup():
         self._groupID = groupID #Counter from 1 to 10
         #attributes for resistance
         self.k = {'cost':0.3, 'duration':0.3, 'los':0.3}
+        
     
     def __str__(self):
         return str(self._attributes)
@@ -53,7 +55,13 @@ class PopulationGroup():
 
         return resistanceSum
 
+    def calcEvaluatorGroup(self, deltaResistance):
+        G=0.4
+        k=15
+        f_0=0.2
 
+        evGr = G/(1+np.exp(-deltaResistance*G*k)*(G/f_0-1))
+        return evGr
 
     ############################################
     #--- static methods

@@ -74,7 +74,12 @@ resultDict = runSimulation(trafficCellDict, groupDict, 2)
 # Write Connections
 connectionsToJson(trafficCellDict, 0)
 
+
+
 #############
 plt.plot(trafficCellDict['61059'].pathConnectionList['60101']['car'][1].occupancy)
 plt.ylabel('Auslastung')
 plt.savefig('Pic/occupy.png')
+###########
+
+print(trafficCellDict['60101'].expectedResistance['work']['61059']['car']['popGroup1'])

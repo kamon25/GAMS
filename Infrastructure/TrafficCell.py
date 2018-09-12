@@ -28,6 +28,8 @@ class TrafficCell():
         self.purposeSestinationModeGroup = defaultdict()
         # {Purpose{destination: { mode:trips}}}
         self.purposeDestinationMode = defaultdict()
+         # expected LoS per group
+        self.expectedResistance=defaultdict() # {Purpose{destination: { mode:{ popGroup: excpectedLoS}}}}
 
     def __str__(self):
         return str(self._name)
@@ -37,6 +39,7 @@ class TrafficCell():
 
     def SetPopulationGroups(self, popGroups):
         self.popPerGroup = popGroups
+    
 
     # preparing dicts for encoding to json
     def toDict(self):
