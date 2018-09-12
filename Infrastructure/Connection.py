@@ -42,13 +42,20 @@ class Connection():
             self.stepLoad.append(trips)
             self.occupancy.append(trips/self.capacity)
 
+        self.calcLos(step)
+    
+    def calcLos(self, step):
         #los=a*(M/C)^b
         # a and b should from LosData
         if self.mode == 'car':
             a=1.0
             b=6.0
-            self.currentLOS = a*math.pow(self.occupancy[step], b)
-    
+            self.currentLos = a*math.pow(self.occupancy[step], b)
+        elif self.mode == 'bus' or self.mode == 'train':
+            a=1.0
+            b=6.0
+            self.currentLos = a*math.pow(self.occupancy[step], b)
+
 
     def toDict(self, step):
         outputDict = {

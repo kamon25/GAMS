@@ -91,12 +91,17 @@ class TrafficCell():
 
         for destination, modes in self.pathConnectionList.items():
             for mode, pathList in modes.items():
+                
                 sumDistance = 0
                 los = 0
+                if pathList:
+                    for con in pathList:
+                        sumDistance += con.distance
+                        los += con.distance*con.currentLos
+                else:
+                    sumDistance=1
+                    los=1
 
-                for con in pathList:
-                    sumDistance += con.distance
-                    los += con.distance*con.currentLos
 
                 # calc weighted average
                 averageLos = los/float(sumDistance)

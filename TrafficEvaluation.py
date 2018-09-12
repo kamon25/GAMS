@@ -59,9 +59,18 @@ def calcAllPathsForTrafficCell(trafficCellDict):
         print("Kürzeste Wege der Gemeinde:" + str(startTrafficCell._name))
     print("End path evaluation")
 
+######################
+#
+# Methods for a smulation step
+#
+######################
+
 
 def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
     tripsPerDay = 3.4  # subsitute with Data !!!
+    evaluatorGroup = 0.2
+    if step == 0:
+        evaluatorGroup = 1.0
 
     for trafficCell in trafficCellDict.values():
         # calc demand for each populationGroup in each trafficCell
@@ -82,7 +91,7 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
             for mode, connectionParams in modes.items():
                 groupRatio = defaultdict()
                 for popGroupKey, popParams in trafficCell.populationParamsPerGroup.items():
-                    resistance = groupDict[popGroupKey].calcResistance(connectionParams['duration'], connectionParams['cost'], 1,
+                    resistance = groupDict[popGroupKey].calcResistance(connectionParams['duration'], connectionParams['cost'], connectionParams['los'],
                                                                        popParams['travelTimeBudget'],
                                                                        popParams['costBudget'], 1, tripsPerDay)  # 1 have to be reset with LoS
                     attract = trafficCellDict[destination].attractivity[purposForJourney]
@@ -92,7 +101,7 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
                 modeRatio[mode] = groupRatio
             ratioAttractivityResistance[destination] = modeRatio
 
-        # calcGroupPart for purpose destination mode
+        # calcGroupPart for purpose, destination and mode
         groupPartDesMode = defaultdict()  # {destination:{mode:{group: trips}}}
         # add sums for modes {destination:{mode: trips}}
         desModeTrips = defaultdict()
@@ -104,8 +113,10 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
                 groupPartDemand = defaultdict()
                 sumTripsPerMode = 0
                 for group, ratio in groups.items():
-                    groupPartDemand[group] = (
-                        ratio/sumRatio[group])*trafficDemandPerGroup[group]
+                    if evaluatorGroup == 1.0:
+                        groupPartDemand[group] = (ratio/sumRatio[group])*trafficDemandPerGroup[group]
+                    else:
+                        groupPartDemand[group] = (ratio/sumRatio[group])*trafficDemandPerGroup[group]*evaluatorGroup + (1-evaluatorGroup) * trafficCell.purposeSestinationModeGroup[purposForJourney][destination][mode][group]
                     sumTripsPerMode += groupPartDemand[group]
                 modeGroupPart[mode] = groupPartDemand
                 modeTrips[mode] = sumTripsPerMode
@@ -120,13 +131,31 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
         trafficCell.purposeDestinationMode[purposForJourney] = desModeTrips
 
 
+def updateConnectionParamsAll(trafficCellDict):
+    for trafficCell in trafficCellDict.values():
+        trafficCell.updateConnectionParams()
+
+######################
+#
+# Simulation one step
+#
+######################
+
+
 def calcSimulationStep(trafficCellDict, groupDict, step):
 
     choseDestinationAndMode(trafficCellDict, groupDict, 'work', step)
+    updateConnectionParamsAll(trafficCellDict)
+
+######################
+#
+# Simulation all steps
+#
+######################
 
 
 def runSimulation(trafficCellDict, groupDict, years):
-    stepsPerYear = 6
+    stepsPerYear = 20
     listOfFiles = []
     steps = years*stepsPerYear
 

@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+import numpy as np
 from collections import defaultdict
 
 from Population.PopulationGroup import PopulationGroup
@@ -71,3 +73,8 @@ for tC in trafficCellDict.values():
 resultDict = runSimulation(trafficCellDict, groupDict, 2)
 # Write Connections
 connectionsToJson(trafficCellDict, 0)
+
+#############
+plt.plot(trafficCellDict['61059'].pathConnectionList['60101']['car'][1].occupancy)
+plt.ylabel('Auslastung')
+plt.savefig('Pic/occupy.png')

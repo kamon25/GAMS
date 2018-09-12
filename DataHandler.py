@@ -7,6 +7,7 @@ import json
 from networkx.readwrite import json_graph
 import pickle
 import os
+import datetime
 
 # Filepaths Data
 pathTrafficCellsCSV = './Data/Gemeinde_Liste_V1.csv'
@@ -425,11 +426,14 @@ def resultPerStepInFolders(stepResultDic, step):
 
 def creatSimConfigFile(simID, listOfFiles, steps):
     outpath = pathSimResultPerStepinFolder + "/simConfig.json"
+    startTimeObject=datetime.date(2018,9,12)
+    endTimeObject=startTimeObject+datetime.timedelta(days=steps)
+
 
     simulationID = ('simulationID', simID)
     simulationName = ('simulationName', 'GAMS Simulation')
-    startDate = ('startDate_YYYYMMDD', '20181001')
-    endDate = ('endDate_YYYYMMDD', '2018102')
+    startDate = ('startDate_YYYYMMDD', startTimeObject.strftime('%Y%m%d'))
+    endDate = ('endDate_YYYYMMDD', endTimeObject.strftime('%Y%m%d'))
     simulationCalculationStepSize_days = (
         'simulationCalculationStepSize_days', 1)
     simulationPresentationStepSize_days = (

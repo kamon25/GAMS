@@ -35,7 +35,7 @@ class PopulationGroup():
         self._attributes = attributes #dict with attributes like {"gender":"male"}
         self._groupID = groupID #Counter from 1 to 10
         #attributes for resistance
-        self.k={'cost':0.5, 'duration':0.5, 'los':0.0}
+        self.k = {'cost':0.3, 'duration':0.3, 'los':0.3}
     
     def __str__(self):
         return str(self._attributes)
