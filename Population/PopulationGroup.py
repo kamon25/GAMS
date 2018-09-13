@@ -57,11 +57,14 @@ class PopulationGroup():
 
     def calcEvaluatorGroup(self, deltaResistance):
         G=0.4
+        U=0.1
         k=15
         f_0=0.2
 
-        evGr = G/(1+np.exp(-deltaResistance*G*k)*(G/f_0-1))
+        evGr =U + (G-U)/(1+np.exp(-deltaResistance*G*k)*(G/f_0-1))
         return evGr
+
+        
 
     ############################################
     #--- static methods

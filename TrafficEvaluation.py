@@ -68,10 +68,6 @@ def calcAllPathsForTrafficCell(trafficCellDict):
 
 def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
     tripsPerDay = 3.4  # subsitute with Data !!!
-    # part of Group wich evaluate thier traffic situation
-    evaluatorGroup = 0.2
-    if step == 0:
-        evaluatorGroup = 1.0
     #weight for exponational smoothing in resistance forecasting
     weightSmoothing=0.3
 
@@ -90,25 +86,31 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
         ratioAttractivityResistance = defaultdict()
         sumRatio = defaultdict(float)  # {popGroup: sumRatio}
         # {destination:{mode:{group: resistance}}}
-        expextedResistanceDesModeGroup= defaultdict()
+        expextedResistanceDesModeGroup = defaultdict()
+        deltaResistanceDesModeGroup = defaultdict()
 
         for destination, modes in trafficCell.connectionParams.items():
             modeRatio = defaultdict()  # {mode: {group: ratio }}
             expextedResistanceModeGroup= defaultdict()
+            deltaResistanceModeGroup=defaultdict()
             for mode, connectionParams in modes.items():
                 groupRatio = defaultdict()
                 expextedResistanceGroup= defaultdict()
+                deltaResistanceGroup=defaultdict()
                 for popGroupKey, popParams in trafficCell.populationParamsPerGroup.items():
                     #calcResistance
                     resistance = groupDict[popGroupKey].calcResistance(connectionParams['duration'], connectionParams['cost'], connectionParams['los'],
                                                                        popParams['travelTimeBudget'],
                                                                        popParams['costBudget'], 1, tripsPerDay)  # 1 have to be reset with LoS
+                    
                     #calcAttraction
                     attract = trafficCellDict[destination].attractivity[purposForJourney]
-                    #calc excpected resistance
+                    #calc excpected resistance and delta resistance
                     if step == 0 :
                         expextedResistanceGroup[popGroupKey] = resistance
+                        deltaResistanceGroup[popGroupKey] = 0
                     else:
+                        deltaResistanceGroup[popGroupKey] = resistance - trafficCell.expectedResistance[purposForJourney][destination][mode][popGroupKey]
                         expextedResistanceGroup[popGroupKey] = weightSmoothing * resistance + (1-weightSmoothing)*trafficCell.expectedResistance[purposForJourney][destination][mode][popGroupKey]
 
                     tempRatio = attract/resistance
@@ -116,8 +118,10 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
                     groupRatio[popGroupKey] = tempRatio
                 modeRatio[mode] = groupRatio
                 expextedResistanceModeGroup[mode] = expextedResistanceGroup
+                deltaResistanceModeGroup[mode] = deltaResistanceGroup
             ratioAttractivityResistance[destination] = modeRatio
             expextedResistanceDesModeGroup[destination] = expextedResistanceModeGroup
+            deltaResistanceDesModeGroup[destination] = deltaResistanceModeGroup
 
         # calcGroupPart for purpose, destination and mode
         groupPartDesMode = defaultdict()  # {destination:{mode:{group: trips}}}
@@ -134,6 +138,7 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
                     if step == 0:
                         groupPartDemand[group] = (ratio/sumRatio[group])*trafficDemandPerGroup[group]
                     else:
+                        evaluatorGroup = groupDict[group].calcEvaluatorGroup(deltaResistanceDesModeGroup[destination][mode][group])
                         groupPartDemand[group] = (ratio/sumRatio[group])*trafficDemandPerGroup[group]*evaluatorGroup + (1-evaluatorGroup) * trafficCell.purposeSestinationModeGroup[purposForJourney][destination][mode][group]
                     sumTripsPerMode += groupPartDemand[group]
                 modeGroupPart[mode] = groupPartDemand
@@ -148,6 +153,7 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
         trafficCell.purposeSestinationModeGroup[purposForJourney] = groupPartDesMode
         trafficCell.purposeDestinationMode[purposForJourney] = desModeTrips
         trafficCell.expectedResistance[purposForJourney] = expextedResistanceDesModeGroup
+        
 
 
 def updateConnectionParamsAll(trafficCellDict):
