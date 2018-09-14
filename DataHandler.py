@@ -14,6 +14,7 @@ pathTrafficCellsCSV = './Data/Gemeinde_Liste_V1.csv'
 pathPopulationAgeGroupsCSV = 'Data/STMK_01012017_AGE.csv'
 pathPopulationSexCSV = 'Data/STMK_01012017_SEX.csv'
 pathPopulationEmployment = 'Data/OGDEXT_AEST_GEMTAB_1.csv'
+pathPopulationForecast = 'Data/STMK_2015_2030_PORJ.csv'
 
 # Filepaths traffic network
 pathAutobahnNeighbour = 'Data/Nachbarschaftsliste_Autobahn.csv'
@@ -75,6 +76,7 @@ def inhabitantReaderCSV(trafficCellDict, *paramsToRead):
                             sep=';',  na_values=['NA'], dtype={"GKZ": str})
 
     # reading Agegroups is currently not in use. Ageroups are set de AttributeReaderCSV
+    
     # if ("agegroupe" in paramsToRead):
     #   df=pd.read_csv(pathPopulationAgeGroupsCSV, encoding = "ISO-8859-1", sep=';',  na_values=['NA'])
     #   dfBetrachtung=df[df["LAU_CODE"].isin(dfGemList["GKZ"])]
@@ -189,9 +191,20 @@ def AttributeReaderCSV(cellID, popGroup, paramToRead):
             dfBetrachtung.loc[cellID][employmentCorresponding[paramToRead]])}
         return employmentRate
 
+def inhabitantForecastReader(cellID):
+    df = pd.read_csv(pathPopulationForecast, encoding="ISO-8859-1", sep=';',  na_values=['NA'], dtype={'LAU_CODE': str})
+    dfBetrachtung = df.set_index('LAU_CODE')
+
+    popYear = defaultdict()
+    for dataColumNames in list(dfBetrachtung):
+        headSplit = dataColumNames.split("_")    
+        if headSplit[0] == "POP":
+            popYear[headSplit[1]] = dfBetrachtung.loc[cellID][dataColumNames]
+    
+    return popYear
+
+
 # ---read human behavior in traffic
-
-
 def behaviorReaderDummy(paramToRead, possibleAttributes):
     # --- read travel time budget
     if (paramToRead == "travelTimeBudget"):
