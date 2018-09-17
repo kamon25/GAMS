@@ -9,9 +9,11 @@ class TrafficCell():
 
     def __init__(self, name, cellID):
         self._name = name
-        self.inhabitants = int()
-        self.popPerGroup = None  # dict with {PopulationGroupKey : count}
         self.cellID = cellID
+        self.inhabitants = int()
+        self.inhabitantForecast = defaultdict() # dict {year: inhabitants}
+        self.popPerGroup = None  # dict with {PopulationGroupKey : count}
+        
 
         # dict with {PopulationGroupKey : {travelTimeBudget: int, tripRate : int, costBudget : float}}
         self.populationParamsPerGroup = None
@@ -122,3 +124,32 @@ class TrafficCell():
                 # calc weighted average
                 averageLos = los/float(sumDistance)
                 self.connectionParams[destination][mode]['los'] = averageLos
+
+    def updateInhabitants(self, year):
+        oldInhabitants = self.inhabitants
+        oldPopGroups = self.popPerGroup
+        ihForecast = self.inhabitantForecast
+
+        # calc new inhabitants
+        newInhabitants = int()
+
+        #Interpolate Inhabitants or return if out of range
+        if year in ihForecast:
+            newInhabitants = ihForecast[year]
+        elif year <  min(ihForecast):
+            return
+        elif year > max(ihForecast):
+            return
+        else:
+            forecastYears=sorted(list(ihForecast.keys()))
+            forecastInhabitants=list()
+            for y in forecastYears:
+                forecastInhabitants.append(ihForecast[y])
+
+            newInhabitants = np.interp(year,forecastYears, forecastInhabitants)
+
+        self.inhabitants = newInhabitants
+        for popGroup, count in oldPopGroups.items():
+            self.popPerGroup[popGroup] = int(count*(float(newInhabitants)/float(oldInhabitants)))
+
+            

@@ -14,7 +14,7 @@ pathTrafficCellsCSV = './Data/Gemeinde_Liste_V1.csv'
 pathPopulationAgeGroupsCSV = 'Data/STMK_01012017_AGE.csv'
 pathPopulationSexCSV = 'Data/STMK_01012017_SEX.csv'
 pathPopulationEmployment = 'Data/OGDEXT_AEST_GEMTAB_1.csv'
-pathPopulationForecast = 'Data/STMK_2015_2030_PORJ.csv'
+pathPopulationForecast = 'Data/STMK_2015_2030_PROJ.csv'
 
 # Filepaths traffic network
 pathAutobahnNeighbour = 'Data/Nachbarschaftsliste_Autobahn.csv'
@@ -22,6 +22,7 @@ pathCountryRoadNeighbour = 'Data/Nachbarschaftsliste_Standard.csv'
 pathTrainNeighbour = 'Data/Nachbarschaftsliste_Zug.csv'
 pathConnectionWeights = 'Data/weightConnections.csv'
 pathDefaultCapacity = 'Data/defaultCapacity.csv'
+pathBasicLoad = 'Data/basicLoad.csv'
 
 # Filepaths Output
 pathTrafficCellData = 'JsonOutput/trafficCellData2.json'
@@ -75,22 +76,6 @@ def inhabitantReaderCSV(trafficCellDict, *paramsToRead):
     dfGemList = pd.read_csv(pathTrafficCellsCSV, encoding="ISO-8859-1",
                             sep=';',  na_values=['NA'], dtype={"GKZ": str})
 
-    # reading Agegroups is currently not in use. Ageroups are set de AttributeReaderCSV
-    
-    # if ("agegroupe" in paramsToRead):
-    #   df=pd.read_csv(pathPopulationAgeGroupsCSV, encoding = "ISO-8859-1", sep=';',  na_values=['NA'])
-    #   dfBetrachtung=df[df["LAU_CODE"].isin(dfGemList["GKZ"])]
-
-    #   pop_0_14=dfBetrachtung.set_index('LAU_CODE')["POP_0_14"]
-    #   pop_15_59=dfBetrachtung.set_index('LAU_CODE')["POP_15_29"] + dfBetrachtung.set_index('LAU_CODE')["POP_30_44"] +dfBetrachtung.set_index('LAU_CODE')["POP_45_59"]
-    #   pop_60=dfBetrachtung.set_index('LAU_CODE')["POP_45_59"]+dfBetrachtung.set_index('LAU_CODE')["POP_60_74"] +dfBetrachtung.set_index('LAU_CODE')["POP_75"]
-
-    #   popGroupDistribution=[pop_0_14, pop_15_59, pop_60]
-
-    #   for popGroupCount in popGroupDistribution:
-    #     for GKZ, popCount in popGroupCount.to_dict().items():
-    #       trafficCellDict[GKZ]
-
     if("inhabitants" in paramsToRead):
         df = pd.read_csv(pathPopulationAgeGroupsCSV, encoding="ISO-8859-1",
                          sep=';',  na_values=['NA'], dtype={'LAU_CODE': str})
@@ -104,6 +89,20 @@ def inhabitantReaderCSV(trafficCellDict, *paramsToRead):
         for cellID, cell in trafficCellDict.items():
             # Convertation to int maybe needed
             cell.inhabitants = pop_total.to_dict()[cellID]
+            cell.inhabitantForecast=inhabitantForecastReader(cellID)
+
+
+def inhabitantForecastReader(cellID):
+    df = pd.read_csv(pathPopulationForecast, encoding="ISO-8859-1", sep=';',  na_values=['NA'], dtype={'LAU_CODE': str})
+    dfBetrachtung = df.set_index('LAU_CODE')
+
+    popYear = defaultdict()
+    for dataColumNames in list(dfBetrachtung):
+        headSplit = dataColumNames.split("_")    
+        if headSplit[0] == "POP":
+            popYear[int(headSplit[1])] = dfBetrachtung.loc[cellID][dataColumNames]
+    
+    return popYear
 
 
 def AttributeReaderCSV(cellID, popGroup, paramToRead):
@@ -190,18 +189,6 @@ def AttributeReaderCSV(cellID, popGroup, paramToRead):
         employmentRate = {"employmentRate_15_64": float(
             dfBetrachtung.loc[cellID][employmentCorresponding[paramToRead]])}
         return employmentRate
-
-def inhabitantForecastReader(cellID):
-    df = pd.read_csv(pathPopulationForecast, encoding="ISO-8859-1", sep=';',  na_values=['NA'], dtype={'LAU_CODE': str})
-    dfBetrachtung = df.set_index('LAU_CODE')
-
-    popYear = defaultdict()
-    for dataColumNames in list(dfBetrachtung):
-        headSplit = dataColumNames.split("_")    
-        if headSplit[0] == "POP":
-            popYear[headSplit[1]] = dfBetrachtung.loc[cellID][dataColumNames]
-    
-    return popYear
 
 
 # ---read human behavior in traffic
@@ -312,6 +299,20 @@ def readDefaultCapacity():
             capacity[row[0]] = float(row[1])
 
     return capacity
+
+def readBasicLoad():
+    basicLoad = defaultdict(float)
+    with open(pathBasicLoad) as f:
+        reader = csv.reader(f, delimiter=';')
+        skip = True
+        for row in reader:
+            if(skip):
+                skip = False
+                continue
+
+            basicLoad[row[0]] = float(row[1])
+
+    return basicLoad
 
 #################################
 #
@@ -437,10 +438,10 @@ def resultPerStepInFolders(stepResultDic, step):
     return filename
 
 
-def creatSimConfigFile(simID, listOfFiles, steps):
+def creatSimConfigFile(simID, listOfFiles, steps, startYear):
     outpath = pathSimResultPerStepinFolder + "/simConfig.json"
-    startTimeObject=datetime.date(2018,9,12)
-    endTimeObject=startTimeObject+datetime.timedelta(days=steps)
+    startTimeObject=datetime.date(startYear,1,1)
+    endTimeObject=startTimeObject+datetime.timedelta(days=steps*365/12)
 
 
     simulationID = ('simulationID', simID)

@@ -160,6 +160,11 @@ def updateConnectionParamsAll(trafficCellDict):
     for trafficCell in trafficCellDict.values():
         trafficCell.updateConnectionParams()
 
+
+def updateInhabitantsAll(trafficCellDict, year):
+    for trafficCell in trafficCellDict.values():
+        trafficCell.updateInhabitants(year)
+
 ######################
 #
 # Simulation one step
@@ -167,10 +172,17 @@ def updateConnectionParamsAll(trafficCellDict):
 ######################
 
 
-def calcSimulationStep(trafficCellDict, groupDict, step):
+def calcSimulationStep(trafficCellDict, groupDict, step, stepsPerYear, startYear):
 
     choseDestinationAndMode(trafficCellDict, groupDict, 'work', step)
     updateConnectionParamsAll(trafficCellDict)
+
+    #update inhabitants every year
+    if step % stepsPerYear == 0 and step != 0:
+        year = startYear + step/stepsPerYear
+        updateInhabitantsAll(trafficCellDict, year)
+
+
 
 ######################
 #
@@ -179,8 +191,8 @@ def calcSimulationStep(trafficCellDict, groupDict, step):
 ######################
 
 
-def runSimulation(trafficCellDict, groupDict, years):
-    stepsPerYear = 20
+def runSimulation(trafficCellDict, groupDict, years, startYear):
+    stepsPerYear = 12
     listOfFiles = []
     steps = years*stepsPerYear
 
@@ -189,7 +201,7 @@ def runSimulation(trafficCellDict, groupDict, years):
 
     for st in range(0, steps):
         # MAIN Calculation
-        calcSimulationStep(trafficCellDict, groupDict, st)
+        calcSimulationStep(trafficCellDict, groupDict, st, stepsPerYear, startYear)
         # write values
         startCellDict = defaultdict()
         for cellKey, cell in trafficCellDict.items():
@@ -206,6 +218,6 @@ def runSimulation(trafficCellDict, groupDict, years):
             print("year: " + str(st/stepsPerYear))
 
     # Config for visualisation
-    creatSimConfigFile('1', listOfFiles, steps)
+    creatSimConfigFile('1', listOfFiles, steps, startYear)
 
     return resultOfSimulation

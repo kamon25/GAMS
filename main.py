@@ -70,7 +70,7 @@ for tC in trafficCellDict.values():
     tC.calcConnectionParams(0.42, publicTransportCost)
 
 # Run Simulation
-resultDict = runSimulation(trafficCellDict, groupDict, 2)
+resultDict = runSimulation(trafficCellDict, groupDict, 4, 2018)
 # Write Connections
 connectionsToJson(trafficCellDict, 0)
 

@@ -2,7 +2,7 @@ import math
 
 class Connection():
 
-    def __init__(self, start_node, end_node, connectionType, distance, losData, capacity):
+    def __init__(self, start_node, end_node, connectionType, distance, losData, capacity, basicLoad):
         self.start_node = start_node
         self.end_node = end_node
         self.distance = distance
@@ -13,6 +13,7 @@ class Connection():
         self.stepLoad = []
         self.occupancy = []
         self.currentLos = 1 #default
+        self.basicLoad = basicLoad #percentage
 
         # Split connection type
         self.mode = connectionType.split("_")[0]
@@ -35,11 +36,11 @@ class Connection():
 
     def setStepLoad(self, trips, step):
         if len(self.stepLoad) > step:
-            self.stepLoad[step] += trips
+            self.stepLoad[step] += trips*(1+self.basicLoad) 
             self.occupancy[step] = self.stepLoad[step]/self.capacity
 
         else:
-            self.stepLoad.append(trips)
+            self.stepLoad.append(trips*(1+self.basicLoad))
             self.occupancy.append(trips/self.capacity)
 
         self.calcLos(step)
