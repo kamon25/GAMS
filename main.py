@@ -77,9 +77,17 @@ connectionsToJson(trafficCellDict, 0)
 
 
 #############
-plt.plot(trafficCellDict['61059'].pathConnectionList['60101']['car'][1].occupancy)
+plt.figure(1)
+plt.plot(trafficCellDict['61059'].pathConnectionList['60101']['car'][0].occupancy)
+plt.plot(trafficCellDict['61059'].pathConnectionList['60101']['publicTransport'][0].occupancy)
 plt.ylabel('Auslastung')
 plt.savefig('Pic/occupy.png')
+
+plt.figure(2)
+plt.plot(trafficCellDict['61059'].pathConnectionList['60101']['car'][0].stepLoad)
+plt.plot(trafficCellDict['61059'].pathConnectionList['60101']['publicTransport'][0].stepLoad)
+plt.ylabel('trips')
+plt.savefig('Pic/trips.png')
 ###########
 
 print(trafficCellDict['60101'].expectedResistance['work']['61059']['car']['popGroup1'])

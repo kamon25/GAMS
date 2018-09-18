@@ -22,10 +22,14 @@ class PopulationGroup():
     #--- static attributes
     ######################
     possibleAttributes={"gender":["male", "female"],
-                        "agegroup":[(0,14), (15,59), (60,100)], 
-                        "employment":["employed", "unemployed"]}
-    impossibleCombinations=[((0,14),"employed"), 
-                            ((60,100),"employed")]
+                        "agegroup":[(0,14), (15,17), (18,64), (65,100)], 
+                        "employment":["employed", "unemployed"],
+                        "carAviable":['aviable', 'notAviable']}
+    impossibleCombinations=[((0,14),"employed"),
+                            ((15,17),"employed"), 
+                            ((65,100),"employed"),
+                            ((0,14), 'aviable'),
+                            ((15,17), 'aviable')]
     groupDict=defaultdict()
 
     
@@ -42,7 +46,10 @@ class PopulationGroup():
     def __str__(self):
         return str(self._attributes)
 
-    def calcResistance(self, duration, cost, los, travelTimeBudget, costBudget, expectationLos, tripsPerDay):
+    def calcResistance(self, duration, cost, los, travelTimeBudget, costBudget, expectationLos, tripsPerDay, mode):
+        if mode == 'car' and self._attributes['carAviable']!='aviable':
+            return -1.0
+        
         #calc duration resistance
         travelTimeBudgetPerTrip = travelTimeBudget/tripsPerDay
         resistanceDuration= math.exp((duration/travelTimeBudgetPerTrip)-1)
@@ -95,24 +102,33 @@ class PopulationGroup():
         #--- sample attributes for each inhabitant  ######## slow part
         time.clock()
         sampledInhabitants = []
-        for i in range(0, trafficCell.inhabitants):
+        #set count of necessary samples
+        samplecount = int(sum(attributesWithValues["agegroup"].values()))
+        #calc correction for cars per inhabitant
+        potantialCarUser = 0
+        for group in PopulationGroup.groupDict.values():
+            if group._attributes['carAviable'] ==  PopulationGroup.possibleAttributes['carAviable'][0]:
+                potantialCarUser += attributesWithValues["agegroup"][group._attributes['agegroup']]
+
+        for i in range(0, samplecount):
             #-- generate new instance of inhabitant
-            #c1=time.clock()
             tempInhab= Inhabitant()
             #print(time.clock() - c1)
             #-- set agegroupe
                 #print( attributesWithValues["agegroup"])
-            #c1=time.clock()
+            
             tempInhab.setAgegroupe(i,trafficCell.inhabitants,  attributesWithValues["agegroup"], "agegroup")
             #print(time.clock() - c1)
             #-- set gender
-            #c1=time.clock()
+            
             tempInhab.setGender(i,trafficCell.inhabitants,  attributesWithValues["gender"], "gender")
             #print(time.clock() - c1)
             #-- set employment
             #c1=time.clock()
             tempInhab.setEmployment(i, attributesWithValues["employment"]["employmentRate_15_64"], PopulationGroup.groupDict, "employment" , "agegroup")
             #print(time.clock() - c1)
+
+            tempInhab.setCarAviable(i, attributesWithValues['carAviable'], trafficCell.inhabitants, potantialCarUser, PopulationGroup.groupDict, 'carAviable', 'agegroup')
 
             ##-- set traffic relevant attributes
             #-- set travel time budget
@@ -201,13 +217,16 @@ class PopulationGroup():
             poplist = [(*pop, attribute) for pop in poplist for attribute in arg]       
         
         #remove combinations, witch are listed in impossibleCombinations
+        tempSet = set()
         for group in poplist:
             for att1,att2 in impossibleCombinations:
                 if (att1 in group) and (att2 in group):                    
-                    poplist.remove(group)
+                    tempSet.add(group)
 
-        #genarate a list of objects for the groups
-        
+        poplist = [gr for gr in poplist if gr not in tempSet]
+
+
+        #genarate a list of objects for the groups        
         for idx, group in enumerate(poplist): #enumerate to generate a idividual ID
             print(dict(zip(attributeNameList,group)))
             keystring='popGroup' + str(idx)

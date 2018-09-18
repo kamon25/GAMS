@@ -14,6 +14,7 @@ pathTrafficCellsCSV = './Data/Gemeinde_Liste_V1.csv'
 pathPopulationAgeGroupsCSV = 'Data/STMK_01012017_AGE.csv'
 pathPopulationSexCSV = 'Data/STMK_01012017_SEX.csv'
 pathPopulationEmployment = 'Data/OGDEXT_AEST_GEMTAB_1.csv'
+pathPopulationCar = 'Data/carDensity.csv'
 pathPopulationForecast = 'Data/STMK_2015_2030_PROJ.csv'
 
 # Filepaths traffic network
@@ -189,6 +190,16 @@ def AttributeReaderCSV(cellID, popGroup, paramToRead):
         employmentRate = {"employmentRate_15_64": float(
             dfBetrachtung.loc[cellID][employmentCorresponding[paramToRead]])}
         return employmentRate
+    
+    # ---read car density
+    if paramToRead is "carAviable":
+        df = pd.read_csv(pathPopulationCar, sep=';',
+                         na_values=['NA'], decimal='.', dtype={'GKZ': str})
+        dfBetrachtung = df.set_index('GKZ')
+        carCorresponding = {"carAviable": "PKW-Dichte"}
+
+        carDensity =  float(dfBetrachtung.loc[cellID][carCorresponding[paramToRead]])
+        return carDensity
 
 
 # ---read human behavior in traffic
