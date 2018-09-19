@@ -48,7 +48,7 @@ class TrafficCell():
         tempDict = {'name': self._name, 'inhabitants': self.inhabitants}
         return tempDict
 
-    def toDictWithPopGroupe(self):
+    def toDictWithPopGroup(self):
         popGroupDict = defaultdict()
 
         for groupKey, count in self.popPerGroup.items():
@@ -62,27 +62,28 @@ class TrafficCell():
         return tempDict
 
     def calcConnectionParams(self, carCostKm, ptCostZone):
-        distanceInZone =1
+        distanceInZone =2
+        speedInZoneCar = 20
+        speedInZonePT = 20
 
-        for destination, modes in self.shortestPaths.items():
+        for destination, modes in self.pathConnectionList.items():
             modeParams = defaultdict()
 
             for mode, path in modes.items():
                 # calc attributes from distance and zones
-                copypath = path.copy()
-                copypath.pop()   
+                copypath = path.copy() 
                 if copypath:     
                     distance =0
                     time = 0
                     cost = 0
                     zoneCounter = 0
                     los = 1
-                    for _, connection, dis in copypath:
-                        distance += dis
+                    for connection in copypath:
+                        distance += connection.distance
                         # check Time calculation
-                        time += dis*ConInfra.costModes[connection]
-                        if connection.split('_')[0] == 'car':
-                            cost += dis*carCostKm
+                        time += connection.distance/connection.averageSpeedZero
+                        if connection.mode== 'car':
+                            cost += connection.distance*carCostKm
                             zoneCounter = 0
                         else:
                             cost += ptCostZone[zoneCounter]
@@ -92,11 +93,11 @@ class TrafficCell():
                     zoneCounter=0
                     distance=distanceInZone
                     if mode == 'car':
-                        time = distance*ConInfra.costModes['car_countryroad']
+                        time = distance/speedInZoneCar
                         cost = distance*carCostKm
                         
                     elif mode == 'publicTransport':
-                        time = distance*ConInfra.costModes['publicTransport_bus']
+                        time = distance/speedInZonePT
                         cost = ptCostZone[zoneCounter]    
 
                 params = {'duration': time, 'cost': cost,

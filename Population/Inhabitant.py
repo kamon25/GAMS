@@ -85,7 +85,7 @@ class Inhabitant():
             #print("self" + str(self.attributes[agegroupKey] ))
 
         if employmentPossible:
-            randomnumberEmployment = np.random.random()
+            randomnumberEmployment = np.random.uniform()
             if randomnumberEmployment <= employmentRate/100.0:
                 self.attributes[employmentKey] = "employed"
             else:
@@ -103,7 +103,7 @@ class Inhabitant():
         
         if carPossible:
             carProbability = (carDensity/1000.0)*trafficcellInhabitants/potentialCarUsers
-            randomnumberCar = np.random.random()
+            randomnumberCar = np.random.uniform()
             if randomnumberCar <= carProbability:
                 self.attributes[carKey]='aviable'
             else:
@@ -114,7 +114,7 @@ class Inhabitant():
 
     def setTravelTimeBudget(self, i, timeBudgetAgegroups):
         self.travelTimeBudget = np.random.triangular(
-            *timeBudgetAgegroups[self.attributes["agegroup"]])
+            *timeBudgetAgegroups[self.attributes["agegroup"]]) / 60 # 60 min -> h
 
     def setTripRate(self, i, tripRateAgegroups):
         self.tripRate = np.random.triangular(

@@ -102,7 +102,7 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
                     resistance = groupDict[popGroupKey].calcResistance(connectionParams['duration'], connectionParams['cost'], connectionParams['los'],
                                                                        popParams['travelTimeBudget'],
                                                                        popParams['costBudget'], 1, tripsPerDay, mode)  # 1 have to be reset with LoS
-                    if resistance == -1.0:
+                    if resistance == - 1.0:
                         continue
                     #calcAttraction
                     attract = trafficCellDict[destination].attractivity[purposForJourney]

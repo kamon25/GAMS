@@ -1,1028 +1,1142 @@
 [
     {
-        "source": "61021",
-        "target": "61053",
-        "infra": "publicTransport_train",
-        "weight": 7.2,
-        "stepLoad": 48216.649347915816,
-        "occupancy": 48.21664934791582,
-        "capacity": 1000.0
-    },
-    {
-        "source": "61045",
-        "target": "61053",
-        "infra": "car_countryroad",
-        "weight": 3.0,
-        "stepLoad": 2944.7421919698936,
-        "occupancy": 1.9631614613132624,
-        "capacity": 1500.0
-    },
-    {
-        "source": "60669",
-        "target": "60670",
-        "infra": "car_countryroad",
-        "weight": 5.0,
-        "stepLoad": 2899.1842677528566,
-        "occupancy": 1.9327895118352378,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61008",
-        "target": "61027",
+        "source": "60101",
+        "target": "60608",
         "infra": "publicTransport_bus",
         "weight": 9.1,
-        "stepLoad": 4356.39992208364,
-        "occupancy": 29.04266614722427,
-        "capacity": 150.0
+        "stepLoad": 25048.847582306244,
+        "occupancy": 25.048847582306244,
+        "capacity": 150.0,
+        "currentLos": 273.3087369877864
     },
     {
-        "source": "61016",
-        "target": "61050",
-        "infra": "car_countryroad",
-        "weight": 11.0,
-        "stepLoad": 20.774986141667107,
-        "occupancy": 0.013849990761111404,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61049",
-        "target": "61050",
-        "infra": "publicTransport_bus",
-        "weight": 2.6,
-        "stepLoad": 7168.262997068238,
-        "occupancy": 47.788419980454925,
-        "capacity": 150.0
-    },
-    {
-        "source": "61053",
-        "target": "61049",
+        "source": "60101",
+        "target": "60608",
         "infra": "publicTransport_train",
-        "weight": 6.4,
-        "stepLoad": 21526.370889078607,
-        "occupancy": 21.526370889078606,
-        "capacity": 1000.0
+        "weight": 4.800000000000001,
+        "stepLoad": 80106.84033214004,
+        "occupancy": 12.016026049821006,
+        "capacity": 1000.0,
+        "currentLos": 58.27246599830699
     },
     {
-        "source": "61012",
-        "target": "61043",
+        "source": "60624",
+        "target": "60662",
         "infra": "publicTransport_bus",
-        "weight": 5.2,
-        "stepLoad": 197.8959476751985,
-        "occupancy": 1.3193063178346567,
-        "capacity": 150.0
+        "weight": 3.9000000000000004,
+        "stepLoad": 12954.457013766978,
+        "occupancy": 12.954457013766978,
+        "capacity": 150.0,
+        "currentLos": 72.45670152157203
+    },
+    {
+        "source": "60608",
+        "target": "60669",
+        "infra": "car_countryroad",
+        "weight": 3.0,
+        "stepLoad": 1622.0740126728747,
+        "occupancy": 0.16220740126728747,
+        "capacity": 1500.0,
+        "currentLos": 0.8563642818474855
+    },
+    {
+        "source": "60101",
+        "target": "60669",
+        "infra": "publicTransport_bus",
+        "weight": 10.4,
+        "stepLoad": 45980.30000373946,
+        "occupancy": 45.98030000373946,
+        "capacity": 150.0,
+        "currentLos": 226.1372226737881
     },
     {
         "source": "60662",
         "target": "61001",
         "infra": "car_countryroad",
         "weight": 8.0,
-        "stepLoad": 986.6535701835256,
-        "occupancy": 0.657769046789017,
-        "capacity": 1500.0
+        "stepLoad": 3662.538721081177,
+        "occupancy": 0.3662538721081177,
+        "capacity": 1500.0,
+        "currentLos": 0.9911311566692409
     },
     {
-        "source": "60656",
-        "target": "60660",
-        "infra": "publicTransport_bus",
-        "weight": 5.2,
-        "stepLoad": 2846.8126721144567,
-        "occupancy": 18.978751147429712,
-        "capacity": 150.0
-    },
-    {
-        "source": "61027",
-        "target": "61055",
-        "infra": "publicTransport_bus",
-        "weight": 5.2,
-        "stepLoad": 4457.043437863496,
-        "occupancy": 29.713622919089975,
-        "capacity": 150.0
-    },
-    {
-        "source": "61049",
-        "target": "61050",
-        "infra": "car_countryroad",
-        "weight": 2.0,
-        "stepLoad": 772.7267208711327,
-        "occupancy": 0.5151511472474217,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61049",
-        "target": "61058",
-        "infra": "publicTransport_train",
-        "weight": 3.2,
-        "stepLoad": 10078.154259695473,
-        "occupancy": 10.078154259695474,
-        "capacity": 1000.0
-    },
-    {
-        "source": "60655",
-        "target": "61059",
-        "infra": "publicTransport_bus",
-        "weight": 9.1,
-        "stepLoad": 26006.75142559341,
-        "occupancy": 173.3783428372894,
-        "capacity": 150.0
-    },
-    {
-        "source": "61012",
-        "target": "61053",
+        "source": "60624",
+        "target": "60662",
         "infra": "car_countryroad",
         "weight": 3.0,
-        "stepLoad": 2540.1899190575073,
-        "occupancy": 1.6934599460383382,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61058",
-        "target": "62347",
-        "infra": "car_countryroad",
-        "weight": 4.0,
-        "stepLoad": 460.08758795360967,
-        "occupancy": 0.3067250586357398,
-        "capacity": 1500.0
-    },
-    {
-        "source": "60656",
-        "target": "60660",
-        "infra": "car_countryroad",
-        "weight": 4.0,
-        "stepLoad": 470.2046232452428,
-        "occupancy": 0.3134697488301618,
-        "capacity": 1500.0
-    },
-    {
-        "source": "60101",
-        "target": "60669",
-        "infra": "car_autobahn",
-        "weight": 4.92,
-        "stepLoad": 14574.923140094801,
-        "occupancy": 3.6437307850237004,
-        "capacity": 4000.0
-    },
-    {
-        "source": "60660",
-        "target": "60670",
-        "infra": "publicTransport_bus",
-        "weight": 9.1,
-        "stepLoad": 6718.212567373788,
-        "occupancy": 44.788083782491924,
-        "capacity": 150.0
-    },
-    {
-        "source": "60660",
-        "target": "60670",
-        "infra": "car_countryroad",
-        "weight": 7.0,
-        "stepLoad": 910.9096521896588,
-        "occupancy": 0.6072731014597725,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61021",
-        "target": "61043",
-        "infra": "car_countryroad",
-        "weight": 6.0,
-        "stepLoad": 1299.931961424055,
-        "occupancy": 0.8666213076160367,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61017",
-        "target": "61059",
-        "infra": "publicTransport_bus",
-        "weight": 9.1,
-        "stepLoad": 2516.075201298071,
-        "occupancy": 16.773834675320472,
-        "capacity": 150.0
-    },
-    {
-        "source": "61012",
-        "target": "61021",
-        "infra": "car_countryroad",
-        "weight": 5.0,
-        "stepLoad": 3084.4406140640326,
-        "occupancy": 2.056293742709355,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61021",
-        "target": "61059",
-        "infra": "car_countryroad",
-        "weight": 4.0,
-        "stepLoad": 4994.3124964314275,
-        "occupancy": 3.329541664287618,
-        "capacity": 1500.0
-    },
-    {
-        "source": "60669",
-        "target": "60624",
-        "infra": "car_autobahn",
-        "weight": 5.535,
-        "stepLoad": 9918.214987303792,
-        "occupancy": 2.4795537468259483,
-        "capacity": 4000.0
-    },
-    {
-        "source": "61045",
-        "target": "61049",
-        "infra": "car_countryroad",
-        "weight": 7.0,
-        "stepLoad": 1212.9716281775436,
-        "occupancy": 0.8086477521183624,
-        "capacity": 1500.0
-    },
-    {
-        "source": "60656",
-        "target": "60670",
-        "infra": "car_countryroad",
-        "weight": 6.0,
-        "stepLoad": 316.9919073267451,
-        "occupancy": 0.21132793821783005,
-        "capacity": 1500.0
-    },
-    {
-        "source": "60655",
-        "target": "60656",
-        "infra": "publicTransport_bus",
-        "weight": 3.9000000000000004,
-        "stepLoad": 5847.6700649541035,
-        "occupancy": 38.98446709969402,
-        "capacity": 150.0
-    },
-    {
-        "source": "61017",
-        "target": "61020",
-        "infra": "car_countryroad",
-        "weight": 8.0,
-        "stepLoad": 39.81684981098025,
-        "occupancy": 0.0265445665406535,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61016",
-        "target": "61043",
-        "infra": "car_countryroad",
-        "weight": 8.0,
-        "stepLoad": 458.0851329581091,
-        "occupancy": 0.3053900886387394,
-        "capacity": 1500.0
-    },
-    {
-        "source": "60629",
-        "target": "60660",
-        "infra": "publicTransport_bus",
-        "weight": 9.1,
-        "stepLoad": 1572.5141453284014,
-        "occupancy": 10.483427635522675,
-        "capacity": 150.0
-    },
-    {
-        "source": "61016",
-        "target": "61050",
-        "infra": "publicTransport_bus",
-        "weight": 14.3,
-        "stepLoad": 243.2209655002199,
-        "occupancy": 1.6214731033347993,
-        "capacity": 150.0
-    },
-    {
-        "source": "61049",
-        "target": "61058",
-        "infra": "publicTransport_bus",
-        "weight": 6.5,
-        "stepLoad": 185.8399889602259,
-        "occupancy": 1.2389332597348393,
-        "capacity": 150.0
-    },
-    {
-        "source": "60669",
-        "target": "60670",
-        "infra": "publicTransport_bus",
-        "weight": 6.5,
-        "stepLoad": 23982.626034084606,
-        "occupancy": 159.88417356056405,
-        "capacity": 150.0
-    },
-    {
-        "source": "60624",
-        "target": "60656",
-        "infra": "car_autobahn",
-        "weight": 3.69,
-        "stepLoad": 7940.139888124941,
-        "occupancy": 1.9850349720312352,
-        "capacity": 4000.0
-    },
-    {
-        "source": "61021",
-        "target": "61043",
-        "infra": "publicTransport_bus",
-        "weight": 7.800000000000001,
-        "stepLoad": 9314.8844594487,
-        "occupancy": 62.099229729658,
-        "capacity": 150.0
-    },
-    {
-        "source": "60655",
-        "target": "61059",
-        "infra": "car_countryroad",
-        "weight": 7.0,
-        "stepLoad": 4941.397006955027,
-        "occupancy": 3.294264671303351,
-        "capacity": 1500.0
-    },
-    {
-        "source": "60608",
-        "target": "60624",
-        "infra": "publicTransport_bus",
-        "weight": 6.5,
-        "stepLoad": 38289.62010420687,
-        "occupancy": 255.26413402804582,
-        "capacity": 150.0
-    },
-    {
-        "source": "61020",
-        "target": "61043",
-        "infra": "car_countryroad",
-        "weight": 4.0,
-        "stepLoad": 88.42532630175337,
-        "occupancy": 0.05895021753450225,
-        "capacity": 1500.0
-    },
-    {
-        "source": "60101",
-        "target": "60611",
-        "infra": "car_countryroad",
-        "weight": 10.0,
-        "stepLoad": 1283.2318651694586,
-        "occupancy": 0.8554879101129724,
-        "capacity": 1500.0
-    },
-    {
-        "source": "60624",
-        "target": "60656",
-        "infra": "publicTransport_bus",
-        "weight": 6.5,
-        "stepLoad": 4473.400852998547,
-        "occupancy": 29.822672353323643,
-        "capacity": 150.0
-    },
-    {
-        "source": "60655",
-        "target": "61001",
-        "infra": "car_countryroad",
-        "weight": 11.0,
-        "stepLoad": 5.241197659059555,
-        "occupancy": 0.00349413177270637,
-        "capacity": 1500.0
-    },
-    {
-        "source": "60656",
-        "target": "61059",
-        "infra": "car_autobahn",
-        "weight": 3.69,
-        "stepLoad": 8199.14737161333,
-        "occupancy": 2.0497868429033326,
-        "capacity": 4000.0
-    },
-    {
-        "source": "61001",
-        "target": "61059",
-        "infra": "car_countryroad",
-        "weight": 2.0,
-        "stepLoad": 325.7086845572159,
-        "occupancy": 0.21713912303814395,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61012",
-        "target": "61027",
-        "infra": "publicTransport_bus",
-        "weight": 5.2,
-        "stepLoad": 512.6301162511746,
-        "occupancy": 3.4175341083411643,
-        "capacity": 150.0
-    },
-    {
-        "source": "60624",
-        "target": "60670",
-        "infra": "publicTransport_bus",
-        "weight": 7.800000000000001,
-        "stepLoad": 1512.676789041706,
-        "occupancy": 10.084511926944707,
-        "capacity": 150.0
-    },
-    {
-        "source": "61058",
-        "target": "62347",
-        "infra": "publicTransport_bus",
-        "weight": 5.2,
-        "stepLoad": 2959.063136508807,
-        "occupancy": 19.72708757672538,
-        "capacity": 150.0
-    },
-    {
-        "source": "61017",
-        "target": "61020",
-        "infra": "publicTransport_bus",
-        "weight": 10.4,
-        "stepLoad": 243.02680009025997,
-        "occupancy": 1.6201786672683998,
-        "capacity": 150.0
-    },
-    {
-        "source": "61059",
-        "target": "61021",
-        "infra": "car_autobahn",
-        "weight": 3.69,
-        "stepLoad": 6915.672657410252,
-        "occupancy": 1.728918164352563,
-        "capacity": 4000.0
-    },
-    {
-        "source": "60655",
-        "target": "60656",
-        "infra": "car_countryroad",
-        "weight": 3.0,
-        "stepLoad": 65.4329550586155,
-        "occupancy": 0.043621970039077,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61001",
-        "target": "61055",
-        "infra": "publicTransport_bus",
-        "weight": 7.800000000000001,
-        "stepLoad": 6592.815484880654,
-        "occupancy": 43.952103232537695,
-        "capacity": 150.0
-    },
-    {
-        "source": "61021",
-        "target": "61027",
-        "infra": "publicTransport_bus",
-        "weight": 7.800000000000001,
-        "stepLoad": 2899.2563528238848,
-        "occupancy": 19.328375685492563,
-        "capacity": 150.0
-    },
-    {
-        "source": "60608",
-        "target": "60669",
-        "infra": "publicTransport_bus",
-        "weight": 3.9000000000000004,
-        "stepLoad": 6308.205115823026,
-        "occupancy": 42.05470077215351,
-        "capacity": 150.0
-    },
-    {
-        "source": "61016",
-        "target": "61043",
-        "infra": "publicTransport_bus",
-        "weight": 10.4,
-        "stepLoad": 3470.087028374282,
-        "occupancy": 23.133913522495213,
-        "capacity": 150.0
-    },
-    {
-        "source": "60629",
-        "target": "60660",
-        "infra": "car_countryroad",
-        "weight": 7.0,
-        "stepLoad": 251.62457321567945,
-        "occupancy": 0.16774971547711964,
-        "capacity": 1500.0
+        "stepLoad": 6135.45865775375,
+        "occupancy": 0.613545865775375,
+        "capacity": 1500.0,
+        "currentLos": 1.3901055828186741
     },
     {
         "source": "61055",
         "target": "61059",
-        "infra": "car_countryroad",
-        "weight": 8.0,
-        "stepLoad": 23.858291365799275,
-        "occupancy": 0.015905527577199517,
-        "capacity": 1500.0
-    },
-    {
-        "source": "60624",
-        "target": "60662",
-        "infra": "publicTransport_bus",
-        "weight": 3.9000000000000004,
-        "stepLoad": 18137.314506141953,
-        "occupancy": 120.91543004094635,
-        "capacity": 150.0
-    },
-    {
-        "source": "61021",
-        "target": "61027",
-        "infra": "car_countryroad",
-        "weight": 6.0,
-        "stepLoad": 677.0985448555273,
-        "occupancy": 0.45139902990368486,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61045",
-        "target": "61049",
-        "infra": "publicTransport_bus",
-        "weight": 9.1,
-        "stepLoad": 339.86062494290644,
-        "occupancy": 2.265737499619376,
-        "capacity": 150.0
-    },
-    {
-        "source": "61008",
-        "target": "61045",
-        "infra": "publicTransport_bus",
-        "weight": 3.9000000000000004,
-        "stepLoad": 1852.3451642093225,
-        "occupancy": 12.348967761395484,
-        "capacity": 150.0
-    },
-    {
-        "source": "60624",
-        "target": "60670",
-        "infra": "car_countryroad",
-        "weight": 6.0,
-        "stepLoad": 374.5935424681187,
-        "occupancy": 0.24972902831207913,
-        "capacity": 1500.0
-    },
-    {
-        "source": "60662",
-        "target": "61001",
         "infra": "publicTransport_bus",
         "weight": 10.4,
-        "stepLoad": 9390.916772755614,
-        "occupancy": 62.60611181837076,
-        "capacity": 150.0
+        "stepLoad": 107.05304701677616,
+        "occupancy": 0.10705304701677616,
+        "capacity": 150.0,
+        "currentLos": 0.7010621409048461
     },
     {
-        "source": "61043",
-        "target": "61053",
-        "infra": "car_countryroad",
-        "weight": 6.0,
-        "stepLoad": 181.15217425591095,
-        "occupancy": 0.1207681161706073,
-        "capacity": 1500.0
-    },
-    {
-        "source": "60618",
-        "target": "60669",
+        "source": "61049",
+        "target": "61050",
         "infra": "publicTransport_bus",
-        "weight": 7.800000000000001,
-        "stepLoad": 13903.925259690075,
-        "occupancy": 92.6928350646005,
-        "capacity": 150.0
+        "weight": 2.6,
+        "stepLoad": 5888.1385138050655,
+        "occupancy": 5.888138513805066,
+        "capacity": 150.0,
+        "currentLos": 95.44370736276983
     },
     {
-        "source": "61001",
-        "target": "61055",
-        "infra": "car_countryroad",
-        "weight": 6.0,
-        "stepLoad": 380.93819758955675,
-        "occupancy": 0.2539587983930378,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61008",
+        "source": "61012",
         "target": "61027",
         "infra": "car_countryroad",
-        "weight": 7.0,
-        "stepLoad": 367.853695995324,
-        "occupancy": 0.245235797330216,
-        "capacity": 1500.0
+        "weight": 4.0,
+        "stepLoad": 175.44419032543416,
+        "occupancy": 0.017544419032543418,
+        "capacity": 1500.0,
+        "currentLos": 0.30842742995010675
     },
     {
         "source": "60618",
         "target": "60629",
-        "infra": "publicTransport_bus",
-        "weight": 2.6,
-        "stepLoad": 11579.352413548988,
-        "occupancy": 77.19568275699325,
-        "capacity": 150.0
+        "infra": "car_countryroad",
+        "weight": 2.0,
+        "stepLoad": 5358.698084625555,
+        "occupancy": 0.5358698084625554,
+        "capacity": 1500.0,
+        "currentLos": 1.4712885194422942
     },
     {
-        "source": "61053",
-        "target": "61058",
-        "infra": "car_autobahn",
-        "weight": 6.765,
-        "stepLoad": 1799.9331838822097,
-        "occupancy": 0.4499832959705524,
-        "capacity": 4000.0
+        "source": "61058",
+        "target": "62347",
+        "infra": "car_countryroad",
+        "weight": 4.0,
+        "stepLoad": 1563.6996527260453,
+        "occupancy": 0.15636996527260452,
+        "capacity": 1500.0,
+        "currentLos": 0.4239458605322162
     },
     {
-        "source": "60624",
-        "target": "60662",
+        "source": "61012",
+        "target": "61053",
         "infra": "car_countryroad",
         "weight": 3.0,
-        "stepLoad": 1814.8775753175792,
-        "occupancy": 1.2099183835450529,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61043",
-        "target": "61053",
-        "infra": "publicTransport_bus",
-        "weight": 7.800000000000001,
-        "stepLoad": 1156.473122464197,
-        "occupancy": 7.709820816427981,
-        "capacity": 150.0
-    },
-    {
-        "source": "60608",
-        "target": "60624",
-        "infra": "publicTransport_train",
-        "weight": 4.800000000000001,
-        "stepLoad": 88137.83515704273,
-        "occupancy": 88.13783515704273,
-        "capacity": 1000.0
+        "stepLoad": 9139.6500579879,
+        "occupancy": 0.9139650057987899,
+        "capacity": 1500.0,
+        "currentLos": 2.515020285228822
     },
     {
         "source": "60101",
         "target": "60611",
         "infra": "publicTransport_bus",
         "weight": 13.0,
-        "stepLoad": 8176.894658568681,
-        "occupancy": 54.51263105712454,
-        "capacity": 150.0
+        "stepLoad": 5859.753491042695,
+        "occupancy": 5.859753491042695,
+        "capacity": 150.0,
+        "currentLos": 15.422317500795053
     },
     {
-        "source": "60611",
-        "target": "60662",
+        "source": "60618",
+        "target": "60669",
         "infra": "publicTransport_bus",
         "weight": 7.800000000000001,
-        "stepLoad": 1662.2941998813906,
-        "occupancy": 11.081961332542603,
-        "capacity": 150.0
+        "stepLoad": 10295.416685621814,
+        "occupancy": 10.295416685621815,
+        "capacity": 150.0,
+        "currentLos": 10.208773346692627
     },
     {
-        "source": "61016",
-        "target": "61053",
+        "source": "61058",
+        "target": "62347",
         "infra": "publicTransport_bus",
-        "weight": 11.700000000000001,
-        "stepLoad": 346.1409540600705,
-        "occupancy": 2.30760636040047,
-        "capacity": 150.0
-    },
-    {
-        "source": "61045",
-        "target": "61053",
-        "infra": "publicTransport_bus",
-        "weight": 3.9000000000000004,
-        "stepLoad": 12597.376162287866,
-        "occupancy": 83.98250774858577,
-        "capacity": 150.0
+        "weight": 5.2,
+        "stepLoad": 2147.375316037098,
+        "occupancy": 2.147375316037098,
+        "capacity": 150.0,
+        "currentLos": 1.7531750634712773
     },
     {
         "source": "60624",
         "target": "60656",
-        "infra": "car_countryroad",
-        "weight": 5.0,
-        "stepLoad": 74.85126661451129,
-        "occupancy": 0.04990084440967419,
-        "capacity": 1500.0
-    },
-    {
-        "source": "60624",
-        "target": "60655",
-        "infra": "publicTransport_train",
-        "weight": 4.0,
-        "stepLoad": 70533.12496164715,
-        "occupancy": 70.53312496164715,
-        "capacity": 1000.0
-    },
-    {
-        "source": "60608",
-        "target": "60611",
         "infra": "publicTransport_bus",
-        "weight": 10.4,
-        "stepLoad": 609.2930886858608,
-        "occupancy": 4.061953924572405,
-        "capacity": 150.0
+        "weight": 6.5,
+        "stepLoad": 3272.2402893272742,
+        "occupancy": 3.272240289327274,
+        "capacity": 150.0,
+        "currentLos": 2.0540666871549096
     },
     {
-        "source": "60624",
-        "target": "60655",
-        "infra": "car_countryroad",
-        "weight": 4.0,
-        "stepLoad": 5628.14293590359,
-        "occupancy": 3.7520952906023934,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61008",
-        "target": "61045",
-        "infra": "car_countryroad",
-        "weight": 3.0,
-        "stepLoad": 212.64871905158404,
-        "occupancy": 0.14176581270105604,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61059",
-        "target": "61021",
-        "infra": "publicTransport_train",
-        "weight": 3.2,
-        "stepLoad": 57396.10245892532,
-        "occupancy": 57.39610245892532,
-        "capacity": 1000.0
-    },
-    {
-        "source": "60608",
-        "target": "60624",
-        "infra": "car_countryroad",
-        "weight": 5.0,
-        "stepLoad": 6658.906181344063,
-        "occupancy": 4.439270787562709,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61008",
-        "target": "61058",
-        "infra": "car_countryroad",
-        "weight": 7.0,
-        "stepLoad": 95.31675664271634,
-        "occupancy": 0.06354450442847756,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61021",
-        "target": "61053",
-        "infra": "car_autobahn",
-        "weight": 4.92,
-        "stepLoad": 5833.792769192922,
-        "occupancy": 1.4584481922982304,
-        "capacity": 4000.0
-    },
-    {
-        "source": "60656",
+        "source": "60660",
         "target": "60670",
-        "infra": "publicTransport_bus",
-        "weight": 7.800000000000001,
-        "stepLoad": 3126.5522462094555,
-        "occupancy": 20.84368164139637,
-        "capacity": 150.0
-    },
-    {
-        "source": "61021",
-        "target": "61059",
-        "infra": "publicTransport_bus",
-        "weight": 5.2,
-        "stepLoad": 25192.91620614887,
-        "occupancy": 167.95277470765913,
-        "capacity": 150.0
-    },
-    {
-        "source": "61027",
-        "target": "61055",
-        "infra": "car_countryroad",
-        "weight": 4.0,
-        "stepLoad": 113.27667081717098,
-        "occupancy": 0.07551778054478066,
-        "capacity": 1500.0
-    },
-    {
-        "source": "60608",
-        "target": "60669",
-        "infra": "car_countryroad",
-        "weight": 3.0,
-        "stepLoad": 475.4778057023364,
-        "occupancy": 0.3169852038015576,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61008",
-        "target": "61058",
-        "infra": "publicTransport_bus",
-        "weight": 9.1,
-        "stepLoad": 2959.2421770207466,
-        "occupancy": 19.72828118013831,
-        "capacity": 150.0
-    },
-    {
-        "source": "61020",
-        "target": "61021",
-        "infra": "car_countryroad",
-        "weight": 4.0,
-        "stepLoad": 376.1211901381017,
-        "occupancy": 0.25074746009206783,
-        "capacity": 1500.0
-    },
-    {
-        "source": "60608",
-        "target": "60611",
-        "infra": "car_countryroad",
-        "weight": 8.0,
-        "stepLoad": 86.76160058672664,
-        "occupancy": 0.05784106705781776,
-        "capacity": 1500.0
-    },
-    {
-        "source": "60101",
-        "target": "60608",
         "infra": "car_countryroad",
         "weight": 7.0,
-        "stepLoad": 7742.690696852809,
-        "occupancy": 5.161793797901873,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61001",
-        "target": "61059",
-        "infra": "publicTransport_bus",
-        "weight": 2.6,
-        "stepLoad": 2610.4743320128387,
-        "occupancy": 17.403162213418923,
-        "capacity": 150.0
-    },
-    {
-        "source": "60101",
-        "target": "60669",
-        "infra": "publicTransport_bus",
-        "weight": 10.4,
-        "stepLoad": 61994.04031377075,
-        "occupancy": 413.293602091805,
-        "capacity": 150.0
-    },
-    {
-        "source": "60101",
-        "target": "60669",
-        "infra": "car_countryroad",
-        "weight": 8.0,
-        "stepLoad": 2836.727124768181,
-        "occupancy": 1.8911514165121206,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61012",
-        "target": "61043",
-        "infra": "car_countryroad",
-        "weight": 4.0,
-        "stepLoad": 29.600623482460993,
-        "occupancy": 0.019733748988307327,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61020",
-        "target": "61043",
-        "infra": "publicTransport_bus",
-        "weight": 5.2,
-        "stepLoad": 578.1013961706357,
-        "occupancy": 3.8540093078042377,
-        "capacity": 150.0
-    },
-    {
-        "source": "61020",
-        "target": "61021",
-        "infra": "publicTransport_bus",
-        "weight": 5.2,
-        "stepLoad": 2661.295997639781,
-        "occupancy": 17.74197331759854,
-        "capacity": 150.0
-    },
-    {
-        "source": "60624",
-        "target": "60655",
-        "infra": "publicTransport_bus",
-        "weight": 5.2,
-        "stepLoad": 22395.875175396377,
-        "occupancy": 149.3058345026425,
-        "capacity": 150.0
-    },
-    {
-        "source": "61049",
-        "target": "61058",
-        "infra": "car_countryroad",
-        "weight": 5.0,
-        "stepLoad": 52.80041643665357,
-        "occupancy": 0.035200277624435714,
-        "capacity": 1500.0
-    },
-    {
-        "source": "60101",
-        "target": "60608",
-        "infra": "publicTransport_train",
-        "weight": 4.800000000000001,
-        "stepLoad": 98210.72325965039,
-        "occupancy": 98.2107232596504,
-        "capacity": 1000.0
+        "stepLoad": 3313.5127126901457,
+        "occupancy": 0.33135127126901454,
+        "capacity": 1500.0,
+        "currentLos": 0.526586302300792
     },
     {
         "source": "61012",
         "target": "61021",
         "infra": "publicTransport_bus",
         "weight": 6.5,
-        "stepLoad": 14625.348853773208,
-        "occupancy": 97.50232569182138,
-        "capacity": 150.0
-    },
-    {
-        "source": "61016",
-        "target": "61053",
-        "infra": "car_countryroad",
-        "weight": 9.0,
-        "stepLoad": 96.00029380645981,
-        "occupancy": 0.0640001958709732,
-        "capacity": 1500.0
+        "stepLoad": 11412.793350155001,
+        "occupancy": 11.412793350155,
+        "capacity": 150.0,
+        "currentLos": 29.555265139913033
     },
     {
         "source": "61012",
-        "target": "61027",
+        "target": "61021",
         "infra": "car_countryroad",
-        "weight": 4.0,
-        "stepLoad": 68.84714753771831,
-        "occupancy": 0.04589809835847888,
-        "capacity": 1500.0
+        "weight": 5.0,
+        "stepLoad": 11374.859209342987,
+        "occupancy": 1.1374859209342987,
+        "capacity": 1500.0,
+        "currentLos": 3.258729513966382
     },
     {
-        "source": "60618",
-        "target": "60629",
-        "infra": "car_countryroad",
-        "weight": 2.0,
-        "stepLoad": 1498.2206152104309,
-        "occupancy": 0.9988137434736206,
-        "capacity": 1500.0
+        "source": "61021",
+        "target": "61053",
+        "infra": "car_autobahn",
+        "weight": 4.92,
+        "stepLoad": 25003.88892251954,
+        "occupancy": 0.9376458345944827,
+        "capacity": 4000.0,
+        "currentLos": 1.7316595785825821
     },
     {
-        "source": "60655",
-        "target": "61059",
-        "infra": "publicTransport_train",
-        "weight": 4.800000000000001,
-        "stepLoad": 67152.60573973086,
-        "occupancy": 67.15260573973086,
-        "capacity": 1000.0
+        "source": "61016",
+        "target": "61043",
+        "infra": "publicTransport_bus",
+        "weight": 10.4,
+        "stepLoad": 2583.240453959176,
+        "occupancy": 2.5832404539591765,
+        "capacity": 150.0,
+        "currentLos": 2.1706253198866765
     },
     {
         "source": "61055",
         "target": "61059",
-        "infra": "publicTransport_bus",
-        "weight": 10.4,
-        "stepLoad": 173.23089579197458,
-        "occupancy": 1.1548726386131638,
-        "capacity": 150.0
-    },
-    {
-        "source": "60618",
-        "target": "60669",
         "infra": "car_countryroad",
-        "weight": 6.0,
-        "stepLoad": 1753.625633717905,
-        "occupancy": 1.1690837558119367,
-        "capacity": 1500.0
+        "weight": 8.0,
+        "stepLoad": 78.92980345555853,
+        "occupancy": 0.007892980345555852,
+        "capacity": 1500.0,
+        "currentLos": 0.2520055533325942
     },
     {
-        "source": "60618",
-        "target": "60670",
-        "infra": "publicTransport_bus",
-        "weight": 9.1,
-        "stepLoad": 1110.3150670121343,
-        "occupancy": 7.4021004467475615,
-        "capacity": 150.0
-    },
-    {
-        "source": "61017",
-        "target": "61059",
-        "infra": "car_countryroad",
-        "weight": 7.0,
-        "stepLoad": 391.8349596631299,
-        "occupancy": 0.2612233064420866,
-        "capacity": 1500.0
-    },
-    {
-        "source": "61012",
+        "source": "61016",
         "target": "61053",
         "infra": "publicTransport_bus",
-        "weight": 3.9000000000000004,
-        "stepLoad": 10824.915704161263,
-        "occupancy": 72.16610469440842,
-        "capacity": 150.0
-    },
-    {
-        "source": "60101",
-        "target": "60608",
-        "infra": "publicTransport_bus",
-        "weight": 9.1,
-        "stepLoad": 34734.75232734041,
-        "occupancy": 231.5650155156027,
-        "capacity": 150.0
-    },
-    {
-        "source": "60618",
-        "target": "60670",
-        "infra": "car_countryroad",
-        "weight": 7.0,
-        "stepLoad": 180.67551404345022,
-        "occupancy": 0.12045034269563348,
-        "capacity": 1500.0
+        "weight": 11.700000000000001,
+        "stepLoad": 142.57980830273155,
+        "occupancy": 0.14257980830273154,
+        "capacity": 150.0,
+        "currentLos": 1.0441637010872267
     },
     {
         "source": "60611",
         "target": "60662",
         "infra": "car_countryroad",
         "weight": 6.0,
-        "stepLoad": 505.0974299711038,
-        "occupancy": 0.33673161998073586,
-        "capacity": 1500.0
+        "stepLoad": 2035.028741903126,
+        "occupancy": 0.20350287419031257,
+        "capacity": 1500.0,
+        "currentLos": 0.5626285897169248
+    },
+    {
+        "source": "61016",
+        "target": "61050",
+        "infra": "publicTransport_bus",
+        "weight": 14.3,
+        "stepLoad": 118.571810817673,
+        "occupancy": 0.11857181081767298,
+        "capacity": 150.0,
+        "currentLos": 0.8437475339710567
+    },
+    {
+        "source": "60624",
+        "target": "60656",
+        "infra": "car_countryroad",
+        "weight": 5.0,
+        "stepLoad": 249.96297693807617,
+        "occupancy": 0.024996297693807616,
+        "capacity": 1500.0,
+        "currentLos": 0.29561857210420084
+    },
+    {
+        "source": "60618",
+        "target": "60670",
+        "infra": "publicTransport_bus",
+        "weight": 9.1,
+        "stepLoad": 774.6323618525385,
+        "occupancy": 0.7746323618525385,
+        "capacity": 150.0,
+        "currentLos": 3.4605599633862556
+    },
+    {
+        "source": "61012",
+        "target": "61043",
+        "infra": "car_countryroad",
+        "weight": 4.0,
+        "stepLoad": 71.51320589870647,
+        "occupancy": 0.007151320589870646,
+        "capacity": 1500.0,
+        "currentLos": 0.2962534371331833
+    },
+    {
+        "source": "61049",
+        "target": "61058",
+        "infra": "car_countryroad",
+        "weight": 5.0,
+        "stepLoad": 119.55182767834577,
+        "occupancy": 0.011955182767834577,
+        "capacity": 1500.0,
+        "currentLos": 0.30315003542309327
+    },
+    {
+        "source": "61059",
+        "target": "61021",
+        "infra": "car_autobahn",
+        "weight": 3.69,
+        "stepLoad": 29899.35996806173,
+        "occupancy": 1.1212259988023148,
+        "capacity": 4000.0,
+        "currentLos": 2.8151026113715276
+    },
+    {
+        "source": "61008",
+        "target": "61027",
+        "infra": "publicTransport_bus",
+        "weight": 9.1,
+        "stepLoad": 3113.524473404158,
+        "occupancy": 3.1135244734041576,
+        "capacity": 150.0,
+        "currentLos": 5.175384156330669
+    },
+    {
+        "source": "61020",
+        "target": "61043",
+        "infra": "publicTransport_bus",
+        "weight": 5.2,
+        "stepLoad": 311.58501543654364,
+        "occupancy": 0.3115850154365436,
+        "capacity": 150.0,
+        "currentLos": 2.9883882910130097
+    },
+    {
+        "source": "60669",
+        "target": "60670",
+        "infra": "car_countryroad",
+        "weight": 5.0,
+        "stepLoad": 10753.408254883225,
+        "occupancy": 1.0753408254883225,
+        "capacity": 1500.0,
+        "currentLos": 2.671747172520872
+    },
+    {
+        "source": "61017",
+        "target": "61059",
+        "infra": "publicTransport_bus",
+        "weight": 9.1,
+        "stepLoad": 1918.377668935669,
+        "occupancy": 1.918377668935669,
+        "capacity": 150.0,
+        "currentLos": 0.7680704816016594
+    },
+    {
+        "source": "60624",
+        "target": "60655",
+        "infra": "publicTransport_bus",
+        "weight": 5.2,
+        "stepLoad": 16637.417187410476,
+        "occupancy": 16.637417187410474,
+        "capacity": 150.0,
+        "currentLos": 32.5252948798385
+    },
+    {
+        "source": "60624",
+        "target": "60655",
+        "infra": "publicTransport_train",
+        "weight": 4.0,
+        "stepLoad": 59725.03398006899,
+        "occupancy": 8.958755097010348,
+        "capacity": 1000.0,
+        "currentLos": 28.69717115570585
+    },
+    {
+        "source": "61049",
+        "target": "61050",
+        "infra": "car_countryroad",
+        "weight": 2.0,
+        "stepLoad": 2698.3578791397094,
+        "occupancy": 0.26983578791397095,
+        "capacity": 1500.0,
+        "currentLos": 0.6020235865881618
+    },
+    {
+        "source": "60608",
+        "target": "60624",
+        "infra": "publicTransport_train",
+        "weight": 4.800000000000001,
+        "stepLoad": 73320.53051996935,
+        "occupancy": 10.998079577995401,
+        "capacity": 1000.0,
+        "currentLos": 48.069298329853346
+    },
+    {
+        "source": "60618",
+        "target": "60629",
+        "infra": "publicTransport_bus",
+        "weight": 2.6,
+        "stepLoad": 8559.60853721945,
+        "occupancy": 8.55960853721945,
+        "capacity": 150.0,
+        "currentLos": 33.66199890590169
+    },
+    {
+        "source": "61045",
+        "target": "61053",
+        "infra": "car_countryroad",
+        "weight": 3.0,
+        "stepLoad": 10826.937734542877,
+        "occupancy": 1.0826937734542876,
+        "capacity": 1500.0,
+        "currentLos": 4.665564515629509
+    },
+    {
+        "source": "60655",
+        "target": "61059",
+        "infra": "car_countryroad",
+        "weight": 7.0,
+        "stepLoad": 17648.733790771734,
+        "occupancy": 1.7648733790771733,
+        "capacity": 1500.0,
+        "currentLos": 9.3066806043527
+    },
+    {
+        "source": "60611",
+        "target": "60662",
+        "infra": "publicTransport_bus",
+        "weight": 7.800000000000001,
+        "stepLoad": 1237.3965384706778,
+        "occupancy": 1.2373965384706778,
+        "capacity": 150.0,
+        "currentLos": 2.3411789796065063
+    },
+    {
+        "source": "60101",
+        "target": "60669",
+        "infra": "car_countryroad",
+        "weight": 8.0,
+        "stepLoad": 10099.142535593934,
+        "occupancy": 1.0099142535593932,
+        "capacity": 1500.0,
+        "currentLos": 5.905764545992456
+    },
+    {
+        "source": "61020",
+        "target": "61021",
+        "infra": "publicTransport_bus",
+        "weight": 5.2,
+        "stepLoad": 2059.061329937276,
+        "occupancy": 2.059061329937276,
+        "capacity": 150.0,
+        "currentLos": 0.7584709886584831
+    },
+    {
+        "source": "60656",
+        "target": "60670",
+        "infra": "car_countryroad",
+        "weight": 6.0,
+        "stepLoad": 1137.3309583421362,
+        "occupancy": 0.11373309583421362,
+        "capacity": 1500.0,
+        "currentLos": 0.500238159138188
+    },
+    {
+        "source": "60662",
+        "target": "61001",
+        "infra": "publicTransport_bus",
+        "weight": 10.4,
+        "stepLoad": 6787.33612412313,
+        "occupancy": 6.787336124123129,
+        "capacity": 150.0,
+        "currentLos": 23.42422378659137
+    },
+    {
+        "source": "61045",
+        "target": "61049",
+        "infra": "car_countryroad",
+        "weight": 7.0,
+        "stepLoad": 4514.246854916078,
+        "occupancy": 0.45142468549160775,
+        "capacity": 1500.0,
+        "currentLos": 0.7668201348563131
+    },
+    {
+        "source": "61049",
+        "target": "61058",
+        "infra": "publicTransport_bus",
+        "weight": 6.5,
+        "stepLoad": 76.18317095741952,
+        "occupancy": 0.07618317095741951,
+        "capacity": 150.0,
+        "currentLos": 0.6217712447418445
+    },
+    {
+        "source": "61008",
+        "target": "61027",
+        "infra": "car_countryroad",
+        "weight": 7.0,
+        "stepLoad": 1307.1847299432545,
+        "occupancy": 0.13071847299432546,
+        "capacity": 1500.0,
+        "currentLos": 0.4989040692181938
+    },
+    {
+        "source": "60608",
+        "target": "60624",
+        "infra": "publicTransport_bus",
+        "weight": 6.5,
+        "stepLoad": 27774.601845202258,
+        "occupancy": 27.774601845202255,
+        "capacity": 150.0,
+        "currentLos": 528.1316575506378
+    },
+    {
+        "source": "61021",
+        "target": "61053",
+        "infra": "publicTransport_train",
+        "weight": 7.2,
+        "stepLoad": 40522.1561444277,
+        "occupancy": 6.078323421664155,
+        "capacity": 1000.0,
+        "currentLos": 9.869019949957721
+    },
+    {
+        "source": "61043",
+        "target": "61053",
+        "infra": "car_countryroad",
+        "weight": 6.0,
+        "stepLoad": 472.6325292796766,
+        "occupancy": 0.04726325292796766,
+        "capacity": 1500.0,
+        "currentLos": 0.5243930748614802
+    },
+    {
+        "source": "61001",
+        "target": "61055",
+        "infra": "car_countryroad",
+        "weight": 6.0,
+        "stepLoad": 1480.1913501845725,
+        "occupancy": 0.14801913501845723,
+        "capacity": 1500.0,
+        "currentLos": 0.4554332476134909
+    },
+    {
+        "source": "60624",
+        "target": "60656",
+        "infra": "car_autobahn",
+        "weight": 3.69,
+        "stepLoad": 34243.49026148943,
+        "occupancy": 1.2841308848058537,
+        "capacity": 4000.0,
+        "currentLos": 3.1111747910704755
+    },
+    {
+        "source": "61027",
+        "target": "61055",
+        "infra": "car_countryroad",
+        "weight": 4.0,
+        "stepLoad": 377.6240386071074,
+        "occupancy": 0.037762403860710746,
+        "capacity": 1500.0,
+        "currentLos": 0.4623644471068612
+    },
+    {
+        "source": "60101",
+        "target": "60608",
+        "infra": "car_countryroad",
+        "weight": 7.0,
+        "stepLoad": 27509.07794657244,
+        "occupancy": 2.7509077946572438,
+        "capacity": 1500.0,
+        "currentLos": 25.943459534159505
+    },
+    {
+        "source": "60624",
+        "target": "60670",
+        "infra": "publicTransport_bus",
+        "weight": 7.800000000000001,
+        "stepLoad": 997.3345526489642,
+        "occupancy": 0.9973345526489641,
+        "capacity": 150.0,
+        "currentLos": 6.828908931177202
+    },
+    {
+        "source": "60655",
+        "target": "61001",
+        "infra": "car_countryroad",
+        "weight": 11.0,
+        "stepLoad": 20.401338893290493,
+        "occupancy": 0.002040133889329049,
+        "capacity": 1500.0,
+        "currentLos": 0.21282471338041617
+    },
+    {
+        "source": "61021",
+        "target": "61043",
+        "infra": "publicTransport_bus",
+        "weight": 7.800000000000001,
+        "stepLoad": 7358.019133276602,
+        "occupancy": 7.358019133276601,
+        "capacity": 150.0,
+        "currentLos": 2.3544664076416755
+    },
+    {
+        "source": "61021",
+        "target": "61059",
+        "infra": "car_countryroad",
+        "weight": 4.0,
+        "stepLoad": 17760.092497560574,
+        "occupancy": 1.7760092497560571,
+        "capacity": 1500.0,
+        "currentLos": 17.081709560851344
+    },
+    {
+        "source": "60656",
+        "target": "60660",
+        "infra": "publicTransport_bus",
+        "weight": 5.2,
+        "stepLoad": 2084.408363904403,
+        "occupancy": 2.084408363904403,
+        "capacity": 150.0,
+        "currentLos": 6.686516059161193
+    },
+    {
+        "source": "61001",
+        "target": "61055",
+        "infra": "publicTransport_bus",
+        "weight": 7.800000000000001,
+        "stepLoad": 4924.539510905896,
+        "occupancy": 4.9245395109058965,
+        "capacity": 150.0,
+        "currentLos": 3.2098222645682415
+    },
+    {
+        "source": "61008",
+        "target": "61058",
+        "infra": "car_countryroad",
+        "weight": 7.0,
+        "stepLoad": 266.0405521170885,
+        "occupancy": 0.02660405521170885,
+        "capacity": 1500.0,
+        "currentLos": 0.4093074785581302
+    },
+    {
+        "source": "60655",
+        "target": "60656",
+        "infra": "publicTransport_bus",
+        "weight": 3.9000000000000004,
+        "stepLoad": 4232.3377463138095,
+        "occupancy": 4.232337746313809,
+        "capacity": 150.0,
+        "currentLos": 26.449795482979187
+    },
+    {
+        "source": "61043",
+        "target": "61053",
+        "infra": "publicTransport_bus",
+        "weight": 7.800000000000001,
+        "stepLoad": 586.3457406144781,
+        "occupancy": 0.5863457406144781,
+        "capacity": 150.0,
+        "currentLos": 6.772318123284425
+    },
+    {
+        "source": "61001",
+        "target": "61059",
+        "infra": "publicTransport_bus",
+        "weight": 2.6,
+        "stepLoad": 2156.977763409329,
+        "occupancy": 2.156977763409329,
+        "capacity": 150.0,
+        "currentLos": 1.3744382853576058
+    },
+    {
+        "source": "61049",
+        "target": "61058",
+        "infra": "publicTransport_train",
+        "weight": 3.2,
+        "stepLoad": 8168.859048336971,
+        "occupancy": 1.2253288572505456,
+        "capacity": 1000.0,
+        "currentLos": 0.7494625266766797
+    },
+    {
+        "source": "60608",
+        "target": "60611",
+        "infra": "car_countryroad",
+        "weight": 8.0,
+        "stepLoad": 312.42336418021546,
+        "occupancy": 0.031242336418021547,
+        "capacity": 1500.0,
+        "currentLos": 0.3828728003542816
+    },
+    {
+        "source": "60624",
+        "target": "60670",
+        "infra": "car_countryroad",
+        "weight": 6.0,
+        "stepLoad": 1278.9447636470716,
+        "occupancy": 0.12789447636470713,
+        "capacity": 1500.0,
+        "currentLos": 0.7565955668370197
+    },
+    {
+        "source": "61027",
+        "target": "61055",
+        "infra": "publicTransport_bus",
+        "weight": 5.2,
+        "stepLoad": 3229.083308829046,
+        "occupancy": 3.2290833088290456,
+        "capacity": 150.0,
+        "currentLos": 7.6583654053684125
+    },
+    {
+        "source": "60669",
+        "target": "60670",
+        "infra": "publicTransport_bus",
+        "weight": 6.5,
+        "stepLoad": 18081.372261586068,
+        "occupancy": 18.081372261586065,
+        "capacity": 150.0,
+        "currentLos": 25.74125692379571
+    },
+    {
+        "source": "61021",
+        "target": "61043",
+        "infra": "car_countryroad",
+        "weight": 6.0,
+        "stepLoad": 4588.9716696582145,
+        "occupancy": 0.45889716696582145,
+        "capacity": 1500.0,
+        "currentLos": 0.4659233305417844
+    },
+    {
+        "source": "61008",
+        "target": "61058",
+        "infra": "publicTransport_bus",
+        "weight": 9.1,
+        "stepLoad": 1967.824489127426,
+        "occupancy": 1.967824489127426,
+        "capacity": 150.0,
+        "currentLos": 5.231311992845736
+    },
+    {
+        "source": "61059",
+        "target": "61021",
+        "infra": "publicTransport_train",
+        "weight": 3.2,
+        "stepLoad": 49082.72131993026,
+        "occupancy": 7.362408197989538,
+        "capacity": 1000.0,
+        "currentLos": 16.953106331310405
+    },
+    {
+        "source": "61008",
+        "target": "61045",
+        "infra": "car_countryroad",
+        "weight": 3.0,
+        "stepLoad": 764.1539424157686,
+        "occupancy": 0.07641539424157685,
+        "capacity": 1500.0,
+        "currentLos": 0.4523683677815403
+    },
+    {
+        "source": "60655",
+        "target": "61059",
+        "infra": "publicTransport_bus",
+        "weight": 9.1,
+        "stepLoad": 19321.7315099063,
+        "occupancy": 19.3217315099063,
+        "capacity": 150.0,
+        "currentLos": 164.94870738546683
+    },
+    {
+        "source": "60656",
+        "target": "61059",
+        "infra": "car_autobahn",
+        "weight": 3.69,
+        "stepLoad": 34969.8598737955,
+        "occupancy": 1.3113697452673314,
+        "capacity": 4000.0,
+        "currentLos": 5.5252368090098445
+    },
+    {
+        "source": "61008",
+        "target": "61045",
+        "infra": "publicTransport_bus",
+        "weight": 3.9000000000000004,
+        "stepLoad": 1391.785366328325,
+        "occupancy": 1.3917853663283248,
+        "capacity": 150.0,
+        "currentLos": 3.328027410950169
+    },
+    {
+        "source": "61012",
+        "target": "61027",
+        "infra": "publicTransport_bus",
+        "weight": 5.2,
+        "stepLoad": 258.3483709586437,
+        "occupancy": 0.2583483709586437,
+        "capacity": 150.0,
+        "currentLos": 0.99256482779509
+    },
+    {
+        "source": "61012",
+        "target": "61043",
+        "infra": "publicTransport_bus",
+        "weight": 5.2,
+        "stepLoad": 92.12040349770518,
+        "occupancy": 0.09212040349770519,
+        "capacity": 150.0,
+        "currentLos": 1.3048344346961014
+    },
+    {
+        "source": "61021",
+        "target": "61027",
+        "infra": "car_countryroad",
+        "weight": 6.0,
+        "stepLoad": 2434.3509854816957,
+        "occupancy": 0.24343509854816955,
+        "capacity": 1500.0,
+        "currentLos": 0.36809151422654274
+    },
+    {
+        "source": "61020",
+        "target": "61043",
+        "infra": "car_countryroad",
+        "weight": 4.0,
+        "stepLoad": 244.9175835953043,
+        "occupancy": 0.024491758359530432,
+        "capacity": 1500.0,
+        "currentLos": 0.39638291056359476
+    },
+    {
+        "source": "61045",
+        "target": "61053",
+        "infra": "publicTransport_bus",
+        "weight": 3.9000000000000004,
+        "stepLoad": 9938.781702524184,
+        "occupancy": 9.938781702524183,
+        "capacity": 150.0,
+        "currentLos": 35.91581910577469
+    },
+    {
+        "source": "60629",
+        "target": "60660",
+        "infra": "publicTransport_bus",
+        "weight": 9.1,
+        "stepLoad": 1206.8506500024446,
+        "occupancy": 1.2068506500024445,
+        "capacity": 150.0,
+        "currentLos": 2.4162707984535188
+    },
+    {
+        "source": "60101",
+        "target": "60611",
+        "infra": "car_countryroad",
+        "weight": 10.0,
+        "stepLoad": 4764.025888446022,
+        "occupancy": 0.4764025888446022,
+        "capacity": 1500.0,
+        "currentLos": 0.9924779044399181
+    },
+    {
+        "source": "60660",
+        "target": "60670",
+        "infra": "publicTransport_bus",
+        "weight": 9.1,
+        "stepLoad": 5040.584519805033,
+        "occupancy": 5.040584519805033,
+        "capacity": 150.0,
+        "currentLos": 2.7899462454590007
+    },
+    {
+        "source": "60608",
+        "target": "60611",
+        "infra": "publicTransport_bus",
+        "weight": 10.4,
+        "stepLoad": 426.01098352387106,
+        "occupancy": 0.426010983523871,
+        "capacity": 150.0,
+        "currentLos": 1.7688442453863438
+    },
+    {
+        "source": "61001",
+        "target": "61059",
+        "infra": "car_countryroad",
+        "weight": 2.0,
+        "stepLoad": 1128.3582045283792,
+        "occupancy": 0.11283582045283792,
+        "capacity": 1500.0,
+        "currentLos": 0.4430770286226292
+    },
+    {
+        "source": "60629",
+        "target": "60660",
+        "infra": "car_countryroad",
+        "weight": 7.0,
+        "stepLoad": 893.0166622356354,
+        "occupancy": 0.08930166622356353,
+        "capacity": 1500.0,
+        "currentLos": 0.42718992994575994
+    },
+    {
+        "source": "61045",
+        "target": "61049",
+        "infra": "publicTransport_bus",
+        "weight": 9.1,
+        "stepLoad": 151.95668352153155,
+        "occupancy": 0.15195668352153155,
+        "capacity": 150.0,
+        "currentLos": 0.9872973566411885
+    },
+    {
+        "source": "60624",
+        "target": "60655",
+        "infra": "car_countryroad",
+        "weight": 4.0,
+        "stepLoad": 20145.800348073608,
+        "occupancy": 2.0145800348073606,
+        "capacity": 1500.0,
+        "currentLos": 12.541282044006968
+    },
+    {
+        "source": "61020",
+        "target": "61021",
+        "infra": "car_countryroad",
+        "weight": 4.0,
+        "stepLoad": 1405.059816988451,
+        "occupancy": 0.1405059816988451,
+        "capacity": 1500.0,
+        "currentLos": 0.2935561015282032
+    },
+    {
+        "source": "61016",
+        "target": "61043",
+        "infra": "car_countryroad",
+        "weight": 8.0,
+        "stepLoad": 1509.831732422174,
+        "occupancy": 0.15098317324221738,
+        "capacity": 1500.0,
+        "currentLos": 0.3147634980882105
+    },
+    {
+        "source": "60608",
+        "target": "60669",
+        "infra": "publicTransport_bus",
+        "weight": 3.9000000000000004,
+        "stepLoad": 4649.606210056929,
+        "occupancy": 4.649606210056929,
+        "capacity": 150.0,
+        "currentLos": 24.56461910261096
+    },
+    {
+        "source": "60656",
+        "target": "60660",
+        "infra": "car_countryroad",
+        "weight": 4.0,
+        "stepLoad": 1607.6771401825558,
+        "occupancy": 0.16076771401825557,
+        "capacity": 1500.0,
+        "currentLos": 0.5945504613997044
+    },
+    {
+        "source": "61017",
+        "target": "61059",
+        "infra": "car_countryroad",
+        "weight": 7.0,
+        "stepLoad": 1367.7323582482159,
+        "occupancy": 0.13677323582482157,
+        "capacity": 1500.0,
+        "currentLos": 0.3040710938315404
+    },
+    {
+        "source": "61021",
+        "target": "61027",
+        "infra": "publicTransport_bus",
+        "weight": 7.800000000000001,
+        "stepLoad": 2235.2794783315953,
+        "occupancy": 2.2352794783315955,
+        "capacity": 150.0,
+        "currentLos": 0.9644776216343722
+    },
+    {
+        "source": "60656",
+        "target": "60670",
+        "infra": "publicTransport_bus",
+        "weight": 7.800000000000001,
+        "stepLoad": 2220.196557747018,
+        "occupancy": 2.2201965577470175,
+        "capacity": 150.0,
+        "currentLos": 4.518134747437425
+    },
+    {
+        "source": "60608",
+        "target": "60624",
+        "infra": "car_countryroad",
+        "weight": 5.0,
+        "stepLoad": 23523.64393435587,
+        "occupancy": 2.352364393435587,
+        "capacity": 1500.0,
+        "currentLos": 24.172058321318183
+    },
+    {
+        "source": "60655",
+        "target": "60656",
+        "infra": "car_countryroad",
+        "weight": 3.0,
+        "stepLoad": 210.49984711035447,
+        "occupancy": 0.021049984711035443,
+        "capacity": 1500.0,
+        "currentLos": 0.40291404301919254
+    },
+    {
+        "source": "60101",
+        "target": "60669",
+        "infra": "car_autobahn",
+        "weight": 4.92,
+        "stepLoad": 58748.14997248058,
+        "occupancy": 2.2030556239680217,
+        "capacity": 4000.0,
+        "currentLos": 10.681702310017362
+    },
+    {
+        "source": "60655",
+        "target": "61059",
+        "infra": "publicTransport_train",
+        "weight": 4.800000000000001,
+        "stepLoad": 56951.45210060567,
+        "occupancy": 8.54271781509085,
+        "capacity": 1000.0,
+        "currentLos": 31.421924161671146
+    },
+    {
+        "source": "61012",
+        "target": "61053",
+        "infra": "publicTransport_bus",
+        "weight": 3.9000000000000004,
+        "stepLoad": 8059.685763078091,
+        "occupancy": 8.059685763078091,
+        "capacity": 150.0,
+        "currentLos": 31.668383081994627
+    },
+    {
+        "source": "60669",
+        "target": "60624",
+        "infra": "car_autobahn",
+        "weight": 5.535,
+        "stepLoad": 41983.44954310047,
+        "occupancy": 1.5743793578662675,
+        "capacity": 4000.0,
+        "currentLos": 5.407181657832222
+    },
+    {
+        "source": "61016",
+        "target": "61053",
+        "infra": "car_countryroad",
+        "weight": 9.0,
+        "stepLoad": 382.51736057878617,
+        "occupancy": 0.03825173605787862,
+        "capacity": 1500.0,
+        "currentLos": 0.30310799075024447
+    },
+    {
+        "source": "60618",
+        "target": "60669",
+        "infra": "car_countryroad",
+        "weight": 6.0,
+        "stepLoad": 6308.175070074453,
+        "occupancy": 0.6308175070074453,
+        "capacity": 1500.0,
+        "currentLos": 1.0970040203937519
+    },
+    {
+        "source": "61053",
+        "target": "61058",
+        "infra": "car_autobahn",
+        "weight": 6.765,
+        "stepLoad": 7076.9320242371505,
+        "occupancy": 0.26538495090889314,
+        "capacity": 4000.0,
+        "currentLos": 0.5009245350743694
+    },
+    {
+        "source": "61053",
+        "target": "61049",
+        "infra": "publicTransport_train",
+        "weight": 6.4,
+        "stepLoad": 18050.46466198976,
+        "occupancy": 2.707569699298464,
+        "capacity": 1000.0,
+        "currentLos": 2.8331728876694133
+    },
+    {
+        "source": "61017",
+        "target": "61020",
+        "infra": "publicTransport_bus",
+        "weight": 10.4,
+        "stepLoad": 144.0002673130864,
+        "occupancy": 0.1440002673130864,
+        "capacity": 150.0,
+        "currentLos": 0.8211874723735739
+    },
+    {
+        "source": "61016",
+        "target": "61050",
+        "infra": "car_countryroad",
+        "weight": 11.0,
+        "stepLoad": 48.689971214081396,
+        "occupancy": 0.0048689971214081395,
+        "capacity": 1500.0,
+        "currentLos": 0.24742200637820455
+    },
+    {
+        "source": "61017",
+        "target": "61020",
+        "infra": "car_countryroad",
+        "weight": 8.0,
+        "stepLoad": 116.01426512015797,
+        "occupancy": 0.011601426512015796,
+        "capacity": 1500.0,
+        "currentLos": 0.2975017199144578
+    },
+    {
+        "source": "60618",
+        "target": "60670",
+        "infra": "car_countryroad",
+        "weight": 7.0,
+        "stepLoad": 647.7859913209178,
+        "occupancy": 0.06477859913209177,
+        "capacity": 1500.0,
+        "currentLos": 0.482972134157375
+    },
+    {
+        "source": "61021",
+        "target": "61059",
+        "infra": "publicTransport_bus",
+        "weight": 5.2,
+        "stepLoad": 18681.359498848426,
+        "occupancy": 18.681359498848423,
+        "capacity": 150.0,
+        "currentLos": 250.12084789983732
     }
 ]

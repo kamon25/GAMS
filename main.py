@@ -20,6 +20,9 @@ from TrafficEvaluation import calcAllPathsForTrafficCell
 from TrafficEvaluation import choseDestinationAndMode
 from TrafficEvaluation import runSimulation
 
+# --- global Values and Assumptions
+trafficPeakPercentage=0.15
+
 
 # ---List of populationgroups in the area
 groupDict = generatePopulationGroups()
@@ -40,7 +43,7 @@ saveTC(trafficCellDict)
 # print(trafficCellDict['61059'].inhabitants)
 #######################################
 
-# cellListToJson(trafficCellDict)
+cellListToJson(trafficCellDict)
 
 # --- shortest Path:
 ConInfra.bildGraph()
@@ -70,7 +73,7 @@ for tC in trafficCellDict.values():
     tC.calcConnectionParams(0.42, publicTransportCost)
 
 # Run Simulation
-resultDict = runSimulation(trafficCellDict, groupDict, 4, 2018)
+resultDict = runSimulation(trafficCellDict, groupDict, 3, 2018)
 # Write Connections
 connectionsToJson(trafficCellDict, 0)
 
@@ -78,16 +81,18 @@ connectionsToJson(trafficCellDict, 0)
 
 #############
 plt.figure(1)
-plt.plot(trafficCellDict['61059'].pathConnectionList['60101']['car'][0].occupancy)
-plt.plot(trafficCellDict['61059'].pathConnectionList['60101']['publicTransport'][0].occupancy)
+plt.plot(trafficCellDict['60624'].pathConnectionList['60655']['car'][0].occupancy, label='car')
+plt.plot(trafficCellDict['60624'].pathConnectionList['60655']['publicTransport'][0].occupancy, label='PT')
 plt.ylabel('Auslastung')
+plt.legend()
 plt.savefig('Pic/occupy.png')
 
 plt.figure(2)
-plt.plot(trafficCellDict['61059'].pathConnectionList['60101']['car'][0].stepLoad)
-plt.plot(trafficCellDict['61059'].pathConnectionList['60101']['publicTransport'][0].stepLoad)
+plt.plot(trafficCellDict['60624'].pathConnectionList['60655']['car'][0].stepLoad, label='car')
+plt.plot(trafficCellDict['60624'].pathConnectionList['60655']['publicTransport'][0].stepLoad, label='PT')
 plt.ylabel('trips')
+plt.legend()
 plt.savefig('Pic/trips.png')
 ###########
 
-print(trafficCellDict['60101'].expectedResistance['work']['61059']['car']['popGroup1'])
+print(trafficCellDict['60101'].expectedResistance['work']['61059']['car']['popGroup2'])

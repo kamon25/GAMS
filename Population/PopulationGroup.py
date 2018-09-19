@@ -40,7 +40,7 @@ class PopulationGroup():
         self._attributes = attributes #dict with attributes like {"gender":"male"}
         self._groupID = groupID #Counter from 1 to 10
         #attributes for resistance
-        self.k = {'cost':0.3, 'duration':0.3, 'los':0.3}
+        self.k = {'cost':0.1, 'duration':0.1, 'los':0.8}
         
     
     def __str__(self):
@@ -55,8 +55,10 @@ class PopulationGroup():
         resistanceDuration= math.exp((duration/travelTimeBudgetPerTrip)-1)
         #calc cost resistance
         resistanceCost = math.exp((cost/costBudget)-1)
-        #calc LoS resistance
-        resistanceLos = los
+        # calc LoS resistance
+        # los is calculatet for every path in trafficCell
+        # los is normed to the occupancy (occ 0.8 is approximatly los 1 ) 
+        resistanceLos = los 
 
         resistanceSum= self.k['cost']*resistanceCost+ self.k['duration']*resistanceDuration + self.k['los']*resistanceLos
 
@@ -106,9 +108,14 @@ class PopulationGroup():
         samplecount = int(sum(attributesWithValues["agegroup"].values()))
         #calc correction for cars per inhabitant
         potantialCarUser = 0
+        agegroupsChecked = set()
         for group in PopulationGroup.groupDict.values():
             if group._attributes['carAviable'] ==  PopulationGroup.possibleAttributes['carAviable'][0]:
-                potantialCarUser += attributesWithValues["agegroup"][group._attributes['agegroup']]
+                if  group._attributes["agegroup"] in agegroupsChecked:
+                    continue
+                else:                    
+                    potantialCarUser += attributesWithValues["agegroup"][group._attributes['agegroup']]
+                    agegroupsChecked.add(group._attributes['agegroup'])
 
         for i in range(0, samplecount):
             #-- generate new instance of inhabitant

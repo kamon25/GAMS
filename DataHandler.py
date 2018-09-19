@@ -342,7 +342,7 @@ def cellListToJson(trafficCellDict):
 
     for key, cell in trafficCellDict.items():
         if cell.popPerGroup != None:
-            outDict[key] = cell.toDictWithPopGroupe()
+            outDict[key] = cell.toDictWithPopGroup()
         else:
             outDict[key] = cell.toDict()
 
