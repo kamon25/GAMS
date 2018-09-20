@@ -93,7 +93,24 @@ class Inhabitant():
         else:
             self.attributes[employmentKey] = "unemployed"
 
-    def setCarAviable(self, i, carDensity, trafficcellInhabitants, potentialCarUsers, groupDict, carKey, agegroupKey):
+    def setCarAviable(self, i, carAviableRate, groupDict, carKey, agegroupKey):
+        carPossible = False
+        for group in groupDict.values():
+            if group._attributes[agegroupKey] == self.attributes[agegroupKey] and group._attributes[carKey] == 'aviable':
+                carPossible = True
+                break
+        
+        if carPossible:
+            carProbability = carAviableRate[self.attributes[agegroupKey]]
+            randomnumberCar = np.random.uniform()
+            if randomnumberCar <= carProbability:
+                self.attributes[carKey]='aviable'
+            else:
+                self.attributes[carKey]='notAviable'
+        else:
+            self.attributes[carKey]='notAviable'
+    
+    def setCarAviableFromDensity(self, i, carDensity, trafficcellInhabitants, potentialCarUsers, groupDict, carKey, agegroupKey):
         # -- is a car aviability possible? possible (ageroupe)?
         carPossible = False
         for group in groupDict.values():

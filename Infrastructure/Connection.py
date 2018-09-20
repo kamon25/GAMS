@@ -71,6 +71,7 @@ class Connection():
             "target": self.end_node,
             "infra": self.getConnectionType(),
             "weight": self.getWeight(),
+            "speed": self.averageSpeedZero,
             "stepLoad": self.stepLoad[step],
             "occupancy": self.occupancy[step],
             "capacity": self.capacity,

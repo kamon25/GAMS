@@ -14,7 +14,8 @@ pathTrafficCellsCSV = './Data/Gemeinde_Liste_V1.csv'
 pathPopulationAgeGroupsCSV = 'Data/STMK_01012017_AGE.csv'
 pathPopulationSexCSV = 'Data/STMK_01012017_SEX.csv'
 pathPopulationEmployment = 'Data/OGDEXT_AEST_GEMTAB_1.csv'
-pathPopulationCar = 'Data/carDensity.csv'
+pathPopulationCarDensity = 'Data/carDensity.csv'
+pathPopulationCarAviable = 'Data/carAvailability.csv'
 pathPopulationForecast = 'Data/STMK_2015_2030_PROJ.csv'
 
 # Filepaths traffic network
@@ -193,13 +194,46 @@ def AttributeReaderCSV(cellID, popGroup, paramToRead):
     
     # ---read car density
     if paramToRead is "carAviable":
-        df = pd.read_csv(pathPopulationCar, sep=';',
-                         na_values=['NA'], decimal='.', dtype={'GKZ': str})
+        df = pd.read_csv(pathPopulationCarAviable, sep=';', na_values=['NA'], decimal='.', dtype={'GKZ': str})
         dfBetrachtung = df.set_index('GKZ')
-        carCorresponding = {"carAviable": "PKW-Dichte"}
 
-        carDensity =  float(dfBetrachtung.loc[cellID][carCorresponding[paramToRead]])
-        return carDensity
+        agegroupRate = defaultdict(float)
+
+        for agegroup in popGroup.possibleAttributes['agegroup']:
+            agegroupeSum = 0
+            count = 0
+
+            for dataColumNames in list(dfBetrachtung):
+                headSplit = dataColumNames.split("_")
+
+                if headSplit[0] == "POP" and headSplit[1].isdigit():
+
+                    if int(headSplit[1]) >= agegroup[0] and  int(headSplit[1]) <= agegroup[1]:
+                        agegroupeSum += dfBetrachtung.loc[cellID][dataColumNames]
+                        count += 1
+                        
+                    if len(headSplit) < 3:
+                        continue                    
+                    elif int(headSplit[2]) >= agegroup[0] and  int(headSplit[2]) <= agegroup[1]:
+                        agegroupeSum += dfBetrachtung.loc[cellID][dataColumNames]
+                        count += 1
+            
+            if count == 0:
+                rate = 0.0
+            else:
+                rate=float(agegroupeSum)/float(count)
+            agegroupRate[agegroup] = rate
+        return agegroupRate
+
+
+        ######### code to read the density
+        # df = pd.read_csv(pathPopulationCar, sep=';',
+        #                  na_values=['NA'], decimal='.', dtype={'GKZ': str})
+        # dfBetrachtung = df.set_index('GKZ')
+        # carCorresponding = {"carAviable": "PKW-Dichte"}
+
+        # carDensity =  float(dfBetrachtung.loc[cellID][carCorresponding[paramToRead]])
+        # return carDensity
 
 
 # ---read human behavior in traffic

@@ -137,10 +137,10 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
                 sumTripsPerMode = 0
                 for group, ratio in groups.items():
                     if step == 0:
-                        groupPartDemand[group] = (ratio/sumRatio[group])*trafficDemandPerGroup[group]
+                        groupPartDemand[group] = (ratio/sumRatio[popGroupKey])*trafficDemandPerGroup[group]
                     else:
                         evaluatorGroup = groupDict[group].calcEvaluatorGroup(deltaResistanceDesModeGroup[destination][mode][group])
-                        groupPartDemand[group] = (ratio/sumRatio[group])*trafficDemandPerGroup[group]*evaluatorGroup + (1-evaluatorGroup) * trafficCell.purposeSestinationModeGroup[purposForJourney][destination][mode][group]
+                        groupPartDemand[group] = (ratio/sumRatio[popGroupKey])*trafficDemandPerGroup[group]*evaluatorGroup + (1-evaluatorGroup) * trafficCell.purposeSestinationModeGroup[purposForJourney][destination][mode][group]
                     sumTripsPerMode += groupPartDemand[group]
                 modeGroupPart[mode] = groupPartDemand
                 modeTrips[mode] = sumTripsPerMode

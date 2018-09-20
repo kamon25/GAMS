@@ -40,7 +40,7 @@ class PopulationGroup():
         self._attributes = attributes #dict with attributes like {"gender":"male"}
         self._groupID = groupID #Counter from 1 to 10
         #attributes for resistance
-        self.k = {'cost':0.1, 'duration':0.1, 'los':0.8}
+        self.k = {'cost':0.0, 'duration':1.0, 'los':0.0}
         
     
     def __str__(self):
@@ -135,7 +135,7 @@ class PopulationGroup():
             tempInhab.setEmployment(i, attributesWithValues["employment"]["employmentRate_15_64"], PopulationGroup.groupDict, "employment" , "agegroup")
             #print(time.clock() - c1)
 
-            tempInhab.setCarAviable(i, attributesWithValues['carAviable'], trafficCell.inhabitants, potantialCarUser, PopulationGroup.groupDict, 'carAviable', 'agegroup')
+            tempInhab.setCarAviable(i, attributesWithValues['carAviable'], PopulationGroup.groupDict, 'carAviable', 'agegroup')
 
             ##-- set traffic relevant attributes
             #-- set travel time budget

@@ -75,24 +75,24 @@ for tC in trafficCellDict.values():
 # Run Simulation
 resultDict = runSimulation(trafficCellDict, groupDict, 3, 2018)
 # Write Connections
-connectionsToJson(trafficCellDict, 0)
+connectionsToJson(trafficCellDict, 30)
 
 
 
 #############
 plt.figure(1)
-plt.plot(trafficCellDict['60624'].pathConnectionList['60655']['car'][0].occupancy, label='car')
-plt.plot(trafficCellDict['60624'].pathConnectionList['60655']['publicTransport'][0].occupancy, label='PT')
+plt.plot(trafficCellDict['60608'].pathConnectionList['60624']['car'][0].occupancy, label=trafficCellDict['60608'].pathConnectionList['60624']['car'][0].getConnectionType())
+plt.plot(trafficCellDict['60608'].pathConnectionList['60624']['publicTransport'][0].occupancy, label=trafficCellDict['60608'].pathConnectionList['60624']['publicTransport'][0].getConnectionType())
 plt.ylabel('Auslastung')
 plt.legend()
 plt.savefig('Pic/occupy.png')
 
 plt.figure(2)
-plt.plot(trafficCellDict['60624'].pathConnectionList['60655']['car'][0].stepLoad, label='car')
-plt.plot(trafficCellDict['60624'].pathConnectionList['60655']['publicTransport'][0].stepLoad, label='PT')
+plt.plot(trafficCellDict['60608'].pathConnectionList['60624']['car'][0].stepLoad, label=trafficCellDict['60608'].pathConnectionList['60624']['car'][0].getConnectionType())
+plt.plot(trafficCellDict['60608'].pathConnectionList['60624']['publicTransport'][0].stepLoad, label=trafficCellDict['60608'].pathConnectionList['60624']['publicTransport'][0].getConnectionType())
 plt.ylabel('trips')
 plt.legend()
 plt.savefig('Pic/trips.png')
 ###########
-
+print(len(trafficCellDict['60608'].pathConnectionList['60624']['car'][0].stepLoad, label=trafficCellDict['60608'].pathConnectionList['60624']['car']))
 print(trafficCellDict['60101'].expectedResistance['work']['61059']['car']['popGroup2'])

@@ -80,7 +80,6 @@ class TrafficCell():
                     los = 1
                     for connection in copypath:
                         distance += connection.distance
-                        # check Time calculation
                         time += connection.distance/connection.averageSpeedZero
                         if connection.mode== 'car':
                             cost += connection.distance*carCostKm
