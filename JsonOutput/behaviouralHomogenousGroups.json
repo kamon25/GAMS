@@ -1,66 +1,146 @@
 {
-    "bhg0":{
+    "popGroup0":{
         "gender":"male",
         "agegroup":[
             0,
             14
         ],
-        "employment":"unemployed"
+        "employment":"unemployed",
+        "carAviable":"notAviable"
     },
-    "bhg1":{
+    "popGroup1":{
         "gender":"male",
         "agegroup":[
             15,
-            59
+            17
         ],
-        "employment":"employed"
+        "employment":"unemployed",
+        "carAviable":"notAviable"
     },
-    "bhg2":{
+    "popGroup2":{
         "gender":"male",
         "agegroup":[
-            15,
-            59
+            18,
+            64
         ],
-        "employment":"unemployed"
+        "employment":"employed",
+        "carAviable":"aviable"
     },
-    "bhg3":{
+    "popGroup3":{
         "gender":"male",
         "agegroup":[
-            60,
+            18,
+            64
+        ],
+        "employment":"employed",
+        "carAviable":"notAviable"
+    },
+    "popGroup4":{
+        "gender":"male",
+        "agegroup":[
+            18,
+            64
+        ],
+        "employment":"unemployed",
+        "carAviable":"aviable"
+    },
+    "popGroup5":{
+        "gender":"male",
+        "agegroup":[
+            18,
+            64
+        ],
+        "employment":"unemployed",
+        "carAviable":"notAviable"
+    },
+    "popGroup6":{
+        "gender":"male",
+        "agegroup":[
+            65,
             100
         ],
-        "employment":"unemployed"
+        "employment":"unemployed",
+        "carAviable":"aviable"
     },
-    "bhg4":{
+    "popGroup7":{
+        "gender":"male",
+        "agegroup":[
+            65,
+            100
+        ],
+        "employment":"unemployed",
+        "carAviable":"notAviable"
+    },
+    "popGroup8":{
         "gender":"female",
         "agegroup":[
             0,
             14
         ],
-        "employment":"unemployed"
+        "employment":"unemployed",
+        "carAviable":"notAviable"
     },
-    "bhg5":{
+    "popGroup9":{
         "gender":"female",
         "agegroup":[
             15,
-            59
+            17
         ],
-        "employment":"employed"
+        "employment":"unemployed",
+        "carAviable":"notAviable"
     },
-    "bhg6":{
+    "popGroup10":{
         "gender":"female",
         "agegroup":[
-            15,
-            59
+            18,
+            64
         ],
-        "employment":"unemployed"
+        "employment":"employed",
+        "carAviable":"aviable"
     },
-    "bhg7":{
+    "popGroup11":{
         "gender":"female",
         "agegroup":[
-            60,
+            18,
+            64
+        ],
+        "employment":"employed",
+        "carAviable":"notAviable"
+    },
+    "popGroup12":{
+        "gender":"female",
+        "agegroup":[
+            18,
+            64
+        ],
+        "employment":"unemployed",
+        "carAviable":"aviable"
+    },
+    "popGroup13":{
+        "gender":"female",
+        "agegroup":[
+            18,
+            64
+        ],
+        "employment":"unemployed",
+        "carAviable":"notAviable"
+    },
+    "popGroup14":{
+        "gender":"female",
+        "agegroup":[
+            65,
             100
         ],
-        "employment":"unemployed"
+        "employment":"unemployed",
+        "carAviable":"aviable"
+    },
+    "popGroup15":{
+        "gender":"female",
+        "agegroup":[
+            65,
+            100
+        ],
+        "employment":"unemployed",
+        "carAviable":"notAviable"
     }
 }

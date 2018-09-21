@@ -28,7 +28,7 @@ trafficPeakPercentage=0.15
 groupDict = generatePopulationGroups()
 print(groupDict.keys())
 
-# groupDictToJson(groupDict)
+groupDictToJson(groupDict)
 
 
 #############################
@@ -93,6 +93,9 @@ plt.plot(trafficCellDict['60608'].pathConnectionList['60624']['publicTransport']
 plt.ylabel('trips')
 plt.legend()
 plt.savefig('Pic/trips.png')
+
+plt.figure(3)
+plt.plot()
 ###########
-print(len(trafficCellDict['60608'].pathConnectionList['60624']['car'][0].stepLoad, label=trafficCellDict['60608'].pathConnectionList['60624']['car']))
+
 print(trafficCellDict['60101'].expectedResistance['work']['61059']['car']['popGroup2'])

@@ -27,8 +27,8 @@ pathDefaultCapacity = 'Data/defaultCapacity.csv'
 pathBasicLoad = 'Data/basicLoad.csv'
 
 # Filepaths Output
-pathTrafficCellData = 'JsonOutput/trafficCellData2.json'
-pathBehaviouralHomogenousGroups = 'JsonOutput/behaviouralHomogenousGroups.json'
+pathTrafficCellData = 'JsonOutput/trafficCellData.json'
+pathPopGroups = 'JsonOutput/popGroups.json'
 pathNetworkgraph = 'JsonOutput/networkgraph.json'
 pathConnections = 'JsonOutput/connections.json'
 pathDestinationsOfGroupsInCells = 'JsonOutput/destinationsModesOfGroups.json'
@@ -391,7 +391,7 @@ def groupDictToJson(groupDict):
     for key, group in groupDict.items():
         outDict[key] = group._attributes
 
-    with open(pathBehaviouralHomogenousGroups, 'w') as fp:
+    with open(pathPopGroups, 'w') as fp:
         json.dump(outDict, fp, separators=(',', ':'), indent=4)
     print("Output updated: Groups")
 

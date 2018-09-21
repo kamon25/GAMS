@@ -40,7 +40,7 @@ class PopulationGroup():
         self._attributes = attributes #dict with attributes like {"gender":"male"}
         self._groupID = groupID #Counter from 1 to 10
         #attributes for resistance
-        self.k = {'cost':0.0, 'duration':1.0, 'los':0.0}
+        self.k = {'cost':0.4, 'duration':0.3, 'los':0.3}
         
     
     def __str__(self):
@@ -70,7 +70,7 @@ class PopulationGroup():
         k=15
         f_0=0.2
 
-        evGr =U + (G-U)/(1+np.exp(-deltaResistance*G*k)*(G/f_0-1))
+        evGr = U + (G-U)/(1+np.exp(-deltaResistance*G*k)*(G/f_0-1))
         return evGr
 
         
