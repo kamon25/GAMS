@@ -15,7 +15,7 @@ class TrafficCell():
         self.popPerGroup = None  # dict with {PopulationGroupKey : count}
         
 
-        # dict with {PopulationGroupKey : {travelTimeBudget: int, tripRate : int, costBudget : float}}
+        # dict with {PopulationGroupKey : {travelTimeBudget: int, tripRate : int, tripRateWork: int, costBudget : float}}
         self.populationParamsPerGroup = None
         self.attractivity = defaultdict()  # {purpose: attractivity}
 

@@ -9,6 +9,9 @@ import pickle
 import os
 import datetime
 
+#Filepath config
+pathConfigSim='config_sim.json'
+
 # Filepaths Data
 pathTrafficCellsCSV = './Data/Gemeinde_Liste_V1.csv'
 pathPopulationAgeGroupsCSV = 'Data/STMK_01012017_AGE.csv'
@@ -26,15 +29,18 @@ pathConnectionWeights = 'Data/weightConnections.csv'
 pathDefaultCapacity = 'Data/defaultCapacity.csv'
 pathBasicLoad = 'Data/basicLoad.csv'
 
+
 # Filepaths Output
-pathTrafficCellData = 'JsonOutput/trafficCellData.json'
-pathPopGroups = 'JsonOutput/popGroups.json'
-pathNetworkgraph = 'JsonOutput/networkgraph.json'
-pathConnections = 'JsonOutput/connections.json'
-pathDestinationsOfGroupsInCells = 'JsonOutput/destinationsModesOfGroups.json'
-pathSimResult = 'JsonOutput/simResult.json'
-pathSimResultPerStep = 'JsonOutput/simResultsPerStep/simResult-step'
-pathSimResultPerStepinFolder = 'JsonOutput/simResul-1'
+standardOutpath='JsonOutput'
+#spezific Files
+pathTrafficCellData = 'trafficCellData.json'
+pathPopGroups = 'popGroups.json'
+pathNetworkgraph = 'networkgraph.json'
+pathConnections = 'connections.json'
+pathDestinationsOfGroupsInCells = 'destinationsModesOfGroups.json'
+pathSimResult = 'simResult.json'
+pathSimResultPerStep = 'simResultsPerStep/simResult-step'
+pathSimResultPerStepinFolder = 'simResul-1'
 
 # Filepaths storage
 pathTrafficCellStorage = 'Storage/trafficCellObjects'
@@ -44,6 +50,11 @@ pathTrafficCellStorage = 'Storage/trafficCellObjects'
 #     INPUT methods
 #
 #########################################
+
+def loadSimConfig():
+    with open(pathConfigSim) as f:
+        jsonConfig = json.load(f)    
+    return jsonConfig
 
 
 def TrafficCellReaderCSV():
@@ -370,8 +381,9 @@ def readBasicLoad():
 ##########
 
 
-def cellListToJson(trafficCellDict):
-
+def cellListToJson(trafficCellDict, scenarioName):
+    outpath='/'.join([standardOutpath, '-'.join(['scenario',scenarioName]), pathTrafficCellData])
+    print(outpath)
     outDict = defaultdict()
 
     for key, cell in trafficCellDict.items():
@@ -380,13 +392,17 @@ def cellListToJson(trafficCellDict):
         else:
             outDict[key] = cell.toDict()
 
-    with open(pathTrafficCellData, 'w') as fp:
+    with open(outpath, 'w') as fp:
         json.dump(outDict, fp, separators=(',', ':'), indent=4)
     print("Output updated: TrafficCells")
 
 
-def groupDictToJson(groupDict):
+def groupDictToJson(groupDict, scenarioName):
+    outpath='/'.join([standardOutpath, '-'.join(['scenario',scenarioName]), pathPopGroups])
+    print(outpath)
+
     outDict = defaultdict()
+
 
     for key, group in groupDict.items():
         outDict[key] = group._attributes

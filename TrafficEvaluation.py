@@ -67,7 +67,6 @@ def calcAllPathsForTrafficCell(trafficCellDict):
 
 
 def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
-    tripsPerDay = 3.4  # subsitute with Data !!!
     #weight for exponational smoothing in resistance forecasting
     weightSmoothing=0.3
 
@@ -79,7 +78,7 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
                                  for popGroupKey, count in trafficCell.popPerGroup.items()}
 
         trafficDemandPerGroup = {(popGroupKey): (
-            demand*trafficCell.populationParamsPerGroup[popGroupKey]['tripRate']) for popGroupKey, demand in trafficDemandPerGroup.items()}
+            demand*trafficCell.populationParamsPerGroup[popGroupKey]['tripRateWork']) for popGroupKey, demand in trafficDemandPerGroup.items()}
 
         # calc ratio attractivity to resistance und sum for each popGroup
         # {destination:{mode:{group: ratio}}}
@@ -101,7 +100,7 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
                     #calcResistance
                     resistance = groupDict[popGroupKey].calcResistance(connectionParams['duration'], connectionParams['cost'], connectionParams['los'],
                                                                        popParams['travelTimeBudget'],
-                                                                       popParams['costBudget'], 1, tripsPerDay, mode)  # 1 have to be reset with LoS
+                                                                       popParams['costBudget'], 1, trafficCell.populationParamsPerGroup[popGroupKey]['tripRate'], mode)  # 1 have to be reset with LoS
                     if resistance == - 1.0:
                         continue
                     #calcAttraction

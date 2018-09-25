@@ -40,7 +40,7 @@ class PopulationGroup():
         self._attributes = attributes #dict with attributes like {"gender":"male"}
         self._groupID = groupID #Counter from 1 to 10
         #attributes for resistance
-        self.k = {'cost':0.4, 'duration':0.3, 'los':0.3}
+        self.k = {'cost':0.3, 'duration':0.4, 'los':0.3}
         
     
     def __str__(self):
@@ -182,21 +182,25 @@ class PopulationGroup():
             # set params for group
             timebudget=None
             tripRate= None
+            tripRateWork = None
             for inhab in tempInhabitantList:
-                if timebudget == None or tripRate == None:
+                if timebudget == None or tripRate == None or tripRateWork == None:
                     timebudget = inhab.travelTimeBudget
                     tripRate = inhab.tripRate
+                    tripRateWork = inhab.tripRateWork
                 else:
                     timebudget = timebudget + inhab.travelTimeBudget
                     tripRate = tripRate + inhab.tripRate
+                    tripRateWork = tripRateWork + inhab.tripRateWork
 
             timebudget = timebudget/float(peoplePerGroupe[groupKey])
             tripRate = tripRate/float(peoplePerGroupe[groupKey])
+            tripRateWork = tripRateWork/float(peoplePerGroupe[groupKey])
             #print(timebudget)
             #print(tripRate)
             
 
-            trafficParamsGroupe[groupKey]={"travelTimeBudget":timebudget, "tripRate" : tripRate, "costBudget": costBudget}
+            trafficParamsGroupe[groupKey]={"travelTimeBudget":timebudget, "tripRate" : tripRate, "tripRateWork": tripRateWork , "costBudget": costBudget}
 
         trafficCell.SetPopulationGroups(peoplePerGroupe)
         trafficCell.SetPopulationParams(trafficParamsGroupe)

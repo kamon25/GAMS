@@ -4,6 +4,7 @@ from collections import defaultdict
 
 from Population.PopulationGroup import PopulationGroup
 from Infrastructure.TrafficCell import TrafficCell
+from DataHandler import loadSimConfig
 from DataHandler import cellListToJson
 from DataHandler import groupDictToJson
 from DataHandler import graphToJson
@@ -20,6 +21,12 @@ from TrafficEvaluation import calcAllPathsForTrafficCell
 from TrafficEvaluation import choseDestinationAndMode
 from TrafficEvaluation import runSimulation
 
+from visualGAMS import plotConnectionComparison
+from visualGAMS import plotModalSplitConnections
+
+# --- load Config-File
+jsonSimConfig = loadSimConfig()
+
 # --- global Values and Assumptions
 trafficPeakPercentage=0.15
 
@@ -28,7 +35,7 @@ trafficPeakPercentage=0.15
 groupDict = generatePopulationGroups()
 print(groupDict.keys())
 
-groupDictToJson(groupDict)
+groupDictToJson(groupDict, '1')
 
 
 #############################
@@ -43,7 +50,7 @@ saveTC(trafficCellDict)
 # print(trafficCellDict['61059'].inhabitants)
 #######################################
 
-cellListToJson(trafficCellDict)
+cellListToJson(trafficCellDict, '1')
 
 # --- shortest Path:
 ConInfra.bildGraph()
@@ -80,22 +87,13 @@ connectionsToJson(trafficCellDict, 30)
 
 
 #############
-plt.figure(1)
-plt.plot(trafficCellDict['60608'].pathConnectionList['60624']['car'][0].occupancy, label=trafficCellDict['60608'].pathConnectionList['60624']['car'][0].getConnectionType())
-plt.plot(trafficCellDict['60608'].pathConnectionList['60624']['publicTransport'][0].occupancy, label=trafficCellDict['60608'].pathConnectionList['60624']['publicTransport'][0].getConnectionType())
-plt.ylabel('Auslastung')
-plt.legend()
-plt.savefig('Pic/occupy.png')
 
-plt.figure(2)
-plt.plot(trafficCellDict['60608'].pathConnectionList['60624']['car'][0].stepLoad, label=trafficCellDict['60608'].pathConnectionList['60624']['car'][0].getConnectionType())
-plt.plot(trafficCellDict['60608'].pathConnectionList['60624']['publicTransport'][0].stepLoad, label=trafficCellDict['60608'].pathConnectionList['60624']['publicTransport'][0].getConnectionType())
-plt.ylabel('trips')
-plt.legend()
-plt.savefig('Pic/trips.png')
+plotConnectionComparison(trafficCellDict['60608'].pathConnectionList['60624']['car'][0],trafficCellDict['60608'].pathConnectionList['60624']['publicTransport'][0])
+plotModalSplitConnections(trafficCellDict)
 
-plt.figure(3)
-plt.plot()
 ###########
 
 print(trafficCellDict['60101'].expectedResistance['work']['61059']['car']['popGroup2'])
+
+#########
+
