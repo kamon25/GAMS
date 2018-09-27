@@ -191,10 +191,14 @@ def calcSimulationStep(trafficCellDict, groupDict, step, stepsPerYear, startYear
 ######################
 
 
-def runSimulation(trafficCellDict, groupDict, years, startYear):
-    stepsPerYear = 12
-    listOfFiles = []
+def runSimulation(trafficCellDict, groupDict, jsonSimConfig):
+    stepsPerYear = jsonSimConfig["steps_per_year"]
+    startYear=jsonSimConfig["start_year"]
+    years = jsonSimConfig['simulation_years']
     steps = years*stepsPerYear
+
+    listOfFiles = []
+    
 
     # {timestep:{startCell:{Purpose{destination: { mode:{popGroup: trips}}}}
     resultOfSimulation = defaultdict()
@@ -210,7 +214,7 @@ def runSimulation(trafficCellDict, groupDict, years, startYear):
             # startCellDict[cellKey]=cell.purposeSestinationModeGroup
 
         # Save results of simulation stepwise in JSON and get the list of Filenames
-        listOfFiles.append(resultPerStepInFolders(startCellDict, st))
+        listOfFiles.append(resultPerStepInFolders(startCellDict, jsonSimConfig["scenario_name"], st))
         # Save result of simulation in Dict
         resultOfSimulation[st] = startCellDict
 
@@ -218,6 +222,6 @@ def runSimulation(trafficCellDict, groupDict, years, startYear):
             print("year: " + str(st/stepsPerYear))
 
     # Config for visualisation
-    creatSimConfigFile('1', listOfFiles, steps, startYear)
+    creatSimConfigFile('1', listOfFiles, steps, jsonSimConfig)
 
     return resultOfSimulation

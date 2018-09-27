@@ -13,6 +13,8 @@ from DataHandler import destinationsModesToJson
 from DataHandler import resultOfSimulationToJson
 from DataHandler import saveTrafficCells as saveTC
 from DataHandler import loadTrafficCellDict as loadTC
+from DataHandler import createOutputDirectory
+
 from Infrastructure import ConInfrastructure as ConInfra
 
 from TrafficEvaluation import generatePopulationGroups as generatePopulationGroups
@@ -26,6 +28,8 @@ from visualGAMS import plotModalSplitConnections
 
 # --- load Config-File
 jsonSimConfig = loadSimConfig()
+# --- create output folder
+createOutputDirectory(jsonSimConfig["scenario_name"])
 
 # --- global Values and Assumptions
 trafficPeakPercentage=0.15
@@ -35,7 +39,7 @@ trafficPeakPercentage=0.15
 groupDict = generatePopulationGroups()
 print(groupDict.keys())
 
-groupDictToJson(groupDict, '1')
+groupDictToJson(groupDict, jsonSimConfig["scenario_name"])
 
 
 #############################
@@ -50,7 +54,7 @@ saveTC(trafficCellDict)
 # print(trafficCellDict['61059'].inhabitants)
 #######################################
 
-cellListToJson(trafficCellDict, '1')
+cellListToJson(trafficCellDict, jsonSimConfig["scenario_name"])
 
 # --- shortest Path:
 ConInfra.bildGraph()
@@ -74,15 +78,14 @@ for connection in trafficCellDict['61059'].pathConnectionList['60101']['car']:
 
 
 # Start of destination choice
-publicTransportCost = [2.4, 2.1, 2.1, 2, 2, 2,
-                       2, 2, 2, 1.7, 1.6, 1.5, 1.5, 1.5, 1.5, 1.5]
+publicTransportCost = jsonSimConfig["publittransport_Cost"]
 for tC in trafficCellDict.values():
-    tC.calcConnectionParams(0.42, publicTransportCost)
+    tC.calcConnectionParams(jsonSimConfig["carCostPer_KM"], publicTransportCost)
 
 # Run Simulation
-resultDict = runSimulation(trafficCellDict, groupDict, 3, 2018)
+resultDict = runSimulation(trafficCellDict, groupDict, jsonSimConfig)
 # Write Connections
-connectionsToJson(trafficCellDict, 30)
+connectionsToJson(trafficCellDict,jsonSimConfig["scenario_name"], 30)
 
 
 

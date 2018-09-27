@@ -376,6 +376,14 @@ def readBasicLoad():
 #
 #################################
 
+def createOutputDirectory(scenarioName):
+    folderPath='/'.join([standardOutpath, '-'.join(['scenario',scenarioName])])
+
+    if not os.path.exists(folderPath):
+        os.makedirs(folderPath)
+
+
+
 ##########
 # JSON Encoder
 ##########
@@ -399,15 +407,13 @@ def cellListToJson(trafficCellDict, scenarioName):
 
 def groupDictToJson(groupDict, scenarioName):
     outpath='/'.join([standardOutpath, '-'.join(['scenario',scenarioName]), pathPopGroups])
-    print(outpath)
 
     outDict = defaultdict()
-
 
     for key, group in groupDict.items():
         outDict[key] = group._attributes
 
-    with open(pathPopGroups, 'w') as fp:
+    with open(outpath, 'w') as fp:
         json.dump(outDict, fp, separators=(',', ':'), indent=4)
     print("Output updated: Groups")
 
@@ -419,10 +425,10 @@ def graphToJson(networkGraph):
     print('Wrote node-link as JSON to' + pathNetworkgraph)
 
 
-def connectionsToJson(trafficCellDict, step):
+def connectionsToJson(trafficCellDict, scenarioName, step):
     connections = set()
     outputList = []
-    outpath = pathConnections
+    outpath = '/'.join([standardOutpath, '-'.join(['scenario',scenarioName]), pathConnections])
 
     for trafficCell in trafficCellDict.values():
         for cellValues in trafficCell.pathConnectionList.values():
@@ -440,8 +446,11 @@ def connectionsToJson(trafficCellDict, step):
     print('Wrote connections as JSON  to' + outpath)
 
 
-def destinationsModesToJson(trafficCellDict):
+def destinationsModesToJson(trafficCellDict, scenarioName):
     outDict = defaultdict()
+    outpath = '/'.join([standardOutpath, '-'.join(['scenario',scenarioName]), pathDestinationsOfGroupsInCells])
+
+
     for tc in trafficCellDict.values():
         tempPurposeDict = defaultdict()
         for purp, desDict in tc.purposeSestinationModeGroup.items():
@@ -457,34 +466,37 @@ def destinationsModesToJson(trafficCellDict):
             tempPurposeDict[purp] = tempDesDict
         outDict[tc] = tempPurposeDict
 
-    with open(pathDestinationsOfGroupsInCells, 'w') as fp:
+    with open(outpath, 'w') as fp:
         json.dump(outDict, fp, indent=4)
     print('Wrote node-link JSON data to' + pathDestinationsOfGroupsInCells)
 
 
-def resultOfSimulationToJson(resultDict):
+def resultOfSimulationToJson(resultDict, scenarioName):
     # {timestep:{startCell.ID:{Purpose{destination_ID: { mode:{popGroup: trips}}}}
     outDict = resultDict
-    with open(pathSimResult, 'w') as fp:
+    outpath = '/'.join([standardOutpath, '-'.join(['scenario',scenarioName]), pathSimResult])
+    with open(outpath, 'w') as fp:
         json.dump(outDict, fp, indent=4)
     print('Wrote result JSON data to' + pathSimResult)
 
 
-def resultSimStepsToJson(stepResultDic, step):
+def resultSimStepsToJson(stepResultDic, scenarioName, step):
     # {startCell.ID:{Purpose{destination_ID: { mode:{popGroup: trips}}}}
     outDict = stepResultDic
     outpath = pathSimResultPerStep + '-' + str(step) + '.json'
+    outpath = '/'.join([standardOutpath, '-'.join(['scenario',scenarioName]), outpath])
 
     with open(outpath, 'w') as fp:
         json.dump(outDict, fp, indent=4)
         print('Wrote step result JSON data to' + outpath)
 
 
-def resultPerStepInFolders(stepResultDic, step):
-    
+def resultPerStepInFolders(stepResultDic, scenarioName, step):
+    path = '/'.join([standardOutpath, '-'.join(['scenario',scenarioName]), pathSimResultPerStepinFolder])
+
     for keys, outDict in stepResultDic.items():
         # createFolders
-        folderPath = pathSimResultPerStepinFolder + '/' + keys
+        folderPath = path + '/' + keys
         if not os.path.exists(folderPath):
             os.makedirs(folderPath)
 
@@ -499,20 +511,20 @@ def resultPerStepInFolders(stepResultDic, step):
     return filename
 
 
-def creatSimConfigFile(simID, listOfFiles, steps, startYear):
-    outpath = pathSimResultPerStepinFolder + "/simConfig.json"
-    startTimeObject=datetime.date(startYear,1,1)
+def creatSimConfigFile(simID, listOfFiles, steps, jsonSimConfig):
+    outpath = '/'.join([standardOutpath, '-'.join(['scenario',jsonSimConfig["scenario_name"]]), pathSimResultPerStepinFolder,"simConfig.json"])
+    startTimeObject=datetime.date(jsonSimConfig['start_year'],1,1)
     endTimeObject=startTimeObject+datetime.timedelta(days=steps*365/12)
 
 
     simulationID = ('simulationID', simID)
     simulationName = ('simulationName', 'GAMS Simulation')
-    startDate = ('startDate_YYYYMMDD', startTimeObject.strftime('%Y%m%d'))
-    endDate = ('endDate_YYYYMMDD', endTimeObject.strftime('%Y%m%d'))
+    startDate = ('startDate_YYYYMM', startTimeObject.strftime('%Y%m'))
+    endDate = ('endDate_YYYYMM', endTimeObject.strftime('%Y%m'))
     simulationCalculationStepSize_days = (
-        'simulationCalculationStepSize_days', 1)
+        'simulationCalculationStepSize_months', 1)
     simulationPresentationStepSize_days = (
-        'simulationPresentationStepSize-days', 1)
+        'simulationPresentationStepSize_months', 1)
 
     outDict = dict([simulationID, simulationName, startDate, endDate, simulationCalculationStepSize_days, simulationPresentationStepSize_days,
                     ('simulationResultStepFileNames', listOfFiles)])
