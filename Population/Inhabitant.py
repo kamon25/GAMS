@@ -96,7 +96,7 @@ class Inhabitant():
     def setCarAviable(self, i, carAviableRate, groupDict, carKey, agegroupKey):
         carPossible = False
         for group in groupDict.values():
-            if group._attributes[agegroupKey] == self.attributes[agegroupKey] and group._attributes[carKey] == 'aviable':
+            if group._attributes[agegroupKey] == self.attributes[agegroupKey] and group._attributes[carKey] == 'available':
                 carPossible = True
                 break
         
@@ -104,17 +104,17 @@ class Inhabitant():
             carProbability = carAviableRate[self.attributes[agegroupKey]]
             randomnumberCar = np.random.uniform()
             if randomnumberCar <= carProbability:
-                self.attributes[carKey]='aviable'
+                self.attributes[carKey]='available'
             else:
-                self.attributes[carKey]='notAviable'
+                self.attributes[carKey]='notAvailable'
         else:
-            self.attributes[carKey]='notAviable'
+            self.attributes[carKey]='notAvailable'
     
     def setCarAviableFromDensity(self, i, carDensity, trafficcellInhabitants, potentialCarUsers, groupDict, carKey, agegroupKey):
         # -- is a car aviability possible? possible (ageroupe)?
         carPossible = False
         for group in groupDict.values():
-            if group._attributes[agegroupKey] == self.attributes[agegroupKey] and group._attributes[carKey] == 'aviable':
+            if group._attributes[agegroupKey] == self.attributes[agegroupKey] and group._attributes[carKey] == 'available':
                 carPossible = True
                 break
         
@@ -122,11 +122,11 @@ class Inhabitant():
             carProbability = (carDensity/1000.0)*trafficcellInhabitants/potentialCarUsers
             randomnumberCar = np.random.uniform()
             if randomnumberCar <= carProbability:
-                self.attributes[carKey]='aviable'
+                self.attributes[carKey]='available'
             else:
-                self.attributes[carKey]='notAviable'
+                self.attributes[carKey]='notAvailable'
         else:
-            self.attributes[carKey]='notAviable'
+            self.attributes[carKey]='notAvailable'
 
 
     def setTravelTimeBudget(self, i, timeBudgetAgegroups):

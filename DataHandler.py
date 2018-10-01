@@ -11,6 +11,7 @@ import datetime
 
 #Filepath config
 pathConfigSim='config_sim.json'
+pathConfigParameter='config_parameter.json'
 
 # Filepaths Data
 pathTrafficCellsCSV = './Data/Gemeinde_Liste_V1.csv'
@@ -18,7 +19,7 @@ pathPopulationAgeGroupsCSV = 'Data/STMK_01012017_AGE.csv'
 pathPopulationSexCSV = 'Data/STMK_01012017_SEX.csv'
 pathPopulationEmployment = 'Data/OGDEXT_AEST_GEMTAB_1.csv'
 pathPopulationCarDensity = 'Data/carDensity.csv'
-pathPopulationCarAviable = 'Data/carAvailability.csv'
+pathPopulationCarAvailable  = 'Data/carAvailability.csv'
 pathPopulationForecast = 'Data/STMK_2015_2030_PROJ.csv'
 
 # Filepaths traffic network
@@ -31,7 +32,7 @@ pathBasicLoad = 'Data/basicLoad.csv'
 
 
 # Filepaths Output
-standardOutpath='JsonOutput'
+standardOutpath='JsonOutput/scenarios'
 #spezific Files
 pathTrafficCellData = 'trafficCellData.json'
 pathPopGroups = 'popGroups.json'
@@ -40,7 +41,7 @@ pathConnections = 'connections.json'
 pathDestinationsOfGroupsInCells = 'destinationsModesOfGroups.json'
 pathSimResult = 'simResult.json'
 pathSimResultPerStep = 'simResultsPerStep/simResult-step'
-pathSimResultPerStepinFolder = 'simResul-1'
+pathSimResultPerStepinFolder = 'simulations/simResul-1'
 
 # Filepaths storage
 pathTrafficCellStorage = 'Storage/trafficCellObjects'
@@ -55,6 +56,11 @@ def loadSimConfig():
     with open(pathConfigSim) as f:
         jsonConfig = json.load(f)    
     return jsonConfig
+
+def loadParameterConfig():
+    with open(pathConfigParameter) as f:
+        jsonParameter = json.load(f)
+    return jsonParameter
 
 
 def TrafficCellReaderCSV():
@@ -204,8 +210,8 @@ def AttributeReaderCSV(cellID, popGroup, paramToRead):
         return employmentRate
     
     # ---read car density
-    if paramToRead is "carAviable":
-        df = pd.read_csv(pathPopulationCarAviable, sep=';', na_values=['NA'], decimal='.', dtype={'GKZ': str})
+    if paramToRead is 'carAvailable':
+        df = pd.read_csv(pathPopulationCarAvailable , sep=';', na_values=['NA'], decimal='.', dtype={'GKZ': str})
         dfBetrachtung = df.set_index('GKZ')
 
         agegroupRate = defaultdict(float)

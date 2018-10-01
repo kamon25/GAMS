@@ -24,30 +24,32 @@ class PopulationGroup():
     possibleAttributes={"gender":["male", "female"],
                         "agegroup":[(0,14), (15,17), (18,64), (65,100)], 
                         "employment":["employed", "unemployed"],
-                        "carAviable":['aviable', 'notAviable']}
+                        "carAvailable":['available', 'notAvailable']}
     impossibleCombinations=[((0,14),"employed"),
                             ((15,17),"employed"), 
                             ((65,100),"employed"),
-                            ((0,14), 'aviable'),
-                            ((15,17), 'aviable')]
+                            ((0,14), 'available'),
+                            ((15,17), 'available')]
     groupDict=defaultdict()
 
     
     ######################
     #--- methods
     ######################
-    def __init__(self, groupID, attributes):
+    def __init__(self, groupID, attributes, jsonParameter):
         self._attributes = attributes #dict with attributes like {"gender":"male"}
         self._groupID = groupID #Counter from 1 to 10
         #attributes for resistance
-        self.k = {'cost':0.3, 'duration':0.4, 'los':0.3}
+        self.k = {'cost':jsonParameter['resistance_weight_cost'], 
+                  'duration':jsonParameter['resistance_weight_time'], 
+                  'los':jsonParameter['resistance_weight_los']}
         
     
     def __str__(self):
         return str(self._attributes)
 
     def calcResistance(self, duration, cost, los, travelTimeBudget, costBudget, expectationLos, tripsPerDay, mode):
-        if mode == 'car' and self._attributes['carAviable']!='aviable':
+        if mode == 'car' and self._attributes['carAvailable']!='available':
             return -1.0
         
         #calc duration resistance
@@ -79,7 +81,7 @@ class PopulationGroup():
     #--- static methods
     ############################################
     @staticmethod
-    def calculatePopulation(trafficCell):
+    def calculatePopulation(trafficCell, jsonParameter):
         #################
         # Things to Add:
         #  -car aviable?!
@@ -87,7 +89,7 @@ class PopulationGroup():
 
         if not PopulationGroup.groupDict:
             print("Groups are not generated -> genaration")
-            PopulationGroup.generateGroups(PopulationGroup.possibleAttributes, PopulationGroup.impossibleCombinations)
+            PopulationGroup.generateGroups(PopulationGroup.possibleAttributes, PopulationGroup.impossibleCombinations, jsonParameter)
         ####
         #--- read all necesary Attributes
         attributesWithValues=defaultdict(dict)
@@ -110,7 +112,7 @@ class PopulationGroup():
         potantialCarUser = 0
         agegroupsChecked = set()
         for group in PopulationGroup.groupDict.values():
-            if group._attributes['carAviable'] ==  PopulationGroup.possibleAttributes['carAviable'][0]:
+            if group._attributes['carAvailable'] ==  PopulationGroup.possibleAttributes['carAvailable'][0]:
                 if  group._attributes["agegroup"] in agegroupsChecked:
                     continue
                 else:                    
@@ -135,7 +137,7 @@ class PopulationGroup():
             tempInhab.setEmployment(i, attributesWithValues["employment"]["employmentRate_15_64"], PopulationGroup.groupDict, "employment" , "agegroup")
             #print(time.clock() - c1)
 
-            tempInhab.setCarAviable(i, attributesWithValues['carAviable'], PopulationGroup.groupDict, 'carAviable', 'agegroup')
+            tempInhab.setCarAviable(i, attributesWithValues['carAvailable'], PopulationGroup.groupDict, 'carAvailable', 'agegroup')
 
             ##-- set traffic relevant attributes
             #-- set travel time budget
@@ -208,7 +210,7 @@ class PopulationGroup():
 
 
     @staticmethod
-    def generateGroups(possibleAttributes,impossibleCombinations):
+    def generateGroups(possibleAttributes,impossibleCombinations, jsonParameter):
         #generate a list with all possible attribute combinations
         attributeList=[]
         attributeNameList=[] 
@@ -242,7 +244,7 @@ class PopulationGroup():
             print(dict(zip(attributeNameList,group)))
             keystring='popGroup' + str(idx)
             print(keystring)
-            PopulationGroup.groupDict[keystring]=(PopulationGroup(idx,dict(zip(attributeNameList,group))))
+            PopulationGroup.groupDict[keystring]=(PopulationGroup(idx,dict(zip(attributeNameList,group)),jsonParameter))
 
 
 

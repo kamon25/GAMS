@@ -5,6 +5,7 @@ from collections import defaultdict
 from Population.PopulationGroup import PopulationGroup
 from Infrastructure.TrafficCell import TrafficCell
 from DataHandler import loadSimConfig
+from DataHandler import loadParameterConfig
 from DataHandler import cellListToJson
 from DataHandler import groupDictToJson
 from DataHandler import graphToJson
@@ -28,15 +29,16 @@ from visualGAMS import plotModalSplitConnections
 
 # --- load Config-File
 jsonSimConfig = loadSimConfig()
+jsonParameter = loadParameterConfig()
 # --- create output folder
 createOutputDirectory(jsonSimConfig["scenario_name"])
 
 # --- global Values and Assumptions
-trafficPeakPercentage=0.15
+trafficPeakPercentage=jsonParameter["trafficPeakPercentage"]
 
 
 # ---List of populationgroups in the area
-groupDict = generatePopulationGroups()
+groupDict = generatePopulationGroups(jsonParameter)
 print(groupDict.keys())
 
 groupDictToJson(groupDict, jsonSimConfig["scenario_name"])
@@ -44,7 +46,7 @@ groupDictToJson(groupDict, jsonSimConfig["scenario_name"])
 
 #############################
 # ---Generate TrafficCells
-trafficCellDict = generateTrafficCells()
+trafficCellDict = generateTrafficCells(jsonParameter)
 print("TrafficCells generated")
 saveTC(trafficCellDict)
 
@@ -83,7 +85,7 @@ for tC in trafficCellDict.values():
     tC.calcConnectionParams(jsonSimConfig["carCostPer_KM"], publicTransportCost)
 
 # Run Simulation
-resultDict = runSimulation(trafficCellDict, groupDict, jsonSimConfig)
+resultDict = runSimulation(trafficCellDict, groupDict, jsonSimConfig, jsonParameter)
 # Write Connections
 connectionsToJson(trafficCellDict,jsonSimConfig["scenario_name"], 30)
 

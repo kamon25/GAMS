@@ -12,11 +12,11 @@ from Infrastructure import ConInfrastructure as ConInfra
 from collections import defaultdict
 
 
-def generatePopulationGroups():
-    return PopulationGroup.generateGroups(PopulationGroup.possibleAttributes, PopulationGroup.impossibleCombinations)
+def generatePopulationGroups(jsonParameter):
+    return PopulationGroup.generateGroups(PopulationGroup.possibleAttributes, PopulationGroup.impossibleCombinations, jsonParameter)
 
 
-def generateTrafficCells():
+def generateTrafficCells(jsonParameter):
     trafficCellDict = defaultdict()
     # Read the traffic cells in viewing space
     trafficCellsInitDict = TrafficCellReader()
@@ -39,7 +39,7 @@ def generateTrafficCells():
     print(trafficCellDict['61059'].inhabitants)
 
     for tc in trafficCellDict.values():
-        PopulationGroup.calculatePopulation(tc)
+        PopulationGroup.calculatePopulation(tc,jsonParameter)
     # PopulationGroup.calculatePopulation(trafficCellDict[61059])
     print(trafficCellDict['61059'].populationParamsPerGroup)
 
@@ -66,9 +66,9 @@ def calcAllPathsForTrafficCell(trafficCellDict):
 ######################
 
 
-def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step):
+def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step, jsonParameter):
     #weight for exponational smoothing in resistance forecasting
-    weightSmoothing=0.3
+    weightSmoothing=jsonParameter["weight_smoothing"]
 
 
     for trafficCell in trafficCellDict.values():
@@ -172,9 +172,9 @@ def updateInhabitantsAll(trafficCellDict, year):
 ######################
 
 
-def calcSimulationStep(trafficCellDict, groupDict, step, stepsPerYear, startYear):
+def calcSimulationStep(trafficCellDict, groupDict, step, stepsPerYear, startYear, jsonParameter):
 
-    choseDestinationAndMode(trafficCellDict, groupDict, 'work', step)
+    choseDestinationAndMode(trafficCellDict, groupDict, 'work', step, jsonParameter)
     updateConnectionParamsAll(trafficCellDict)
 
     #update inhabitants every year
@@ -191,7 +191,7 @@ def calcSimulationStep(trafficCellDict, groupDict, step, stepsPerYear, startYear
 ######################
 
 
-def runSimulation(trafficCellDict, groupDict, jsonSimConfig):
+def runSimulation(trafficCellDict, groupDict, jsonSimConfig, jsonParameter):
     stepsPerYear = jsonSimConfig["steps_per_year"]
     startYear=jsonSimConfig["start_year"]
     years = jsonSimConfig['simulation_years']
@@ -205,7 +205,7 @@ def runSimulation(trafficCellDict, groupDict, jsonSimConfig):
 
     for st in range(0, steps):
         # MAIN Calculation
-        calcSimulationStep(trafficCellDict, groupDict, st, stepsPerYear, startYear)
+        calcSimulationStep(trafficCellDict, groupDict, st, stepsPerYear, startYear, jsonParameter)
         # write values
         startCellDict = defaultdict()
         for cellKey, cell in trafficCellDict.items():
@@ -222,6 +222,6 @@ def runSimulation(trafficCellDict, groupDict, jsonSimConfig):
             print("year: " + str(st/stepsPerYear))
 
     # Config for visualisation
-    creatSimConfigFile('1', listOfFiles, steps, jsonSimConfig)
+    creatSimConfigFile(jsonSimConfig["scenario_name"], listOfFiles, steps, jsonSimConfig)
 
     return resultOfSimulation
