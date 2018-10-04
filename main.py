@@ -15,6 +15,7 @@ from DataHandler import resultOfSimulationToJson
 from DataHandler import saveTrafficCells as saveTC
 from DataHandler import loadTrafficCellDict as loadTC
 from DataHandler import createOutputDirectory
+from DataHandler import createScenarioConfigFile
 
 from Infrastructure import ConInfrastructure as ConInfra
 
@@ -26,6 +27,8 @@ from TrafficEvaluation import runSimulation
 
 from visualGAMS import plotConnectionComparison
 from visualGAMS import plotModalSplitConnections
+from visualGAMS import plotModalSplitOverAllCells
+from visualGAMS import plotModalSplitwithinCells
 
 # --- load Config-File
 jsonSimConfig = loadSimConfig()
@@ -58,6 +61,10 @@ saveTC(trafficCellDict)
 
 cellListToJson(trafficCellDict, jsonSimConfig["scenario_name"])
 
+#---- print Employed:
+for tc in trafficCellDict.values():
+    tc.printEmployed(groupDict)
+
 # --- shortest Path:
 ConInfra.bildGraph()
 
@@ -82,19 +89,22 @@ for connection in trafficCellDict['61059'].pathConnectionList['60101']['car']:
 # Start of destination choice
 publicTransportCost = jsonSimConfig["publittransport_Cost"]
 for tC in trafficCellDict.values():
-    tC.calcConnectionParams(jsonSimConfig["carCostPer_KM"], publicTransportCost)
+    tC.calcConnectionParams(jsonSimConfig["carCostPer_KM"], publicTransportCost, jsonParameter)
 
 # Run Simulation
 resultDict = runSimulation(trafficCellDict, groupDict, jsonSimConfig, jsonParameter)
 # Write Connections
 connectionsToJson(trafficCellDict,jsonSimConfig["scenario_name"], 30)
-
+createScenarioConfigFile(jsonSimConfig["scenario_name"], jsonSimConfig)
 
 
 #############
 
 plotConnectionComparison(trafficCellDict['60608'].pathConnectionList['60624']['car'][0],trafficCellDict['60608'].pathConnectionList['60624']['publicTransport'][0])
 plotModalSplitConnections(trafficCellDict)
+plotModalSplitOverAllCells(trafficCellDict)
+plotModalSplitwithinCells(trafficCellDict)
+
 
 ###########
 

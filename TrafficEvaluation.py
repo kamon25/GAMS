@@ -69,12 +69,13 @@ def calcAllPathsForTrafficCell(trafficCellDict):
 def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step, jsonParameter):
     #weight for exponational smoothing in resistance forecasting
     weightSmoothing=jsonParameter["weight_smoothing"]
+    ratioToIntern = 1.0 - jsonParameter["ratioToExtern"]
 
 
     for trafficCell in trafficCellDict.values():
         # calc demand for each populationGroup in each trafficCell
 
-        trafficDemandPerGroup = {(popGroupKey): (count if groupDict[popGroupKey]._attributes["employment"] == PopulationGroup.possibleAttributes["employment"][0] else 0)
+        trafficDemandPerGroup = {(popGroupKey): (count* ratioToIntern if groupDict[popGroupKey]._attributes["employment"] == PopulationGroup.possibleAttributes["employment"][0] else 0)
                                  for popGroupKey, count in trafficCell.popPerGroup.items()}
 
         trafficDemandPerGroup = {(popGroupKey): (
@@ -100,7 +101,7 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step, 
                     #calcResistance
                     resistance = groupDict[popGroupKey].calcResistance(connectionParams['duration'], connectionParams['cost'], connectionParams['los'],
                                                                        popParams['travelTimeBudget'],
-                                                                       popParams['costBudget'], 1, trafficCell.populationParamsPerGroup[popGroupKey]['tripRate'], mode)  # 1 have to be reset with LoS
+                                                                       popParams['costBudget'], 1, trafficCell.populationParamsPerGroup[popGroupKey]['tripRate'], mode,jsonParameter)  # 1 have to be reset with LoS
                     if resistance == - 1.0:
                         continue
                     #calcAttraction

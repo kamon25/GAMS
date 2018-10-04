@@ -9,9 +9,9 @@ import pickle
 import os
 import datetime
 
-#Filepath config
-pathConfigSim='config_sim.json'
-pathConfigParameter='config_parameter.json'
+# Filepath config
+pathConfigSim = 'config_sim.json'
+pathConfigParameter = 'config_parameter.json'
 
 # Filepaths Data
 pathTrafficCellsCSV = './Data/Gemeinde_Liste_V1.csv'
@@ -19,7 +19,7 @@ pathPopulationAgeGroupsCSV = 'Data/STMK_01012017_AGE.csv'
 pathPopulationSexCSV = 'Data/STMK_01012017_SEX.csv'
 pathPopulationEmployment = 'Data/OGDEXT_AEST_GEMTAB_1.csv'
 pathPopulationCarDensity = 'Data/carDensity.csv'
-pathPopulationCarAvailable  = 'Data/carAvailability.csv'
+pathPopulationCarAvailable = 'Data/carAvailability.csv'
 pathPopulationForecast = 'Data/STMK_2015_2030_PROJ.csv'
 
 # Filepaths traffic network
@@ -32,8 +32,8 @@ pathBasicLoad = 'Data/basicLoad.csv'
 
 
 # Filepaths Output
-standardOutpath='JsonOutput/scenarios'
-#spezific Files
+standardOutpath = 'JsonOutput/scenarios'
+# spezific Files
 pathTrafficCellData = 'trafficCellData.json'
 pathPopGroups = 'popGroups.json'
 pathNetworkgraph = 'networkgraph.json'
@@ -42,6 +42,8 @@ pathDestinationsOfGroupsInCells = 'destinationsModesOfGroups.json'
 pathSimResult = 'simResult.json'
 pathSimResultPerStep = 'simResultsPerStep/simResult-step'
 pathSimResultPerStepinFolder = 'simulations/simResul-1'
+pathSimConfigOutput = 'simulation_config.json'
+pathScenarioConfigOutput = 'scenario_config.json'
 
 # Filepaths storage
 pathTrafficCellStorage = 'Storage/trafficCellObjects'
@@ -52,10 +54,12 @@ pathTrafficCellStorage = 'Storage/trafficCellObjects'
 #
 #########################################
 
+
 def loadSimConfig():
     with open(pathConfigSim) as f:
-        jsonConfig = json.load(f)    
+        jsonConfig = json.load(f)
     return jsonConfig
+
 
 def loadParameterConfig():
     with open(pathConfigParameter) as f:
@@ -108,19 +112,21 @@ def inhabitantReaderCSV(trafficCellDict, *paramsToRead):
         for cellID, cell in trafficCellDict.items():
             # Convertation to int maybe needed
             cell.inhabitants = pop_total.to_dict()[cellID]
-            cell.inhabitantForecast=inhabitantForecastReader(cellID)
+            cell.inhabitantForecast = inhabitantForecastReader(cellID)
 
 
 def inhabitantForecastReader(cellID):
-    df = pd.read_csv(pathPopulationForecast, encoding="ISO-8859-1", sep=';',  na_values=['NA'], dtype={'LAU_CODE': str})
+    df = pd.read_csv(pathPopulationForecast, encoding="ISO-8859-1",
+                     sep=';',  na_values=['NA'], dtype={'LAU_CODE': str})
     dfBetrachtung = df.set_index('LAU_CODE')
 
     popYear = defaultdict()
     for dataColumNames in list(dfBetrachtung):
-        headSplit = dataColumNames.split("_")    
+        headSplit = dataColumNames.split("_")
         if headSplit[0] == "POP":
-            popYear[int(headSplit[1])] = dfBetrachtung.loc[cellID][dataColumNames]
-    
+            popYear[int(headSplit[1])
+                    ] = dfBetrachtung.loc[cellID][dataColumNames]
+
     return popYear
 
 
@@ -208,10 +214,11 @@ def AttributeReaderCSV(cellID, popGroup, paramToRead):
         employmentRate = {"employmentRate_15_64": float(
             dfBetrachtung.loc[cellID][employmentCorresponding[paramToRead]])}
         return employmentRate
-    
+
     # ---read car density
     if paramToRead is 'carAvailable':
-        df = pd.read_csv(pathPopulationCarAvailable , sep=';', na_values=['NA'], decimal='.', dtype={'GKZ': str})
+        df = pd.read_csv(pathPopulationCarAvailable, sep=';', na_values=[
+                         'NA'], decimal='.', dtype={'GKZ': str})
         dfBetrachtung = df.set_index('GKZ')
 
         agegroupRate = defaultdict(float)
@@ -225,25 +232,24 @@ def AttributeReaderCSV(cellID, popGroup, paramToRead):
 
                 if headSplit[0] == "POP" and headSplit[1].isdigit():
 
-                    if int(headSplit[1]) >= agegroup[0] and  int(headSplit[1]) <= agegroup[1]:
+                    if int(headSplit[1]) >= agegroup[0] and int(headSplit[1]) <= agegroup[1]:
                         agegroupeSum += dfBetrachtung.loc[cellID][dataColumNames]
                         count += 1
-                        
+
                     if len(headSplit) < 3:
-                        continue                    
-                    elif int(headSplit[2]) >= agegroup[0] and  int(headSplit[2]) <= agegroup[1]:
+                        continue
+                    elif int(headSplit[2]) >= agegroup[0] and int(headSplit[2]) <= agegroup[1]:
                         agegroupeSum += dfBetrachtung.loc[cellID][dataColumNames]
                         count += 1
-            
+
             if count == 0:
                 rate = 0.0
             else:
-                rate=float(agegroupeSum)/float(count)
+                rate = float(agegroupeSum)/float(count)
             agegroupRate[agegroup] = rate
         return agegroupRate
 
-
-        ######### code to read the density
+        # code to read the density
         # df = pd.read_csv(pathPopulationCar, sep=';',
         #                  na_values=['NA'], decimal='.', dtype={'GKZ': str})
         # dfBetrachtung = df.set_index('GKZ')
@@ -362,6 +368,7 @@ def readDefaultCapacity():
 
     return capacity
 
+
 def readBasicLoad():
     basicLoad = defaultdict(float)
     with open(pathBasicLoad) as f:
@@ -382,12 +389,13 @@ def readBasicLoad():
 #
 #################################
 
+
 def createOutputDirectory(scenarioName):
-    folderPath='/'.join([standardOutpath, '-'.join(['scenario',scenarioName])])
+    folderPath = '/'.join([standardOutpath,
+                           '-'.join(['scenario', scenarioName])])
 
     if not os.path.exists(folderPath):
         os.makedirs(folderPath)
-
 
 
 ##########
@@ -396,7 +404,8 @@ def createOutputDirectory(scenarioName):
 
 
 def cellListToJson(trafficCellDict, scenarioName):
-    outpath='/'.join([standardOutpath, '-'.join(['scenario',scenarioName]), pathTrafficCellData])
+    outpath = '/'.join([standardOutpath, '-'.join(['scenario',
+                                                   scenarioName]), pathTrafficCellData])
     print(outpath)
     outDict = defaultdict()
 
@@ -412,7 +421,8 @@ def cellListToJson(trafficCellDict, scenarioName):
 
 
 def groupDictToJson(groupDict, scenarioName):
-    outpath='/'.join([standardOutpath, '-'.join(['scenario',scenarioName]), pathPopGroups])
+    outpath = '/'.join([standardOutpath,
+                        '-'.join(['scenario', scenarioName]), pathPopGroups])
 
     outDict = defaultdict()
 
@@ -434,7 +444,8 @@ def graphToJson(networkGraph):
 def connectionsToJson(trafficCellDict, scenarioName, step):
     connections = set()
     outputList = []
-    outpath = '/'.join([standardOutpath, '-'.join(['scenario',scenarioName]), pathConnections])
+    outpath = '/'.join([standardOutpath,
+                        '-'.join(['scenario', scenarioName]), pathConnections])
 
     for trafficCell in trafficCellDict.values():
         for cellValues in trafficCell.pathConnectionList.values():
@@ -454,8 +465,8 @@ def connectionsToJson(trafficCellDict, scenarioName, step):
 
 def destinationsModesToJson(trafficCellDict, scenarioName):
     outDict = defaultdict()
-    outpath = '/'.join([standardOutpath, '-'.join(['scenario',scenarioName]), pathDestinationsOfGroupsInCells])
-
+    outpath = '/'.join([standardOutpath, '-'.join(['scenario',
+                                                   scenarioName]), pathDestinationsOfGroupsInCells])
 
     for tc in trafficCellDict.values():
         tempPurposeDict = defaultdict()
@@ -480,7 +491,8 @@ def destinationsModesToJson(trafficCellDict, scenarioName):
 def resultOfSimulationToJson(resultDict, scenarioName):
     # {timestep:{startCell.ID:{Purpose{destination_ID: { mode:{popGroup: trips}}}}
     outDict = resultDict
-    outpath = '/'.join([standardOutpath, '-'.join(['scenario',scenarioName]), pathSimResult])
+    outpath = '/'.join([standardOutpath,
+                        '-'.join(['scenario', scenarioName]), pathSimResult])
     with open(outpath, 'w') as fp:
         json.dump(outDict, fp, indent=4)
     print('Wrote result JSON data to' + pathSimResult)
@@ -490,7 +502,8 @@ def resultSimStepsToJson(stepResultDic, scenarioName, step):
     # {startCell.ID:{Purpose{destination_ID: { mode:{popGroup: trips}}}}
     outDict = stepResultDic
     outpath = pathSimResultPerStep + '-' + str(step) + '.json'
-    outpath = '/'.join([standardOutpath, '-'.join(['scenario',scenarioName]), outpath])
+    outpath = '/'.join([standardOutpath,
+                        '-'.join(['scenario', scenarioName]), outpath])
 
     with open(outpath, 'w') as fp:
         json.dump(outDict, fp, indent=4)
@@ -498,7 +511,8 @@ def resultSimStepsToJson(stepResultDic, scenarioName, step):
 
 
 def resultPerStepInFolders(stepResultDic, scenarioName, step):
-    path = '/'.join([standardOutpath, '-'.join(['scenario',scenarioName]), pathSimResultPerStepinFolder])
+    path = '/'.join([standardOutpath, '-'.join(['scenario',
+                                                scenarioName]), pathSimResultPerStepinFolder])
 
     for keys, outDict in stepResultDic.items():
         # createFolders
@@ -507,7 +521,7 @@ def resultPerStepInFolders(stepResultDic, scenarioName, step):
             os.makedirs(folderPath)
 
         # writeFiles
-        filename = 'simResult' + '-' + str(step) + '.json'        
+        filename = 'simResult' + '-' + str(step) + '.json'
         outpath = folderPath + '/' + filename
 
         with open(outpath, 'w') as fp:
@@ -518,10 +532,10 @@ def resultPerStepInFolders(stepResultDic, scenarioName, step):
 
 
 def creatSimConfigFile(simID, listOfFiles, steps, jsonSimConfig):
-    outpath = '/'.join([standardOutpath, '-'.join(['scenario',jsonSimConfig["scenario_name"]]), pathSimResultPerStepinFolder,"simConfig.json"])
-    startTimeObject=datetime.date(jsonSimConfig['start_year'],1,1)
-    endTimeObject=startTimeObject+datetime.timedelta(days=steps*365/12)
-
+    outpath = '/'.join([standardOutpath, '-'.join(['scenario', jsonSimConfig["scenario_name"]]),
+                        pathSimResultPerStepinFolder, pathSimConfigOutput])
+    startTimeObject = datetime.date(jsonSimConfig['start_year'], 1, 1)
+    endTimeObject = startTimeObject+datetime.timedelta(days=steps*365/12)
 
     simulationID = ('simulationID', simID)
     simulationName = ('simulationName', 'GAMS Simulation')
@@ -534,6 +548,18 @@ def creatSimConfigFile(simID, listOfFiles, steps, jsonSimConfig):
 
     outDict = dict([simulationID, simulationName, startDate, endDate, simulationCalculationStepSize_days, simulationPresentationStepSize_days,
                     ('simulationResultStepFileNames', listOfFiles)])
+
+    with open(outpath, 'w') as fp:
+        json.dump(outDict, fp, indent=4)
+        print('Wrote step result JSON data to' + outpath)
+
+
+def createScenarioConfigFile(simID, jsonSimConfig):
+    outpath = '/'.join([standardOutpath, '-'.join(['scenario',
+                                                   jsonSimConfig["scenario_name"]]), pathScenarioConfigOutput])
+
+    outDict = {'mapData': {"POLITICAL_AREA_SHAPE_FILE_URL": "GemeindenBMNM34_2015.zip"}, 'gamsData': {"POLITICAL_AREA_GAMS_DATA_URL": "trafficCellData.json", "BEHAVIOURAL_HOMOGENIOUS_GROUP_GAMS_DATA_URL": "popGroups.json",
+                                                                                                                            "TRAFFIC_NETWORK_GRAPH_GAMS_DATA_URL": "connections.json", "AVAILABLE_TRAFFIC_STATE_SIMULATON_GAMS_DATA": {"baseFolder": "simulations", "simulationDataFolderNames": ["simResul-1"]}}}
 
     with open(outpath, 'w') as fp:
         json.dump(outDict, fp, indent=4)

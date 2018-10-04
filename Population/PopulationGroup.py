@@ -11,10 +11,6 @@ from DataHandler import behaviorReaderDummy as BehaviorReader
 gender="gender"
 genderMale = "male"
 
-#--- actual hard coded
-costBudget=15.0
-
-
 
 class PopulationGroup():
 
@@ -48,21 +44,30 @@ class PopulationGroup():
     def __str__(self):
         return str(self._attributes)
 
-    def calcResistance(self, duration, cost, los, travelTimeBudget, costBudget, expectationLos, tripsPerDay, mode):
+    def calcResistance(self, duration, cost, los, travelTimeBudget, costBudget, expectationLos, tripsPerDay, mode, jsonParameter):
         if mode == 'car' and self._attributes['carAvailable']!='available':
             return -1.0
+        if mode == 'car':
+            travelTimeBudgetCorrection = 1.0
+            costBudgetCorrection = 1.0
+        elif mode == 'publicTransport':
+            travelTimeBudgetCorrection = jsonParameter['timeBudgetCorrectionPT']
+            costBudgetCorrection = jsonParameter['costBudgetCorrectionPT']
+        else:   
+            travelTimeBudgetCorrection = 1.0
+            costBudgetCorrection = 1.0
         
         #calc duration resistance
         travelTimeBudgetPerTrip = travelTimeBudget/tripsPerDay
-        resistanceDuration= math.exp((duration/travelTimeBudgetPerTrip)-1)
+        resistanceDuration= math.exp((duration/(travelTimeBudgetPerTrip*travelTimeBudgetCorrection))-1)
         #calc cost resistance
-        resistanceCost = math.exp((cost/costBudget)-1)
+        resistanceCost = math.exp((cost/(costBudget*costBudgetCorrection))-1)
         # calc LoS resistance
         # los is calculatet for every path in trafficCell
         # los is normed to the occupancy (occ 0.8 is approximatly los 1 ) 
         resistanceLos = los 
 
-        resistanceSum= self.k['cost']*resistanceCost+ self.k['duration']*resistanceDuration + self.k['los']*resistanceLos
+        resistanceSum = self.k['cost']*resistanceCost + self.k['duration']*resistanceDuration + self.k['los']*resistanceLos
 
         return resistanceSum
 
@@ -146,7 +151,7 @@ class PopulationGroup():
             #print(time.clock() - c1)
             #-- set number of ways
             #c1=time.clock()
-            tempInhab.setTripRate(i, attributesWithValues["tripRate"])
+            tempInhab.setTripRate(i, attributesWithValues["tripRate"], jsonParameter)
             #print((time.clock() - c1) *trafficCell.inhabitants)
 
             #-- add inhabitant
@@ -202,7 +207,7 @@ class PopulationGroup():
             #print(tripRate)
             
 
-            trafficParamsGroupe[groupKey]={"travelTimeBudget":timebudget, "tripRate" : tripRate, "tripRateWork": tripRateWork , "costBudget": costBudget}
+            trafficParamsGroupe[groupKey]={"travelTimeBudget":timebudget, "tripRate" : tripRate, "tripRateWork": tripRateWork , "costBudget": jsonParameter["costBudget"]}
 
         trafficCell.SetPopulationGroups(peoplePerGroupe)
         trafficCell.SetPopulationParams(trafficParamsGroupe)

@@ -61,10 +61,10 @@ class TrafficCell():
 
         return tempDict
 
-    def calcConnectionParams(self, carCostKm, ptCostZone):
-        distanceInZone =2
-        speedInZoneCar = 20
-        speedInZonePT = 20
+    def calcConnectionParams(self, carCostKm, ptCostZone, jsonParameter):
+        distanceInZone = jsonParameter['averageDistanceInCell']
+        speedInZoneCar = jsonParameter['speedInZoneCar']
+        speedInZonePT = jsonParameter['speedInZonePT']
 
         for destination, modes in self.pathConnectionList.items():
             modeParams = defaultdict()
@@ -84,7 +84,7 @@ class TrafficCell():
                         if connection.mode== 'car':
                             cost += connection.distance*carCostKm
                             zoneCounter = 0
-                        else:
+                        elif mode == 'publicTransport':
                             cost += ptCostZone[zoneCounter]
                             zoneCounter += 1
                 else:
@@ -152,4 +152,14 @@ class TrafficCell():
         for popGroup, count in oldPopGroups.items():
             self.popPerGroup[popGroup] = int(count*(float(newInhabitants)/float(oldInhabitants)))
 
-            
+    ###########################
+    #
+    #   Methods for intern use (validation)
+
+    def printEmployed(self, groupDict):
+        sumEmployed=0
+        for groupkey, group in groupDict.items():
+            if group._attributes["employment"] == "employed":
+                sumEmployed += self.popPerGroup[groupkey]
+        
+        print(self._name  + " Employed: " + str(sumEmployed))

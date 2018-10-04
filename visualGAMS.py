@@ -87,8 +87,73 @@ def plotModalSplitConnections(trafficCellDict):
 
     fig.savefig('Pic/sumTripsInfra.png')
 
+def plotModalSplitOverAllCells(trafficCellDict):
+    path='Pic/ModalSplitCells.png'
     
+    car_sum_trips=0
+
+    pt_sum_trips=0
     
+    for tC in trafficCellDict.values():
+        for modeTrips in tC.purposeDestinationMode['work'].values():
+            for mode, trips in modeTrips.items():
+                if mode == 'car':
+                    car_sum_trips += trips
+                elif mode == 'publicTransport':
+                    pt_sum_trips += trips
+                else:
+                    print('Wrong Mode for Plot sum - plotModalSplitOverAllCells')
+    
+    n_modes=2
+    sumtrips=(car_sum_trips,pt_sum_trips)
+    fig, ax = plt.subplots()
+
+    index = np.arange(n_modes)
+    bar_width = 0.35
+    rects1 = ax.bar(index, sumtrips, bar_width, label='trips')
+
+    ax.set_ylabel('trips')
+    ax.set_title('Sum Modal Split for TrafficCells')
+    ax.set_xticks(index )
+    ax.set_xticklabels(('Car','PT'))
+
+    fig.savefig(path)
+
+def plotModalSplitwithinCells(trafficCellDict):
+    path='Pic/ModalSplitwithinCells.png'
+    
+    car_sum_trips=0
+
+    pt_sum_trips=0
+    
+    for tcID, tC in trafficCellDict.items():
+        for destination, modeTrips in tC.purposeDestinationMode['work'].items():
+            if destination == tcID:
+                for mode, trips in modeTrips.items():
+                    if mode == 'car':
+                        car_sum_trips += trips
+                    elif mode == 'publicTransport':
+                        pt_sum_trips += trips
+                    else:
+                        print('Wrong Mode for Plot sum - plotModalSplitOverAllCells')
+            else:
+                continue
+    
+    n_modes=2
+    sumtrips=(car_sum_trips,pt_sum_trips)
+    fig, ax = plt.subplots()
+
+    index = np.arange(n_modes)
+    bar_width = 0.35
+    rects1 = ax.bar(index, sumtrips, bar_width, label='trips')
+
+    ax.set_ylabel('trips')
+    ax.set_title('Sum Modal Split within TrafficCells')
+    ax.set_xticks(index )
+    ax.set_xticklabels(('Car','PT'))
+
+    fig.savefig(path)
+
 
 
 

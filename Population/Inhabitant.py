@@ -131,9 +131,9 @@ class Inhabitant():
 
     def setTravelTimeBudget(self, i, timeBudgetAgegroups):
         self.travelTimeBudget = np.random.triangular(
-            *timeBudgetAgegroups[self.attributes["agegroup"]]) / 60 # 60 min -> h
+            *timeBudgetAgegroups[self.attributes["agegroup"]]) / 60 #  min -> h
 
-    def setTripRate(self, i, tripRateAgegroups):
+    def setTripRate(self, i, tripRateAgegroups, jsonParameter):
         self.tripRate = np.random.triangular(
             *tripRateAgegroups[self.attributes["agegroup"]])
-        self.tripRateWork = Inhabitant.tripRateWorkSwiss
+        self.tripRateWork = jsonParameter['tripRateWork']
