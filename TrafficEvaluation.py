@@ -103,6 +103,7 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step, 
                                                                        popParams['travelTimeBudget'],
                                                                        popParams['costBudget'], 1, trafficCell.populationParamsPerGroup[popGroupKey]['tripRate'], mode,jsonParameter)  # 1 have to be reset with LoS
                     if resistance == - 1.0:
+                        groupRatio[popGroupKey] = 0
                         continue
                     #calcAttraction
                     attract = trafficCellDict[destination].attractivity[purposForJourney]
@@ -114,7 +115,7 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step, 
                         deltaResistanceGroup[popGroupKey] = resistance - trafficCell.expectedResistance[purposForJourney][destination][mode][popGroupKey]
                         expextedResistanceGroup[popGroupKey] = weightSmoothing * resistance + (1-weightSmoothing)*trafficCell.expectedResistance[purposForJourney][destination][mode][popGroupKey]
 
-                    tempRatio = attract/resistance
+                    tempRatio = float(attract)/float(resistance)
                     sumRatio[popGroupKey] += tempRatio
                     groupRatio[popGroupKey] = tempRatio
                 modeRatio[mode] = groupRatio
@@ -136,11 +137,15 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step, 
                 groupPartDemand = defaultdict()
                 sumTripsPerMode = 0
                 for group, ratio in groups.items():
+                    if ratio == 0:
+                        continue
                     if step == 0:
-                        groupPartDemand[group] = (ratio/sumRatio[popGroupKey])*trafficDemandPerGroup[group]
+                        groupPartDemand[group] = (ratio/sumRatio[group])*trafficDemandPerGroup[group]
+                        if ratio > sumRatio[group]:
+                            print('!!! ratio > sumRatio[popGroupKey] ')
                     else:
                         evaluatorGroup = groupDict[group].calcEvaluatorGroup(deltaResistanceDesModeGroup[destination][mode][group])
-                        groupPartDemand[group] = (ratio/sumRatio[popGroupKey])*trafficDemandPerGroup[group]*evaluatorGroup + (1-evaluatorGroup) * trafficCell.purposeSestinationModeGroup[purposForJourney][destination][mode][group]
+                        groupPartDemand[group] = (ratio/sumRatio[group])*trafficDemandPerGroup[group]*evaluatorGroup + (1-evaluatorGroup) * trafficCell.purposeSestinationModeGroup[purposForJourney][destination][mode][group]
                     sumTripsPerMode += groupPartDemand[group]
                 modeGroupPart[mode] = groupPartDemand
                 modeTrips[mode] = sumTripsPerMode
@@ -215,7 +220,7 @@ def runSimulation(trafficCellDict, groupDict, jsonSimConfig, jsonParameter):
             # startCellDict[cellKey]=cell.purposeSestinationModeGroup
 
         # Save results of simulation stepwise in JSON and get the list of Filenames
-        listOfFiles.append(resultPerStepInFolders(startCellDict, jsonSimConfig["scenario_name"], st))
+        listOfFiles.append(resultPerStepInFolders(startCellDict, jsonSimConfig["scenario_name"], jsonSimConfig["sim_ID"], st))
         # Save result of simulation in Dict
         resultOfSimulation[st] = startCellDict
 
@@ -223,6 +228,6 @@ def runSimulation(trafficCellDict, groupDict, jsonSimConfig, jsonParameter):
             print("year: " + str(st/stepsPerYear))
 
     # Config for visualisation
-    creatSimConfigFile(jsonSimConfig["scenario_name"], listOfFiles, steps, jsonSimConfig)
+    creatSimConfigFile(jsonSimConfig["sim_ID"], listOfFiles, steps, jsonSimConfig)
 
     return resultOfSimulation

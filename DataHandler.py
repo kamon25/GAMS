@@ -41,7 +41,7 @@ pathConnections = 'connections.json'
 pathDestinationsOfGroupsInCells = 'destinationsModesOfGroups.json'
 pathSimResult = 'simResult.json'
 pathSimResultPerStep = 'simResultsPerStep/simResult-step'
-pathSimResultPerStepinFolder = 'simulations/simResul-1'
+pathSimResultPerStepinFolder = 'simulations/simResul'
 pathSimConfigOutput = 'simulation_config.json'
 pathScenarioConfigOutput = 'scenario_config.json'
 
@@ -510,9 +510,9 @@ def resultSimStepsToJson(stepResultDic, scenarioName, step):
         print('Wrote step result JSON data to' + outpath)
 
 
-def resultPerStepInFolders(stepResultDic, scenarioName, step):
+def resultPerStepInFolders(stepResultDic, scenarioName, simID, step):
     path = '/'.join([standardOutpath, '-'.join(['scenario',
-                                                scenarioName]), pathSimResultPerStepinFolder])
+                                                scenarioName]), '-'.join([pathSimResultPerStepinFolder,simID])])
 
     for keys, outDict in stepResultDic.items():
         # createFolders
@@ -533,12 +533,13 @@ def resultPerStepInFolders(stepResultDic, scenarioName, step):
 
 def creatSimConfigFile(simID, listOfFiles, steps, jsonSimConfig):
     outpath = '/'.join([standardOutpath, '-'.join(['scenario', jsonSimConfig["scenario_name"]]),
-                        pathSimResultPerStepinFolder, pathSimConfigOutput])
+                        '-'.join([pathSimResultPerStepinFolder,jsonSimConfig['sim_ID']]), pathSimConfigOutput])
     startTimeObject = datetime.date(jsonSimConfig['start_year'], 1, 1)
     endTimeObject = startTimeObject+datetime.timedelta(days=steps*365/12)
 
     simulationID = ('simulationID', simID)
-    simulationName = ('simulationName', 'GAMS Simulation')
+    simulationName = ('simulationName', jsonSimConfig['simulation_name'])
+    simulationDescription = ('simulationDescription', jsonSimConfig['simulation_description'])
     startDate = ('startDate_YYYYMM', startTimeObject.strftime('%Y%m'))
     endDate = ('endDate_YYYYMM', endTimeObject.strftime('%Y%m'))
     simulationCalculationStepSize_days = (
@@ -546,7 +547,7 @@ def creatSimConfigFile(simID, listOfFiles, steps, jsonSimConfig):
     simulationPresentationStepSize_days = (
         'simulationPresentationStepSize_months', 1)
 
-    outDict = dict([simulationID, simulationName, startDate, endDate, simulationCalculationStepSize_days, simulationPresentationStepSize_days,
+    outDict = dict([simulationID, simulationName, simulationDescription, startDate, endDate, simulationCalculationStepSize_days, simulationPresentationStepSize_days,
                     ('simulationResultStepFileNames', listOfFiles)])
 
     with open(outpath, 'w') as fp:
@@ -554,12 +555,12 @@ def creatSimConfigFile(simID, listOfFiles, steps, jsonSimConfig):
         print('Wrote step result JSON data to' + outpath)
 
 
-def createScenarioConfigFile(simID, jsonSimConfig):
+def createScenarioConfigFile(jsonSimConfig):
     outpath = '/'.join([standardOutpath, '-'.join(['scenario',
                                                    jsonSimConfig["scenario_name"]]), pathScenarioConfigOutput])
 
-    outDict = {'mapData': {"POLITICAL_AREA_SHAPE_FILE_URL": "GemeindenBMNM34_2015.zip"}, 'gamsData': {"POLITICAL_AREA_GAMS_DATA_URL": "trafficCellData.json", "BEHAVIOURAL_HOMOGENIOUS_GROUP_GAMS_DATA_URL": "popGroups.json",
-                                                                                                                            "TRAFFIC_NETWORK_GRAPH_GAMS_DATA_URL": "connections.json", "AVAILABLE_TRAFFIC_STATE_SIMULATON_GAMS_DATA": {"baseFolder": "simulations", "simulationDataFolderNames": ["simResul-1"]}}}
+    outDict = {'scenarioName':jsonSimConfig['scenario_name'], 'scenarioDescription': jsonSimConfig['scenario_description'], 'mapData': {"POLITICAL_AREA_SHAPE_FILE_URL": "GemeindenBMNM34_2015.zip"}, 'gamsData': {"POLITICAL_AREA_GAMS_DATA_URL": "trafficCellData.json", "BEHAVIOURAL_HOMOGENIOUS_GROUP_GAMS_DATA_URL": "popGroups.json",
+                                                                                                                            "TRAFFIC_NETWORK_GRAPH_GAMS_DATA_URL": "connections.json", "AVAILABLE_TRAFFIC_STATE_SIMULATON_GAMS_DATA": {"baseFolder": "simulations", "simulationDataFolderNames": ['-'.join([pathSimResultPerStepinFolder,jsonSimConfig['sim_ID']])]}}}
 
     with open(outpath, 'w') as fp:
         json.dump(outDict, fp, indent=4)

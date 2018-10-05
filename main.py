@@ -95,7 +95,7 @@ for tC in trafficCellDict.values():
 resultDict = runSimulation(trafficCellDict, groupDict, jsonSimConfig, jsonParameter)
 # Write Connections
 connectionsToJson(trafficCellDict,jsonSimConfig["scenario_name"], 30)
-createScenarioConfigFile(jsonSimConfig["scenario_name"], jsonSimConfig)
+createScenarioConfigFile(jsonSimConfig)
 
 
 #############
