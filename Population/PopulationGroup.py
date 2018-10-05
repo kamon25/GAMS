@@ -1,5 +1,6 @@
 import time
 import math
+import numpy as np
 from collections import defaultdict
 
 from Population.Inhabitant import Inhabitant
@@ -10,10 +11,6 @@ from DataHandler import behaviorReaderDummy as BehaviorReader
 gender="gender"
 genderMale = "male"
 
-#--- actual hard coded
-costBudget=15.0
-
-
 
 class PopulationGroup():
 
@@ -21,54 +18,84 @@ class PopulationGroup():
     #--- static attributes
     ######################
     possibleAttributes={"gender":["male", "female"],
-                        "agegroup":[(0,14), (15,59), (60,100)], 
-                        "employment":["employed", "unemployed"]}
-    impossibleCombinations=[((0,14),"employed"), 
-                            ((60,100),"employed")]
-    grouplist=[]
+                        "agegroup":[(0,14), (15,17), (18,64), (65,100)], 
+                        "employment":["employed", "unemployed"],
+                        "carAvailable":['available', 'notAvailable']}
+    impossibleCombinations=[((0,14),"employed"),
+                            ((15,17),"employed"), 
+                            ((65,100),"employed"),
+                            ((0,14), 'available'),
+                            ((15,17), 'available')]
+    groupDict=defaultdict()
 
     
     ######################
     #--- methods
     ######################
-    def __init__(self, groupID, attributes):
+    def __init__(self, groupID, attributes, jsonParameter):
         self._attributes = attributes #dict with attributes like {"gender":"male"}
         self._groupID = groupID #Counter from 1 to 10
         #attributes for resistance
-        self.k={'cost':0.5, 'duration':0.5, 'los':0.0}
+        self.k = {'cost':jsonParameter['resistance_weight_cost'], 
+                  'duration':jsonParameter['resistance_weight_time'], 
+                  'los':jsonParameter['resistance_weight_los']}
+        
     
     def __str__(self):
         return str(self._attributes)
 
-    def calcResistance(self, duration, cost, los, travelTimeBudget, costBudget, expectationLos, tripsPerDay):
+    def calcResistance(self, duration, cost, los, travelTimeBudget, costBudget, expectationLos, tripsPerDay, mode, jsonParameter):
+        if mode == 'car' and self._attributes['carAvailable']!='available':
+            return -1.0
+        if mode == 'car':
+            travelTimeBudgetCorrection = 1.0
+            costBudgetCorrection = 1.0
+        elif mode == 'publicTransport':
+            travelTimeBudgetCorrection = jsonParameter['timeBudgetCorrectionPT']
+            costBudgetCorrection = jsonParameter['costBudgetCorrectionPT']
+        else:   
+            travelTimeBudgetCorrection = 1.0
+            costBudgetCorrection = 1.0
+        
         #calc duration resistance
         travelTimeBudgetPerTrip = travelTimeBudget/tripsPerDay
-        resistanceDuration= math.exp((duration/travelTimeBudgetPerTrip)-1)
+        resistanceDuration= math.exp((duration/(travelTimeBudgetPerTrip*travelTimeBudgetCorrection))-1)
         #calc cost resistance
-        resistanceCost = math.exp((cost/costBudget)-1)
-        #calc LoS resistance
-        resistanceLos = los
+        resistanceCost = math.exp((cost/(costBudget*costBudgetCorrection))-1)
+        # calc LoS resistance
+        # los is calculatet for every path in trafficCell
+        # los is normed to the occupancy (occ 0.8 is approximatly los 1 ) 
+        resistanceLos = los 
 
-        resistanceSum= self.k['cost']*resistanceCost+ self.k['duration']*resistanceDuration + self.k['los']*resistanceLos
+        resistanceSum = self.k['cost']*resistanceCost + self.k['duration']*resistanceDuration + self.k['los']*resistanceLos
 
         return resistanceSum
 
+    def calcEvaluatorGroup(self, deltaResistance):
+        G=0.4
+        U=0.1
+        k=15
+        f_0=0.2
 
+        evGr = U + (G-U)/(1+np.exp(-deltaResistance*G*k)*(G/f_0-1))
+        return evGr
+
+        
 
     ############################################
     #--- static methods
     ############################################
     @staticmethod
-    def calculatePopulation(trafficCell):
+    def calculatePopulation(trafficCell, jsonParameter):
         #################
         # Things to Add:
         #  -car aviable?!
         ################
 
-        if not PopulationGroup.grouplist:
+        if not PopulationGroup.groupDict:
             print("Groups are not generated -> genaration")
-            PopulationGroup.generateGroups(PopulationGroup.possibleAttributes, PopulationGroup.impossibleCombinations)
-        ################################
+            PopulationGroup.generateGroups(PopulationGroup.possibleAttributes, PopulationGroup.impossibleCombinations, jsonParameter)
+        ####
         #--- read all necesary Attributes
         attributesWithValues=defaultdict(dict)
         for attribute in PopulationGroup.possibleAttributes.keys():
@@ -80,28 +107,42 @@ class PopulationGroup():
         for attribute in trafficBehaviorAttributes:
             attributesWithValues[attribute] = BehaviorReader(attribute, PopulationGroup.possibleAttributes)
         
-        ########################################
+        ####
         #--- sample attributes for each inhabitant  ######## slow part
         time.clock()
         sampledInhabitants = []
-        for i in range(0, trafficCell.inhabitants):
+        #set count of necessary samples
+        samplecount = int(sum(attributesWithValues["agegroup"].values()))
+        #calc correction for cars per inhabitant
+        potantialCarUser = 0
+        agegroupsChecked = set()
+        for group in PopulationGroup.groupDict.values():
+            if group._attributes['carAvailable'] ==  PopulationGroup.possibleAttributes['carAvailable'][0]:
+                if  group._attributes["agegroup"] in agegroupsChecked:
+                    continue
+                else:                    
+                    potantialCarUser += attributesWithValues["agegroup"][group._attributes['agegroup']]
+                    agegroupsChecked.add(group._attributes['agegroup'])
+
+        for i in range(0, samplecount):
             #-- generate new instance of inhabitant
-            #c1=time.clock()
             tempInhab= Inhabitant()
             #print(time.clock() - c1)
             #-- set agegroupe
                 #print( attributesWithValues["agegroup"])
-            #c1=time.clock()
+            
             tempInhab.setAgegroupe(i,trafficCell.inhabitants,  attributesWithValues["agegroup"], "agegroup")
             #print(time.clock() - c1)
             #-- set gender
-            #c1=time.clock()
+            
             tempInhab.setGender(i,trafficCell.inhabitants,  attributesWithValues["gender"], "gender")
             #print(time.clock() - c1)
             #-- set employment
             #c1=time.clock()
-            tempInhab.setEmployment(i, attributesWithValues["employment"]["employmentRate_15_64"], PopulationGroup.grouplist, "employment" , "agegroup")
+            tempInhab.setEmployment(i, attributesWithValues["employment"]["employmentRate_15_64"], PopulationGroup.groupDict, "employment" , "agegroup")
             #print(time.clock() - c1)
+
+            tempInhab.setCarAviable(i, attributesWithValues['carAvailable'], PopulationGroup.groupDict, 'carAvailable', 'agegroup')
 
             ##-- set traffic relevant attributes
             #-- set travel time budget
@@ -110,7 +151,7 @@ class PopulationGroup():
             #print(time.clock() - c1)
             #-- set number of ways
             #c1=time.clock()
-            tempInhab.setTripRate(i, attributesWithValues["tripRate"])
+            tempInhab.setTripRate(i, attributesWithValues["tripRate"], jsonParameter)
             #print((time.clock() - c1) *trafficCell.inhabitants)
 
             #-- add inhabitant
@@ -123,11 +164,11 @@ class PopulationGroup():
         print(time.clock())              
         print(len(sampledInhabitants))
                     
-        ########################################
+        ####
         #--- split up inhabitants to groups
         peoplePerGroupe = defaultdict(int)
         trafficParamsGroupe = defaultdict()
-        for group in PopulationGroup.grouplist:
+        for groupKey, group in PopulationGroup.groupDict.items():
             tempInhabitantList = []
             for inhab in sampledInhabitants:
                 #check if inhabitant match group
@@ -143,26 +184,30 @@ class PopulationGroup():
             # set count of groupmembers
             print(group)                  
             print(len(tempInhabitantList))
-            peoplePerGroupe[group] = len(tempInhabitantList)            
+            peoplePerGroupe[groupKey] = len(tempInhabitantList)            
 
             # set params for group
             timebudget=None
             tripRate= None
+            tripRateWork = None
             for inhab in tempInhabitantList:
-                if timebudget == None or tripRate == None:
+                if timebudget == None or tripRate == None or tripRateWork == None:
                     timebudget = inhab.travelTimeBudget
                     tripRate = inhab.tripRate
+                    tripRateWork = inhab.tripRateWork
                 else:
                     timebudget = timebudget + inhab.travelTimeBudget
                     tripRate = tripRate + inhab.tripRate
+                    tripRateWork = tripRateWork + inhab.tripRateWork
 
-            timebudget = timebudget/float(peoplePerGroupe[group])
-            tripRate = tripRate/float(peoplePerGroupe[group])
+            timebudget = timebudget/float(peoplePerGroupe[groupKey])
+            tripRate = tripRate/float(peoplePerGroupe[groupKey])
+            tripRateWork = tripRateWork/float(peoplePerGroupe[groupKey])
             #print(timebudget)
             #print(tripRate)
             
 
-            trafficParamsGroupe[group]={"travelTimeBudget":timebudget, "tripRate" : tripRate, "costBudget": costBudget}
+            trafficParamsGroupe[groupKey]={"travelTimeBudget":timebudget, "tripRate" : tripRate, "tripRateWork": tripRateWork , "costBudget": jsonParameter["costBudget"]}
 
         trafficCell.SetPopulationGroups(peoplePerGroupe)
         trafficCell.SetPopulationParams(trafficParamsGroupe)
@@ -170,7 +215,7 @@ class PopulationGroup():
 
 
     @staticmethod
-    def generateGroups(possibleAttributes,impossibleCombinations):
+    def generateGroups(possibleAttributes,impossibleCombinations, jsonParameter):
         #generate a list with all possible attribute combinations
         attributeList=[]
         attributeNameList=[] 
@@ -190,20 +235,26 @@ class PopulationGroup():
             poplist = [(*pop, attribute) for pop in poplist for attribute in arg]       
         
         #remove combinations, witch are listed in impossibleCombinations
+        tempSet = set()
         for group in poplist:
             for att1,att2 in impossibleCombinations:
                 if (att1 in group) and (att2 in group):                    
-                    poplist.remove(group)
+                    tempSet.add(group)
 
-        #genarate a list of objects for the groups
-        
+        poplist = [gr for gr in poplist if gr not in tempSet]
+
+
+        #genarate a list of objects for the groups        
         for idx, group in enumerate(poplist): #enumerate to generate a idividual ID
-            #print(dict(zip(attributeNameList,group)))
-            PopulationGroup.grouplist.append(PopulationGroup(idx,dict(zip(attributeNameList,group))))
+            print(dict(zip(attributeNameList,group)))
+            keystring='popGroup' + str(idx)
+            print(keystring)
+            PopulationGroup.groupDict[keystring]=(PopulationGroup(idx,dict(zip(attributeNameList,group)),jsonParameter))
+
 
 
         #print(poplist)           
-        return PopulationGroup.grouplist
+        return PopulationGroup.groupDict
     
 
 

@@ -3,6 +3,9 @@ import networkx as nx
 from collections import defaultdict 
 from DataHandler import readConnectionRows as conReader
 from DataHandler import redConnectionWeights as weightReader
+from DataHandler import readDefaultCapacity
+from DataHandler import readBasicLoad
+from Infrastructure.Connection import Connection 
 
 #Networkgraph
 infraNetworkGraph = nx.MultiGraph()
@@ -17,25 +20,30 @@ costModes=None
 
 def getShortestPath(start, end, cellDict):
   
-    otherPath = calc_dijkstra(str(start), str(end), cellDict)
+    otherPath = calc_dijkstra(start, end, cellDict)
     
     return otherPath
 
 
 def getShortestPaths_withStartMode(start, end, cellDict):
-    
+    #Weight to punish mode interchangig
+    changingWeight=5
+
     #dict of shortest paths
     otherPath=defaultdict()
+    otherConnections = defaultdict()
 
     for m in modes:
-        path = calc_dijkstra_withStartMode(str(start), str(end), cellDict, m)
+        path, connections = calc_dijkstra_withStartMode(start, end, cellDict, m, changingWeight)
         if path:
             otherPath[m]=path
+            otherConnections[m]=connections
         else:
             otherPath[m]=None
-            print("Start: " +str(start) + " End: " + str(end) + " Mode: " + m )
+            otherConnections[m]=None
+            print("Start: " +start + " End: " + end + " Mode: " + m )
     
-    return otherPath
+    return otherPath, otherConnections
 
 
 def bildGraph(): 
@@ -46,18 +54,22 @@ def bildGraph():
     for infraElement in infra:
         infraConnections[infraElement]=conReader(infraElement)
 
+    #--- read Capacity of Connections
+    defaultCapacity = readDefaultCapacity()
+    basicLoad = readBasicLoad()
+
     #--- add all edges to graph
-    addEdges(infraConnections[infra[0]], connections[0])
-    addEdges(infraConnections[infra[1]], connections[1])
-    addEdges(infraConnections[infra[2]], connections[2])
-    addEdges(infraConnections[infra[0]], connections[3])
+    addEdges(infraConnections[infra[0]], connections[0], defaultCapacity[connections[0]], basicLoad[connections[0]])
+    addEdges(infraConnections[infra[1]], connections[1], defaultCapacity[connections[1]], basicLoad[connections[1]])
+    addEdges(infraConnections[infra[2]], connections[2], defaultCapacity[connections[2]], basicLoad[connections[2]])
+    addEdges(infraConnections[infra[0]], connections[3], defaultCapacity[connections[3]], basicLoad[connections[3]])
 
     #--- read Cost
     global costModes
     costModes = weightReader()
     
         
-def addEdges(data, connection):
+def addEdges(data, connection, capacity, basicLoad):
     for row in data:
         str = row.split(";")
         #Get Gemeindekennzahlen
@@ -65,18 +77,25 @@ def addEdges(data, connection):
         location_2 = str[1].split("_")[0]
         #Get distance
         dist = int(str[2])
+        #Get Level of Service data
+        losData=1
 
+        #Generate connection object
+        con = Connection(location_1, location_2, connection, dist, losData, capacity, basicLoad)
+        
         #Save edge
-        infraNetworkGraph.add_edge(location_1, location_2, weight=dist, connect=connection, dist=dist)
+        infraNetworkGraph.add_edge(location_1, location_2, con=con)
 
 ##---- MAIN Djikstra
 def calc_dijkstra(start_node, target_node, trafficCells):
     data = infraNetworkGraph.copy()
     
     ##Assign variable costs to all edges
+    #################################################Hier ist der Fehler :)
     for u,v,d in data.edges(data=True):
-        d['weight'] *= costModes[d['connect']]
-        
+        d['con'].setGlobalWeightFactors(costModes[d['con'].getConnectionType()])
+
+
     #Unvisited nodes
     unvisited = list(data.nodes())
     #Dict for shortest paths
@@ -122,11 +141,11 @@ def calc_dijkstra(start_node, target_node, trafficCells):
 
         for u,v,d in data.edges(min_node, data=True):
         #Skip car edges if necessary
-            if (d['connect'] == connections[0] or d['connect'] == connections[2]) and not expand_car_nodes:
+            if (d['con'].getConnectionType() == connections[0] or d['con'].getConnectionType() == connections[2]) and not expand_car_nodes:
                 continue
 
             #Get weight
-            weight = d['weight']
+            weight = d['con'].getWeight()
 
             #Get next node
             if u != min_node:
@@ -136,7 +155,7 @@ def calc_dijkstra(start_node, target_node, trafficCells):
 
             if cur not in shortest_paths or (weight + curr_min_weight) < shortest_paths[cur]:
                 shortest_paths[cur] = (weight + curr_min_weight)
-                prev[cur] = (min_node, d['connect'], d['dist'])
+                prev[cur] = (min_node, d['con'].getConnectionType(), d['con'].distance)
 
     #End Algorithm
     path = []
@@ -144,23 +163,23 @@ def calc_dijkstra(start_node, target_node, trafficCells):
     if target_node in shortest_paths:
       ###Trace back from target###
       curr_node = target_node
-      path.insert(0, trafficCells[int(curr_node)].cellID)
+      path.insert(0, trafficCells[curr_node].cellID)
       while curr_node in prev:
         #Look up city
         previous = prev[curr_node]
-        city = trafficCells[int(previous[0])].cellID
+        city = trafficCells[previous[0]].cellID
 
         path.insert(0, (city, previous[1], previous[2]))
         curr_node = previous[0]
 
     return path
       
-def calc_dijkstra_withStartMode(start_node, target_node, trafficCells, first_mode):
+def calc_dijkstra_withStartMode(start_node, target_node, trafficCells, first_mode, changingWeight):
     data = infraNetworkGraph.copy()
     
     ##Assign variable costs to all edges
     for u,v,d in data.edges(data=True):
-        d['weight'] *= costModes[d['connect']]
+        d['con'].setGlobalWeightFactors(costModes[d['con'].getConnectionType()], 80)
     #Unvisited nodes
     unvisited = list(data.nodes())
     #Dict for shortest paths
@@ -206,14 +225,18 @@ def calc_dijkstra_withStartMode(start_node, target_node, trafficCells, first_mod
 
         for u,v,d in data.edges(min_node, data=True):        
         #Skip car edges if necessary
-            if (d['connect'] == connections[0] or d['connect'] == connections[2]) and not expand_car_nodes:
+            if (d['con'].getConnectionType() == connections[0] or d['con'].getConnectionType() == connections[2]) and not expand_car_nodes:
                 continue
         #Skip edges from start_node if they do not have the correct mode
-            if(u == start_node and d['connect'].split('_')[0] != first_mode):
+            if(u == start_node and d['con'].mode != first_mode):
                 continue
 
             #Get weight
-            weight = d['weight']
+            #punish mode change
+            if last_type == d['con'].getConnectionType():
+                weight = d['con'].getWeight()
+            else:
+                weight = d['con'].getWeight() + changingWeight
 
             #Get next node
             if u != min_node:
@@ -223,21 +246,25 @@ def calc_dijkstra_withStartMode(start_node, target_node, trafficCells, first_mod
 
             if cur not in shortest_paths or (weight + curr_min_weight) < shortest_paths[cur]:
                 shortest_paths[cur] = (weight + curr_min_weight)
-                prev[cur] = (min_node, d['connect'], d['dist'])
+                prev[cur] = (min_node, d['con'].getConnectionType(), d['con'].distance, d['con'])
 
     #End Algorithm
     path = []
+    connectionsList=[]
     #print(shortest_paths[target_node])
     if target_node in shortest_paths:
       ###Trace back from target###
       curr_node = target_node
-      path.insert(0, trafficCells[int(curr_node)].cellID)
+      path.insert(0, trafficCells[curr_node].cellID)      
       while curr_node in prev:
         #Look up city
         previous = prev[curr_node]
-        city = trafficCells[int(previous[0])].cellID
+        city = trafficCells[previous[0]].cellID
 
         path.insert(0, (city, previous[1], previous[2]))
         curr_node = previous[0]
 
-    return path
+        #add sonnection to set of connections
+        connectionsList.insert(0,previous[3])
+
+    return path, connectionsList
