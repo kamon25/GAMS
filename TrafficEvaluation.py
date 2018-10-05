@@ -46,12 +46,12 @@ def generateTrafficCells(jsonParameter):
     return trafficCellDict
 
 
-def calcAllPathsForTrafficCell(trafficCellDict):
+def calcAllPathsForTrafficCell(trafficCellDict, jsonParameter):
     print("Start path evaluation")
     for startTrafficCell in trafficCellDict.values():
         for tempCell in trafficCellDict.values():
             path, connections = ConInfra.getShortestPaths_withStartMode(
-                startTrafficCell.cellID, tempCell.cellID, trafficCellDict)
+                startTrafficCell.cellID, tempCell.cellID, trafficCellDict, jsonParameter)
             startTrafficCell.shortestPaths[tempCell.cellID] = path
             startTrafficCell.pathConnectionList[tempCell.cellID] = connections
 

@@ -69,7 +69,7 @@ for tc in trafficCellDict.values():
 ConInfra.bildGraph()
 
 print(ConInfra.getShortestPaths_withStartMode(
-    '60611', '60101', trafficCellDict))
+    '60611', '60101', trafficCellDict, jsonParameter))
 
 # Remove comment if changes in TrafficCell!!!
 calcAllPathsForTrafficCell(trafficCellDict)

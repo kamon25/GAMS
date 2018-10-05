@@ -87,6 +87,9 @@ class TrafficCell():
                         elif mode == 'publicTransport':
                             cost += ptCostZone[zoneCounter]
                             zoneCounter += 1
+                        elif mode == 'bicycle':
+                            cost =0 ################################# CONTINUE HERE
+
                 else:
                     los = 1
                     zoneCounter=0
