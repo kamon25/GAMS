@@ -42,6 +42,7 @@ pathDestinationsOfGroupsInCells = 'destinationsModesOfGroups.json'
 pathSimResult = 'simResult.json'
 pathSimResultPerStep = 'simResultsPerStep/simResult-step'
 pathSimResultPerStepinFolder = 'simulations/simResul'
+pathResulFolder = 'simResul'
 pathSimConfigOutput = 'simulation_config.json'
 pathScenarioConfigOutput = 'scenario_config.json'
 
@@ -550,7 +551,7 @@ def creatSimConfigFile(simID, listOfFiles, steps, jsonSimConfig):
     outDict = dict([simulationID, simulationName, simulationDescription, startDate, endDate, simulationCalculationStepSize_days, simulationPresentationStepSize_days,
                     ('simulationResultStepFileNames', listOfFiles)])
 
-    with open(outpath, 'w') as fp:
+    with open(outpath, 'w', encoding="ISO-8859-1") as fp:
         json.dump(outDict, fp, indent=4)
         print('Wrote step result JSON data to' + outpath)
 
@@ -560,9 +561,9 @@ def createScenarioConfigFile(jsonSimConfig):
                                                    jsonSimConfig["scenario_name"]]), pathScenarioConfigOutput])
 
     outDict = {'scenarioName':jsonSimConfig['scenario_name'], 'scenarioDescription': jsonSimConfig['scenario_description'], 'mapData': {"POLITICAL_AREA_SHAPE_FILE_URL": "GemeindenBMNM34_2015.zip"}, 'gamsData': {"POLITICAL_AREA_GAMS_DATA_URL": "trafficCellData.json", "BEHAVIOURAL_HOMOGENIOUS_GROUP_GAMS_DATA_URL": "popGroups.json",
-                                                                                                                            "TRAFFIC_NETWORK_GRAPH_GAMS_DATA_URL": "connections.json", "AVAILABLE_TRAFFIC_STATE_SIMULATON_GAMS_DATA": {"baseFolder": "simulations", "simulationDataFolderNames": ['-'.join([pathSimResultPerStepinFolder,jsonSimConfig['sim_ID']])]}}}
+                                                                                                                            "TRAFFIC_NETWORK_GRAPH_GAMS_DATA_URL": "connections.json", "AVAILABLE_TRAFFIC_STATE_SIMULATON_GAMS_DATA": {"baseFolder": "simulations", "simulationDataFolderNames": ['-'.join([pathResulFolder,jsonSimConfig['sim_ID']])]}}}
 
-    with open(outpath, 'w') as fp:
+    with open(outpath, 'w', encoding="ISO-8859-1") as fp:
         json.dump(outDict, fp, indent=4)
         print('Wrote step result JSON data to' + outpath)
 

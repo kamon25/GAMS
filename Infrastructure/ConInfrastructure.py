@@ -28,7 +28,7 @@ def getShortestPaths_withStartMode(start, end, cellDict, jsonParamter):
 
     for m in modes:
         #skip bicycel mode if the target node is not neighbour of the start node
-        if end not in infraNetworkGraph.adj[start].keys:
+        if (end not in infraNetworkGraph.adj[start].keys()) and (start != end) and (m == 'bicycle'):
             continue
         #calc shortest paths
         path, connections = calc_dijkstra_withStartMode(start, end, cellDict, m, changingWeight)

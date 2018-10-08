@@ -32,6 +32,7 @@ def plotModalSplitConnections(trafficCellDict):
     pt_bus_trips=0
     pt_train_trips=0
 
+    bicycle_sum_trips = 0
 
     for trafficCell in trafficCellDict.values():
         for cellValues in trafficCell.pathConnectionList.values():
@@ -45,18 +46,21 @@ def plotModalSplitConnections(trafficCellDict):
                 car_countryroad_trips += tempConnection.stepLoad[-1]
             elif tempConnection.infrastructure == "autobahn":
                 car_autobahn_trips += tempConnection.stepLoad[-1]
-        if tempConnection.mode == "publicTransport":
+        elif tempConnection.mode == "publicTransport":
             pt_sum_trips += tempConnection.stepLoad[-1]
             if tempConnection.infrastructure == "bus":
                 pt_bus_trips += tempConnection.stepLoad[-1]
             elif tempConnection.infrastructure == "train":
                 pt_train_trips += tempConnection.stepLoad[-1]
+        elif tempConnection.mode == "bicycle":
+            bicycle_sum_trips += tempConnection.stepLoad[-1]
+
     
     ####################
     # plot sum trips
 
-    n_modes=2
-    sumtrips=(car_sum_trips,pt_sum_trips)
+    n_modes=3
+    sumtrips=(car_sum_trips,pt_sum_trips, bicycle_sum_trips)
     fig, ax = plt.subplots()
 
     index = np.arange(n_modes)
@@ -66,14 +70,14 @@ def plotModalSplitConnections(trafficCellDict):
     ax.set_ylabel('trips')
     ax.set_title('Sum Modal Split')
     ax.set_xticks(index )
-    ax.set_xticklabels(('Car','PT'))
+    ax.set_xticklabels(('Car','PT', 'Bicycel'))
 
     fig.savefig('Pic/sumTrips.png')
 
     ############
     # plot for each Infrastructure and mode
-    n_modes=4
-    sumtrips=(car_autobahn_trips,car_countryroad_trips,pt_bus_trips, pt_train_trips)
+    n_modes=5
+    sumtrips=(car_autobahn_trips,car_countryroad_trips,pt_bus_trips, pt_train_trips, pt_sum_trips)
     fig, ax = plt.subplots()
 
     index = np.arange(n_modes)
@@ -83,7 +87,7 @@ def plotModalSplitConnections(trafficCellDict):
     ax.set_ylabel('trips')
     ax.set_title('Sum Modal Split')
     ax.set_xticks(index )
-    ax.set_xticklabels(('Car_autobahn', 'Car_countryroad','PT_bus', 'PT_train'))
+    ax.set_xticklabels(('Car_autobahn', 'Car_countryroad','PT_bus', 'PT_train', 'Bicycle'))
 
     fig.savefig('Pic/sumTripsInfra.png')
 
@@ -91,8 +95,8 @@ def plotModalSplitOverAllCells(trafficCellDict):
     path='Pic/ModalSplitCells.png'
     
     car_sum_trips=0
-
     pt_sum_trips=0
+    bicycle_sum_trips = 0
     
     for tC in trafficCellDict.values():
         for modeTrips in tC.purposeDestinationMode['work'].values():
@@ -101,11 +105,13 @@ def plotModalSplitOverAllCells(trafficCellDict):
                     car_sum_trips += trips
                 elif mode == 'publicTransport':
                     pt_sum_trips += trips
+                elif mode == 'bicycle':
+                    bicycle_sum_trips += trips
                 else:
                     print('Wrong Mode for Plot sum - plotModalSplitOverAllCells')
     
-    n_modes=2
-    sumtrips=(car_sum_trips,pt_sum_trips)
+    n_modes=3
+    sumtrips=(car_sum_trips,pt_sum_trips, bicycle_sum_trips)
     fig, ax = plt.subplots()
 
     index = np.arange(n_modes)
@@ -115,16 +121,55 @@ def plotModalSplitOverAllCells(trafficCellDict):
     ax.set_ylabel('trips')
     ax.set_title('Sum Modal Split for TrafficCells')
     ax.set_xticks(index )
-    ax.set_xticklabels(('Car','PT'))
+    ax.set_xticklabels(('Car','PT', 'Bicycle'))
 
     fig.savefig(path)
+
+def plotModalSplitOverAllCellsStacked(trafficCellDict):
+    path='Pic/ModalSplitCellsStacked.png'
+    
+    car_sum_trips=0
+    pt_sum_trips=0
+    bicycle_sum_trips = 0
+    
+    for tC in trafficCellDict.values():
+        for modeTrips in tC.purposeDestinationMode['work'].values():
+            for mode, trips in modeTrips.items():
+                if mode == 'car':
+                    car_sum_trips += trips
+                elif mode == 'publicTransport':
+                    pt_sum_trips += trips
+                elif mode == 'bicycle':
+                    bicycle_sum_trips += trips
+                else:
+                    print('Wrong Mode for Plot sum - plotModalSplitOverAllCells')
+    
+    
+    sumtrips=car_sum_trips + pt_sum_trips +bicycle_sum_trips
+    car_sum_trips =(car_sum_trips/sumtrips) * 100
+    pt_sum_trips = (pt_sum_trips/sumtrips) * 100
+    bicycle_sum_trips = (bicycle_sum_trips /sumtrips) * 100
+    index = np.arange(1)
+    bar_width = 0.35
+
+    fig = plt.figure()
+    p1 = plt.bar(index, car_sum_trips, bar_width)
+    p2 = plt.bar(index, pt_sum_trips, bar_width, bottom = car_sum_trips)
+    p3 = plt.bar(index, bicycle_sum_trips, bar_width,  bottom = (car_sum_trips+ pt_sum_trips))
+    
+    plt.ylabel('Percent')
+    plt.title("Modal Split stacked")
+    plt.legend((p1[0], p2[0], p3[0]), ('Car', 'PT', 'Bicycle'))
+
+    fig.savefig(path)
+
 
 def plotModalSplitwithinCells(trafficCellDict):
     path='Pic/ModalSplitwithinCells.png'
     
     car_sum_trips=0
-
     pt_sum_trips=0
+    bicycle_sum_trips = 0
     
     for tcID, tC in trafficCellDict.items():
         for destination, modeTrips in tC.purposeDestinationMode['work'].items():
@@ -134,13 +179,15 @@ def plotModalSplitwithinCells(trafficCellDict):
                         car_sum_trips += trips
                     elif mode == 'publicTransport':
                         pt_sum_trips += trips
+                    elif mode == 'bicycle':
+                        bicycle_sum_trips += trips
                     else:
                         print('Wrong Mode for Plot sum - plotModalSplitOverAllCells')
             else:
                 continue
     
-    n_modes=2
-    sumtrips=(car_sum_trips,pt_sum_trips)
+    n_modes=3
+    sumtrips=(car_sum_trips,pt_sum_trips, bicycle_sum_trips)
     fig, ax = plt.subplots()
 
     index = np.arange(n_modes)
@@ -150,9 +197,11 @@ def plotModalSplitwithinCells(trafficCellDict):
     ax.set_ylabel('trips')
     ax.set_title('Sum Modal Split within TrafficCells')
     ax.set_xticks(index )
-    ax.set_xticklabels(('Car','PT'))
+    ax.set_xticklabels(('Car','PT', 'Bicycle'))
 
     fig.savefig(path)
+
+
 
 
 

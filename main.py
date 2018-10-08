@@ -29,6 +29,7 @@ from visualGAMS import plotConnectionComparison
 from visualGAMS import plotModalSplitConnections
 from visualGAMS import plotModalSplitOverAllCells
 from visualGAMS import plotModalSplitwithinCells
+from visualGAMS import plotModalSplitOverAllCellsStacked
 
 # --- load Config-File
 jsonSimConfig = loadSimConfig()
@@ -72,7 +73,7 @@ print(ConInfra.getShortestPaths_withStartMode(
     '60611', '60101', trafficCellDict, jsonParameter))
 
 # Remove comment if changes in TrafficCell!!!
-calcAllPathsForTrafficCell(trafficCellDict)
+calcAllPathsForTrafficCell(trafficCellDict, jsonParameter)
 
 for connection in trafficCellDict['61059'].pathConnectionList['60101']['car']:
     print("here connection distance: " + str(connection.distance))
@@ -94,7 +95,7 @@ for tC in trafficCellDict.values():
 # Run Simulation
 resultDict = runSimulation(trafficCellDict, groupDict, jsonSimConfig, jsonParameter)
 # Write Connections
-connectionsToJson(trafficCellDict,jsonSimConfig["scenario_name"], 30)
+connectionsToJson(trafficCellDict,jsonSimConfig["scenario_name"], -1)
 createScenarioConfigFile(jsonSimConfig)
 
 
@@ -104,6 +105,7 @@ plotConnectionComparison(trafficCellDict['60608'].pathConnectionList['60624']['c
 plotModalSplitConnections(trafficCellDict)
 plotModalSplitOverAllCells(trafficCellDict)
 plotModalSplitwithinCells(trafficCellDict)
+plotModalSplitOverAllCellsStacked(trafficCellDict)
 
 
 ###########

@@ -45,8 +45,16 @@ class PopulationGroup():
         return str(self._attributes)
 
     def calcResistance(self, duration, cost, los, travelTimeBudget, costBudget, expectationLos, tripsPerDay, mode, jsonParameter):
+        resistancePenaltyforNonCarModes=0.0 
+
+        #skip if mode is car and a car is not available 
         if mode == 'car' and self._attributes['carAvailable']!='available':
             return -1.0
+
+        #penalty for other modes if car is available and mode is not car
+        if mode != 'car' and self._attributes['carAvailable'] == 'available':
+            resistancePenaltyforNonCarModes = jsonParameter['resistancePenaltyIfCarAvailable']      
+
         if mode == 'car':
             travelTimeBudgetCorrection = 1.0
             costBudgetCorrection = 1.0
@@ -68,6 +76,7 @@ class PopulationGroup():
         resistanceLos = los 
 
         resistanceSum = self.k['cost']*resistanceCost + self.k['duration']*resistanceDuration + self.k['los']*resistanceLos
+        resistanceSum = resistanceSum + resistanceSum*resistancePenaltyforNonCarModes
 
         return resistanceSum
 
