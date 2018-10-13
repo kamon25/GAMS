@@ -112,9 +112,9 @@ class PopulationGroup():
         print(attributesWithValues)
         print(trafficCell)
         #-- traffic relevant attributes
-        trafficBehaviorAttributes=["travelTimeBudget", "tripRate"]
+        trafficBehaviorAttributes=["travelTimeBudget", "tripRate", "mobility"]
         for attribute in trafficBehaviorAttributes:
-            attributesWithValues[attribute] = BehaviorReader(attribute, PopulationGroup.possibleAttributes)
+            attributesWithValues[attribute] = BehaviorReader(attribute, trafficCell.cellID, PopulationGroup.possibleAttributes)
         
         ####
         #--- sample attributes for each inhabitant  ######## slow part
@@ -151,7 +151,7 @@ class PopulationGroup():
             tempInhab.setEmployment(i, attributesWithValues["employment"]["employmentRate_15_64"], PopulationGroup.groupDict, "employment" , "agegroup")
             #print(time.clock() - c1)
 
-            tempInhab.setCarAviable(i, attributesWithValues['carAvailable'], PopulationGroup.groupDict, 'carAvailable', 'agegroup')
+            tempInhab.setCarAviable(i, attributesWithValues['carAvailable'], PopulationGroup.groupDict, 'carAvailable', 'agegroup', attributesWithValues['mobility'])
 
             ##-- set traffic relevant attributes
             #-- set travel time budget
@@ -176,7 +176,7 @@ class PopulationGroup():
         ####
         #--- split up inhabitants to groups
         peoplePerGroupe = defaultdict(int)
-        trafficParamsGroupe = defaultdict()
+        trafficParamsGroup = defaultdict()
         for groupKey, group in PopulationGroup.groupDict.items():
             tempInhabitantList = []
             for inhab in sampledInhabitants:
@@ -199,27 +199,32 @@ class PopulationGroup():
             timebudget=None
             tripRate= None
             tripRateWork = None
+            mobility = None
             for inhab in tempInhabitantList:
-                if timebudget == None or tripRate == None or tripRateWork == None:
+                if timebudget == None or tripRate == None or tripRateWork == None or mobility == None:
                     timebudget = inhab.travelTimeBudget
                     tripRate = inhab.tripRate
                     tripRateWork = inhab.tripRateWork
+                    mobility = inhab.mobility
                 else:
                     timebudget = timebudget + inhab.travelTimeBudget
                     tripRate = tripRate + inhab.tripRate
                     tripRateWork = tripRateWork + inhab.tripRateWork
+                    mobility = mobility + inhab.mobility
 
             timebudget = timebudget/float(peoplePerGroupe[groupKey])
             tripRate = tripRate/float(peoplePerGroupe[groupKey])
             tripRateWork = tripRateWork/float(peoplePerGroupe[groupKey])
+            mobility = mobility / float (peoplePerGroupe[groupKey])
+
             #print(timebudget)
             #print(tripRate)
             
 
-            trafficParamsGroupe[groupKey]={"travelTimeBudget":timebudget, "tripRate" : tripRate, "tripRateWork": tripRateWork , "costBudget": jsonParameter["costBudget"]}
+            trafficParamsGroup[groupKey]={"travelTimeBudget":timebudget, "tripRate" : tripRate, "tripRateWork": tripRateWork , "costBudget": jsonParameter["costBudget"], 'mobility': mobility}
 
         trafficCell.SetPopulationGroups(peoplePerGroupe)
-        trafficCell.SetPopulationParams(trafficParamsGroupe)
+        trafficCell.SetPopulationParams(trafficParamsGroup)
 
 
 

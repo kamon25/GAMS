@@ -70,6 +70,7 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step, 
     #weight for exponational smoothing in resistance forecasting
     weightSmoothing = jsonParameter["weight_smoothing"]
     ratioToIntern = 1.0 - jsonParameter["ratioToExtern"]
+    
 
 
     for trafficCell in trafficCellDict.values():
@@ -77,9 +78,9 @@ def choseDestinationAndMode(trafficCellDict, groupDict, purposForJourney, step, 
 
         trafficDemandPerGroup = {(popGroupKey): (count* ratioToIntern if groupDict[popGroupKey]._attributes["employment"] == PopulationGroup.possibleAttributes["employment"][0] else 0)
                                  for popGroupKey, count in trafficCell.popPerGroup.items()}
-
+        
         trafficDemandPerGroup = {(popGroupKey): (
-            demand*trafficCell.populationParamsPerGroup[popGroupKey]['tripRateWork']) for popGroupKey, demand in trafficDemandPerGroup.items()}
+            demand*trafficCell.populationParamsPerGroup[popGroupKey]['tripRateWork']*trafficCell.populationParamsPerGroup[popGroupKey]['mobility']) for popGroupKey, demand in trafficDemandPerGroup.items()}
 
         # calc ratio attractivity to resistance und sum for each popGroup
         # {destination:{mode:{group: ratio}}}
@@ -202,9 +203,9 @@ def runSimulation(trafficCellDict, groupDict, jsonSimConfig, jsonParameter):
     startYear=jsonSimConfig["start_year"]
     years = jsonSimConfig['simulation_years']
     steps = years*stepsPerYear
+    presentationStepsPerYear = jsonSimConfig["presentation_steps_per_year"]
 
-    listOfFiles = []
-    
+    listOfFiles = []    
 
     # {timestep:{startCell:{Purpose{destination: { mode:{popGroup: trips}}}}
     resultOfSimulation = defaultdict()
@@ -220,7 +221,9 @@ def runSimulation(trafficCellDict, groupDict, jsonSimConfig, jsonParameter):
             # startCellDict[cellKey]=cell.purposeSestinationModeGroup
 
         # Save results of simulation stepwise in JSON and get the list of Filenames
-        listOfFiles.append(resultPerStepInFolders(startCellDict, jsonSimConfig["scenario_name"], jsonSimConfig["sim_ID"], st))
+        if st % presentationStepsPerYear == 0:            
+            listOfFiles.append(resultPerStepInFolders(startCellDict, jsonSimConfig["scenario_name"], jsonSimConfig["sim_ID"], int(st/presentationStepsPerYear)))
+
         # Save result of simulation in Dict
         resultOfSimulation[st] = startCellDict
 
@@ -228,6 +231,6 @@ def runSimulation(trafficCellDict, groupDict, jsonSimConfig, jsonParameter):
             print("year: " + str(st/stepsPerYear))
 
     # Config for visualisation
-    creatSimConfigFile(jsonSimConfig["sim_ID"], listOfFiles, steps, jsonSimConfig)
+    creatSimConfigFile(jsonSimConfig["sim_ID"], listOfFiles, steps, jsonSimConfig, jsonParameter)
 
     return resultOfSimulation

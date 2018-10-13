@@ -98,7 +98,6 @@ resultDict = runSimulation(trafficCellDict, groupDict, jsonSimConfig, jsonParame
 connectionsToJson(trafficCellDict,jsonSimConfig["scenario_name"], -1)
 createScenarioConfigFile(jsonSimConfig)
 
-
 #############
 
 plotConnectionComparison(trafficCellDict['60608'].pathConnectionList['60624']['car'][0],trafficCellDict['60608'].pathConnectionList['60624']['publicTransport'][0])

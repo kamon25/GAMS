@@ -34,6 +34,7 @@ def plotModalSplitConnections(trafficCellDict):
 
     bicycle_sum_trips = 0
 
+
     for trafficCell in trafficCellDict.values():
         for cellValues in trafficCell.pathConnectionList.values():
             for modeValues in cellValues.values():
@@ -97,6 +98,7 @@ def plotModalSplitOverAllCells(trafficCellDict):
     car_sum_trips=0
     pt_sum_trips=0
     bicycle_sum_trips = 0
+    walk_sum_trips = 0
     
     for tC in trafficCellDict.values():
         for modeTrips in tC.purposeDestinationMode['work'].values():
@@ -107,11 +109,13 @@ def plotModalSplitOverAllCells(trafficCellDict):
                     pt_sum_trips += trips
                 elif mode == 'bicycle':
                     bicycle_sum_trips += trips
+                elif mode == 'walk':
+                    walk_sum_trips += trips
                 else:
                     print('Wrong Mode for Plot sum - plotModalSplitOverAllCells')
     
-    n_modes=3
-    sumtrips=(car_sum_trips,pt_sum_trips, bicycle_sum_trips)
+    n_modes=4
+    sumtrips=(car_sum_trips,pt_sum_trips, bicycle_sum_trips, walk_sum_trips)
     fig, ax = plt.subplots()
 
     index = np.arange(n_modes)
@@ -121,7 +125,7 @@ def plotModalSplitOverAllCells(trafficCellDict):
     ax.set_ylabel('trips')
     ax.set_title('Sum Modal Split for TrafficCells')
     ax.set_xticks(index )
-    ax.set_xticklabels(('Car','PT', 'Bicycle'))
+    ax.set_xticklabels(('Car','PT', 'Bicycle', 'Walk'))
 
     fig.savefig(path)
 
@@ -131,6 +135,7 @@ def plotModalSplitOverAllCellsStacked(trafficCellDict):
     car_sum_trips=0
     pt_sum_trips=0
     bicycle_sum_trips = 0
+    walk_sum_trips = 0
     
     for tC in trafficCellDict.values():
         for modeTrips in tC.purposeDestinationMode['work'].values():
@@ -141,14 +146,17 @@ def plotModalSplitOverAllCellsStacked(trafficCellDict):
                     pt_sum_trips += trips
                 elif mode == 'bicycle':
                     bicycle_sum_trips += trips
+                elif mode == 'walk':
+                    walk_sum_trips += trips
                 else:
                     print('Wrong Mode for Plot sum - plotModalSplitOverAllCells')
     
     
-    sumtrips=car_sum_trips + pt_sum_trips +bicycle_sum_trips
+    sumtrips=car_sum_trips + pt_sum_trips +bicycle_sum_trips +walk_sum_trips
     car_sum_trips =(car_sum_trips/sumtrips) * 100
     pt_sum_trips = (pt_sum_trips/sumtrips) * 100
     bicycle_sum_trips = (bicycle_sum_trips /sumtrips) * 100
+    walk_sum_trips = (walk_sum_trips/sumtrips)*100
     index = np.arange(1)
     bar_width = 0.35
 
@@ -156,10 +164,11 @@ def plotModalSplitOverAllCellsStacked(trafficCellDict):
     p1 = plt.bar(index, car_sum_trips, bar_width)
     p2 = plt.bar(index, pt_sum_trips, bar_width, bottom = car_sum_trips)
     p3 = plt.bar(index, bicycle_sum_trips, bar_width,  bottom = (car_sum_trips+ pt_sum_trips))
-    
+    p4 = plt.bar(index, walk_sum_trips, bar_width,  bottom = (car_sum_trips+ pt_sum_trips+ bicycle_sum_trips))
+
     plt.ylabel('Percent')
     plt.title("Modal Split stacked")
-    plt.legend((p1[0], p2[0], p3[0]), ('Car', 'PT', 'Bicycle'))
+    plt.legend((p1[0], p2[0], p3[0], p4[0]), ('Car', 'PT', 'Bicycle', 'Walk'))
 
     fig.savefig(path)
 
@@ -170,6 +179,7 @@ def plotModalSplitwithinCells(trafficCellDict):
     car_sum_trips=0
     pt_sum_trips=0
     bicycle_sum_trips = 0
+    walk_sum_trips = 0
     
     for tcID, tC in trafficCellDict.items():
         for destination, modeTrips in tC.purposeDestinationMode['work'].items():
@@ -181,13 +191,15 @@ def plotModalSplitwithinCells(trafficCellDict):
                         pt_sum_trips += trips
                     elif mode == 'bicycle':
                         bicycle_sum_trips += trips
+                    elif mode == 'walk':
+                        walk_sum_trips += trips
                     else:
                         print('Wrong Mode for Plot sum - plotModalSplitOverAllCells')
             else:
                 continue
     
-    n_modes=3
-    sumtrips=(car_sum_trips,pt_sum_trips, bicycle_sum_trips)
+    n_modes=4
+    sumtrips=(car_sum_trips,pt_sum_trips, bicycle_sum_trips, walk_sum_trips)
     fig, ax = plt.subplots()
 
     index = np.arange(n_modes)
@@ -196,8 +208,8 @@ def plotModalSplitwithinCells(trafficCellDict):
 
     ax.set_ylabel('trips')
     ax.set_title('Sum Modal Split within TrafficCells')
-    ax.set_xticks(index )
-    ax.set_xticklabels(('Car','PT', 'Bicycle'))
+    ax.set_xticks(index)
+    ax.set_xticklabels(('Car','PT', 'Bicycle', 'Walk'))
 
     fig.savefig(path)
 

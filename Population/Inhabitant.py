@@ -5,7 +5,7 @@ import time
 
 
 class Inhabitant():
-    __slots__ = "attributes", "tripRate", "travelTimeBudget", "tripRateWork"
+    __slots__ = "attributes", "tripRate", "travelTimeBudget", "tripRateWork", "mobility"
 
     # static variables:
     femalecounter = 0
@@ -93,7 +93,7 @@ class Inhabitant():
         else:
             self.attributes[employmentKey] = "unemployed"
 
-    def setCarAviable(self, i, carAviableRate, groupDict, carKey, agegroupKey):
+    def setCarAviable(self, i, carAviableRate, groupDict, carKey, agegroupKey, mobilityCarAvailable):
         carPossible = False
         for group in groupDict.values():
             if group._attributes[agegroupKey] == self.attributes[agegroupKey] and group._attributes[carKey] == 'available':
@@ -105,10 +105,13 @@ class Inhabitant():
             randomnumberCar = np.random.uniform()
             if randomnumberCar <= carProbability:
                 self.attributes[carKey]='available'
+                self.mobility = mobilityCarAvailable['available']
             else:
                 self.attributes[carKey]='notAvailable'
+                self.mobility = mobilityCarAvailable['notAvailable']
         else:
             self.attributes[carKey]='notAvailable'
+            self.mobility = mobilityCarAvailable['notAvailable']
     
     def setCarAviableFromDensity(self, i, carDensity, trafficcellInhabitants, potentialCarUsers, groupDict, carKey, agegroupKey):
         # -- is a car aviability possible? possible (ageroupe)?
@@ -137,3 +140,5 @@ class Inhabitant():
         self.tripRate = np.random.triangular(
             *tripRateAgegroups[self.attributes["agegroup"]])
         self.tripRateWork = jsonParameter['tripRateWork']
+    
+ 

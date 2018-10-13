@@ -15,7 +15,7 @@ class TrafficCell():
         self.popPerGroup = None  # dict with {PopulationGroupKey : count}
         
 
-        # dict with {PopulationGroupKey : {travelTimeBudget: int, tripRate : int, tripRateWork: int, costBudget : float}}
+        # dict with {PopulationGroupKey : {travelTimeBudget: int, tripRate : int, tripRateWork: int, costBudget : float, mobility :float}}
         self.populationParamsPerGroup = None
         self.attractivity = defaultdict()  # {purpose: attractivity}
 
@@ -66,6 +66,7 @@ class TrafficCell():
         speedInZoneCar = jsonParameter['speedInZoneCar']
         speedInZonePT = jsonParameter['speedInZonePT']
         speedInZoneBicycle = jsonParameter['speedInZoneBicycle']
+        speedInZoneWalk = jsonParameter['speedInZoneWalk']
 
         for destination, modes in self.pathConnectionList.items():
             modeParams = defaultdict()
@@ -91,6 +92,8 @@ class TrafficCell():
                         elif mode == 'bicycle':
                             cost =0 
                             zoneCounter = 0
+                        elif mode == 'walk':
+                            print ("Wrong parameters for walk.")
 
                 else:
                     los = 1
@@ -106,6 +109,10 @@ class TrafficCell():
 
                     elif mode == 'bicycle':
                         time = distance/speedInZoneBicycle
+                        cost = 0
+
+                    elif mode == 'walk':
+                        time = distance/speedInZoneWalk
                         cost = 0
 
                 params = {'duration': time, 'cost': cost,

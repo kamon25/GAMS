@@ -12,7 +12,7 @@ infraNetworkGraph = nx.MultiGraph()
 
 #Infrastructure to include
 infra=["countryroad","train", "autobahn"]
-modes=["car", "publicTransport", "bicycle"]
+modes=["car", "publicTransport", "bicycle", "walk"]
 connections=["car_countryroad", "publicTransport_train", "car_autobahn", "publicTransport_bus", "bicycle_countryroad"]
 
 #global cost variables
@@ -28,6 +28,8 @@ def getShortestPaths_withStartMode(start, end, cellDict, jsonParamter):
 
     for m in modes:
         #skip bicycel mode if the target node is not neighbour of the start node
+        if m == 'walk' and (start != end):
+            continue
         if (end not in infraNetworkGraph.adj[start].keys()) and (start != end) and (m == 'bicycle'):
             continue
         #calc shortest paths

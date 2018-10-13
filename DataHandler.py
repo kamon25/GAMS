@@ -3,7 +3,7 @@ import math
 import numpy as np
 import pandas as pd
 from collections import defaultdict
-import json
+import simplejson as json
 from networkx.readwrite import json_graph
 import pickle
 import os
@@ -19,6 +19,7 @@ pathPopulationAgeGroupsCSV = 'Data/STMK_01012017_AGE.csv'
 pathPopulationSexCSV = 'Data/STMK_01012017_SEX.csv'
 pathPopulationEmployment = 'Data/OGDEXT_AEST_GEMTAB_1.csv'
 pathPopulationCarDensity = 'Data/carDensity.csv'
+pathPopulationMobile= 'Data/mobilePersons.csv'
 pathPopulationCarAvailable = 'Data/carAvailability.csv'
 pathPopulationForecast = 'Data/STMK_2015_2030_PROJ.csv'
 
@@ -41,7 +42,8 @@ pathConnections = 'connections.json'
 pathDestinationsOfGroupsInCells = 'destinationsModesOfGroups.json'
 pathSimResult = 'simResult.json'
 pathSimResultPerStep = 'simResultsPerStep/simResult-step'
-pathSimResultPerStepinFolder = 'simulations/simResul'
+pathSimFolder ='simulations'
+pathSimResultPerStepinFolder = pathSimFolder + '/simResul'
 pathResulFolder = 'simResul'
 pathSimConfigOutput = 'simulation_config.json'
 pathScenarioConfigOutput = 'scenario_config.json'
@@ -261,7 +263,7 @@ def AttributeReaderCSV(cellID, popGroup, paramToRead):
 
 
 # ---read human behavior in traffic
-def behaviorReaderDummy(paramToRead, possibleAttributes):
+def behaviorReaderDummy(paramToRead, cellID , possibleAttributes):
     # --- read travel time budget
     if (paramToRead == "travelTimeBudget"):
         ttbSchweizerMikriozenzus = {(6, 24): (88.61, 90.19, 91.77), (25, 64): (
@@ -307,6 +309,26 @@ def behaviorReaderDummy(paramToRead, possibleAttributes):
             tripsAgegroups[agegroup] = waysSchweizerMikriozenzus[keyForSmalestDifference]
 
         return tripsAgegroups
+
+
+    if (paramToRead == "mobility"):
+        mobilityCarAviable = defaultdict()
+
+        df = pd.read_csv(pathPopulationMobile, sep=';', na_values=['NA'], decimal='.', dtype={'GKZ': str})
+        dfBetrachtung = df.set_index('GKZ')
+
+        for carAviable in possibleAttributes['carAvailable']:
+            if carAviable == 'available':
+                mobilityCarAviable[carAviable] = float(dfBetrachtung.loc[cellID]['Mobil_Fuehrerschein'])
+            elif carAviable == 'notAvailable':
+                mobilityCarAviable[carAviable] = float(dfBetrachtung.loc[cellID]['Mobil_ohneFuehrerschein'])
+            else:
+                print('Fehler in der Bezeichung der Autoverfügbarkeit')
+                mobilityCarAviable[carAviable] = 0.85
+        
+        return mobilityCarAviable
+
+
 
 # Information about connection between the trafficCells
 
@@ -444,6 +466,8 @@ def graphToJson(networkGraph):
 
 def connectionsToJson(trafficCellDict, scenarioName, step):
     connections = set()
+    mostOccupied = list()
+    lessOccupied = list()
     outputList = []
     outpath = '/'.join([standardOutpath,
                         '-'.join(['scenario', scenarioName]), pathConnections])
@@ -454,14 +478,25 @@ def connectionsToJson(trafficCellDict, scenarioName, step):
                 connections = connections.union(set(modeValues))
 
     for tempConnection in connections:
-
         outputList.append(tempConnection.toDict(step))
+        if tempConnection.occupancy[step] >= 1.0:
+            mostOccupied.append(tempConnection.toDict(step))
+        elif tempConnection.occupancy[step] < 0.1:
+            lessOccupied.append(tempConnection.toDict(step))
+
+
 
     #d={'links': outputSet}
 
     with open(outpath, 'w') as fp:
         json.dump(outputList, fp, indent=4)
     print('Wrote connections as JSON  to' + outpath)
+
+    with open('internChecks/mostOccupied.json', 'w') as fp:
+        json.dump(mostOccupied, fp, indent=4)
+        
+    with open('internChecks/lessOccupied.json', 'w') as fp:
+        json.dump(lessOccupied, fp, indent=4)
 
 
 def destinationsModesToJson(trafficCellDict, scenarioName):
@@ -532,39 +567,80 @@ def resultPerStepInFolders(stepResultDic, scenarioName, simID, step):
     return filename
 
 
-def creatSimConfigFile(simID, listOfFiles, steps, jsonSimConfig):
+def creatSimConfigFile(simID, listOfFiles, steps, jsonSimConfig, jsonParameter):
     outpath = '/'.join([standardOutpath, '-'.join(['scenario', jsonSimConfig["scenario_name"]]),
                         '-'.join([pathSimResultPerStepinFolder,jsonSimConfig['sim_ID']]), pathSimConfigOutput])
     startTimeObject = datetime.date(jsonSimConfig['start_year'], 1, 1)
     endTimeObject = startTimeObject+datetime.timedelta(days=steps*365/12)
 
+    #Simulation Config
     simulationID = ('simulationID', simID)
     simulationName = ('simulationName', jsonSimConfig['simulation_name'])
     simulationDescription = ('simulationDescription', jsonSimConfig['simulation_description'])
     startDate = ('startDate_YYYYMM', startTimeObject.strftime('%Y%m'))
     endDate = ('endDate_YYYYMM', endTimeObject.strftime('%Y%m'))
     simulationCalculationStepSize_days = (
-        'simulationCalculationStepSize_months', 1)
+        'simulationCalculationStepSize_months', int(12/jsonSimConfig["steps_per_year"]))
     simulationPresentationStepSize_days = (
-        'simulationPresentationStepSize_months', 1)
+        'simulationPresentationStepSize_months', int(12/jsonSimConfig["presentation_steps_per_year"]))
 
     outDict = dict([simulationID, simulationName, simulationDescription, startDate, endDate, simulationCalculationStepSize_days, simulationPresentationStepSize_days,
                     ('simulationResultStepFileNames', listOfFiles)])
 
-    with open(outpath, 'w', encoding="ISO-8859-1") as fp:
-        json.dump(outDict, fp, indent=4)
+    #Policy
+    carCostPer_KM={"Name":"Autokosten", "Wert": jsonSimConfig["carCostPer_KM"], "Beschreibung": "Kosten in Euro pro Kilometer für Autofahrten"}
+    publicTransportCost={"Name":"Kosten öffentlicher Verkehr", "Wert": jsonSimConfig["publittransport_Cost"], "Beschreibung": "Kosten für den öffentlichen Verkehr auf Basis der Tarifzonen"}
+
+    defaultCapacity = readDefaultCapacity()
+
+    capacity_car_autobahn = defaultCapacity['car_autobahn']
+    capacity_car_countryroad = defaultCapacity['car_countryroad']
+    capacity_publicTransport_train = defaultCapacity['publicTransport_train']
+    capacity_publicTransport_bus = defaultCapacity['publicTransport_bus']
+    capacity_bicycle_countryroad = defaultCapacity['bicycle_countryroad']
+
+    capacity = {"Name": "Verbindungskapazitäten", "Wert": {"Autobahn": capacity_car_autobahn, "Landstraße": capacity_car_countryroad, "S-Bahn": capacity_publicTransport_train, "Bus": capacity_publicTransport_bus, "Fahrrad": capacity_bicycle_countryroad}, "Beschreibung": "Durschnittliche Kapazitäten der Verbindungen zwischen den Konten in Personen pro Stunde"}
+
+    averageSpeed = redConnectionWeights()
+
+    speed_car_autobahn = 80.0 / averageSpeed['car_autobahn']
+    speed_car_countryroad =  80.0 / averageSpeed['car_countryroad']
+    speed_publicTransport_train =  80.0 / averageSpeed['publicTransport_train']
+    speed_publicTransport_bus =  80.0 / averageSpeed['publicTransport_bus']
+    speed_bicycle_countryroad =  80.0 / averageSpeed['bicycle_countryroad']
+
+    speed = {"Name": "Verbindungsgeschwindigkeiten", "Wert": {"Autobahn": speed_car_autobahn, "Landstraße": speed_car_countryroad, "S-Bahn": speed_publicTransport_train, "Bus": speed_publicTransport_bus, "Fahrrad": speed_bicycle_countryroad}, "Beschreibung": "Durschnittliche Geschwindigkeit der Verbindungen zwischen den Konten in Kilometer pro Stunde"}
+
+    speedInZone = {"Name": "Zonengeschwindigkeiten", "Wert": {"Auto": jsonParameter["speedInZoneCar"], "ÖV": jsonParameter["speedInZonePT"], "Fahrrad": jsonParameter["speedInZoneBicycle"], "Fußgänger": jsonParameter["speedInZoneWalk"]}, "Beschreibung": "Durschschnittliche Geschwindigkeit die innerhalb von Verkehrsknoten auftretten in Kilometer pro Stunde"}
+
+    policyDict = {"carCostPer_KM": carCostPer_KM, "publicTransportCost_KM": publicTransportCost, "capacity":capacity, "speed": speed, "speedInZone": speedInZone}
+
+    
+    #Add Policy to Outdict
+
+    outDict['policy'] = policyDict
+
+
+    with open(outpath, 'w', encoding='utf-8') as fp:
+        json.dump(outDict, fp, indent=4, ensure_ascii=False)
         print('Wrote step result JSON data to' + outpath)
 
 
 def createScenarioConfigFile(jsonSimConfig):
     outpath = '/'.join([standardOutpath, '-'.join(['scenario',
                                                    jsonSimConfig["scenario_name"]]), pathScenarioConfigOutput])
-
+    
+    checkPath = '/'.join([standardOutpath, '-'.join(['scenario',
+                                                   jsonSimConfig["scenario_name"]]), pathSimFolder])
+    
+    print(checkPath)
+    folderlist = os.listdir(checkPath) 
+    print(folderlist)
     outDict = {'scenarioName':jsonSimConfig['scenario_name'], 'scenarioDescription': jsonSimConfig['scenario_description'], 'mapData': {"POLITICAL_AREA_SHAPE_FILE_URL": "GemeindenBMNM34_2015.zip"}, 'gamsData': {"POLITICAL_AREA_GAMS_DATA_URL": "trafficCellData.json", "BEHAVIOURAL_HOMOGENIOUS_GROUP_GAMS_DATA_URL": "popGroups.json",
-                                                                                                                            "TRAFFIC_NETWORK_GRAPH_GAMS_DATA_URL": "connections.json", "AVAILABLE_TRAFFIC_STATE_SIMULATON_GAMS_DATA": {"baseFolder": "simulations", "simulationDataFolderNames": ['-'.join([pathResulFolder,jsonSimConfig['sim_ID']])]}}}
+                                                                                                                            "TRAFFIC_NETWORK_GRAPH_GAMS_DATA_URL": "connections.json", "AVAILABLE_TRAFFIC_STATE_SIMULATON_GAMS_DATA": {"baseFolder": "simulations", "simulationDataFolderNames": folderlist}}}
 
-    with open(outpath, 'w', encoding="ISO-8859-1") as fp:
-        json.dump(outDict, fp, indent=4)
+    with open(outpath, 'w', encoding='utf-8') as fp:
+        json.dump(outDict, fp, indent=4, ensure_ascii=False)
         print('Wrote step result JSON data to' + outpath)
 
 
