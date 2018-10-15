@@ -603,11 +603,11 @@ def creatSimConfigFile(simID, listOfFiles, steps, jsonSimConfig, jsonParameter):
 
     averageSpeed = redConnectionWeights()
 
-    speed_car_autobahn = 80.0 / averageSpeed['car_autobahn']
-    speed_car_countryroad =  80.0 / averageSpeed['car_countryroad']
-    speed_publicTransport_train =  80.0 / averageSpeed['publicTransport_train']
-    speed_publicTransport_bus =  80.0 / averageSpeed['publicTransport_bus']
-    speed_bicycle_countryroad =  80.0 / averageSpeed['bicycle_countryroad']
+    speed_car_autobahn = round(80.0 / averageSpeed['car_autobahn'],2)
+    speed_car_countryroad =  round(80.0 / averageSpeed['car_countryroad'],2)
+    speed_publicTransport_train =  round(80.0 / averageSpeed['publicTransport_train'],2)
+    speed_publicTransport_bus =  round(80.0 / averageSpeed['publicTransport_bus'],2)
+    speed_bicycle_countryroad =  round(80.0 / averageSpeed['bicycle_countryroad'],2)
 
     speed = {"Name": "Verbindungsgeschwindigkeiten", "Wert": {"Autobahn": speed_car_autobahn, "Landstraße": speed_car_countryroad, "S-Bahn": speed_publicTransport_train, "Bus": speed_publicTransport_bus, "Fahrrad": speed_bicycle_countryroad}, "Beschreibung": "Durschnittliche Geschwindigkeit der Verbindungen zwischen den Konten in Kilometer pro Stunde"}
 
