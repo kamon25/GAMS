@@ -571,20 +571,20 @@ def creatSimConfigFile(simID, listOfFiles, steps, jsonSimConfig, jsonParameter):
     outpath = '/'.join([standardOutpath, '-'.join(['scenario', jsonSimConfig["scenario_name"]]),
                         '-'.join([pathSimResultPerStepinFolder,jsonSimConfig['sim_ID']]), pathSimConfigOutput])
     startTimeObject = datetime.date(jsonSimConfig['start_year'], 1, 1)
-    endTimeObject = startTimeObject+datetime.timedelta(days=steps*365/12)
+    #endTimeObject = startTimeObject+datetime.timedelta(days=steps*365/12)
 
     #Simulation Config
     simulationID = ('simulationID', simID)
     simulationName = ('simulationName', jsonSimConfig['simulation_name'])
     simulationDescription = ('simulationDescription', jsonSimConfig['simulation_description'])
     startDate = ('startDate_YYYYMM', startTimeObject.strftime('%Y%m'))
-    endDate = ('endDate_YYYYMM', endTimeObject.strftime('%Y%m'))
+    #endDate = ('endDate_YYYYMM', endTimeObject.strftime('%Y%m'))
     simulationCalculationStepSize_days = (
         'simulationCalculationStepSize_months', int(12/jsonSimConfig["steps_per_year"]))
     simulationPresentationStepSize_days = (
         'simulationPresentationStepSize_months', int(12/jsonSimConfig["presentation_steps_per_year"]))
 
-    outDict = dict([simulationID, simulationName, simulationDescription, startDate, endDate, simulationCalculationStepSize_days, simulationPresentationStepSize_days,
+    outDict = dict([simulationID, simulationName, simulationDescription, startDate, simulationCalculationStepSize_days, simulationPresentationStepSize_days,
                     ('simulationResultStepFileNames', listOfFiles)])
 
     #Policy

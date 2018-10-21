@@ -58,11 +58,11 @@ def bildGraph():
     basicLoad = readBasicLoad()
 
     #--- add all edges to graph
-    addEdges(infraConnections[infra[0]], connections[0], defaultCapacity[connections[0]], basicLoad[connections[0]])
-    addEdges(infraConnections[infra[1]], connections[1], defaultCapacity[connections[1]], basicLoad[connections[1]])
-    addEdges(infraConnections[infra[2]], connections[2], defaultCapacity[connections[2]], basicLoad[connections[2]])
-    addEdges(infraConnections[infra[0]], connections[3], defaultCapacity[connections[3]], basicLoad[connections[3]])
-    addEdges(infraConnections[infra[0]], connections[4], defaultCapacity[connections[4]], basicLoad[connections[4]])
+    addEdges(infraConnections[infra[0]], connections[0], defaultCapacity[connections[0]], basicLoad[connections[0]],3)
+    addEdges(infraConnections[infra[1]], connections[1], defaultCapacity[connections[1]], basicLoad[connections[1]],3)
+    addEdges(infraConnections[infra[2]], connections[2], defaultCapacity[connections[2]], basicLoad[connections[2]],3)
+    addEdges(infraConnections[infra[0]], connections[3], defaultCapacity[connections[3]], basicLoad[connections[3]],4)
+    addEdges(infraConnections[infra[0]], connections[4], defaultCapacity[connections[4]], basicLoad[connections[4]],5)
 
 
     #--- read Cost
@@ -70,7 +70,7 @@ def bildGraph():
     costModes = weightReader()
     
         
-def addEdges(data, connection, capacity, basicLoad):
+def addEdges(data, connection, defaultcapacity, basicLoad, capacityColumn):
     for row in data:
         str = row.split(";")
         #Get Gemeindekennzahlen
@@ -80,9 +80,14 @@ def addEdges(data, connection, capacity, basicLoad):
         dist = int(str[2])
         #Get Level of Service data
         losData=1
+        #Get Capacity
+        capacity = int(str[capacityColumn])
+        #Set Default if -1
+        if capacity == -1:
+            capacity = defaultcapacity
 
         #Generate connection object
-        con = Connection(location_1, location_2, connection, dist, losData, capacity, basicLoad)
+        con = Connection(location_1, location_2, connection, dist, losData, defaultcapacity, basicLoad)
         
         #Save edge
         infraNetworkGraph.add_edge(location_1, location_2, con=con)

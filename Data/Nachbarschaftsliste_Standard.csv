@@ -1,51 +1,51 @@
-Ort 1;Ort 2;Distanz (km)
-60101_Graz;60608_Feldkirchen bei Graz;7
-60101_Graz;60611_G�ssendorf;10
-60101_Graz;60669_Seiersberg - Pirka;8
-60608_Feldkirchen bei Graz;60611_G�ssendorf;8
-60608_Feldkirchen bei Graz;60624_Kalsdorf bei Graz;5
-60608_Feldkirchen bei Graz;60669_Seiersberg-Pirka;3
-60611_G�ssendorf;60662_Fernitz-Mellach;6
-60618_Haselsdorf-Tobelbad;60629_Lieboch;2
-60618_Haselsdorf-Tobelbad;60669_Seiersberg-Pirka;6
-60618_Haselsdorf-Tobelbad;60670_Premst�tten;7
-60624_Kalsdorf bei Graz;60655_Werndorf;4
-60624_Kalsdorf bei Graz;60656_Wundschuh;5
-60624_Kalsdorf bei Graz;60662_Fernitz-Mellach;3
-60624_Kalsdorf bei Graz;60670_Premst�tten;6
-60629_Lieboch;60660_Dobl-Zwaring;7
-60655_Werndorf;60656_Wundschuh;3
-60655_Werndorf;61001_Allerheiligen bei Wildon;11
-60655_Werndorf;61059_Wildon;7
-60656_Wundschuh;60660_Dobl-Zwaring;4
-60656_Wundschuh;60670_Premst�tten;6
-60660_Dobl-Zwaring;60670_Premst�tten;7
-60662_Fernitz-Mellach;61001_Allerheiligen bei Wildon;8
-60669_Seiersberg-Pirka;60670_Premst�tten;5
-61001_Allerheiligen bei Wildon;61055_Sankt Georgen an der Stiefing;6
-61001_Allerheiligen bei Wildon;61059_Wildon;2
-61008_Gabersdorf;61027_Ragnitz;7
-61008_Gabersdorf;61045_Wagna;3
-61008_Gabersdorf;61058_Stra� in Steiermark;7
-61012_Gralla;61021_Lebring-Sankt Margarethen;5
-61012_Gralla;61027_Ragnitz;4
-61012_Gralla;61043_Tillmitsch;4
-61012_Gralla;61053_Leibnitz;3
-61016_Heimschuh;61043_Tillmitsch;8
-61016_Heimschuh;61050_Gamlitz;11
-61016_Heimschuh;61053_Leibnitz;9
-61017_Hengsberg;61020_Lang;8
-61017_Hengsberg;61059_Wildon;7
-61020_Lang;61021_Lebring-Sankt Margarethen;4
-61020_Lang;61043_Tillmitsch;4
-61021_Lebring-Sankt Margarethen;61027_Ragnitz;6
-61021_Lebring-Sankt Margarethen;61043_Tillmitsch;6
-61021_Lebring-Sankt Margarethen;61059_Wildon;4
-61027_Ragnitz;61055_Sankt Georgen an der Stiefing;4
-61043_Tillmitsch;61053_Leibnitz;6
-61045_Wagna;61049_Ehrenhausen an der Weinstra�e;7
-61045_Wagna;61053_Leibnitz;3
-61049_Ehrenhausen an der Weinstra�e;61050_Gamlitz;2
-61049_Ehrenhausen an der Weinstra�e;61058_Stra� in Steiermark;5
-61055_Sankt Georgen an der Stiefing;61059_Wildon;8
-61058_Stra� in Steiermark;62347_Murfeld;4
+Ort 1;Ort 2;Distanz (km); Kapazitaet Auto; Kapazitaet Bus; Kapazitaet Rad;
+60101_Graz;60608_Feldkirchen bei Graz;7;-1;-1;-1
+60101_Graz;60611_G�ssendorf;10;-1;-1;-1
+60101_Graz;60669_Seiersberg - Pirka;8;-1;-1;-1
+60608_Feldkirchen bei Graz;60611_G�ssendorf;8;-1;-1;-1
+60608_Feldkirchen bei Graz;60624_Kalsdorf bei Graz;5;-1;-1;-1
+60608_Feldkirchen bei Graz;60669_Seiersberg-Pirka;3;-1;-1;-1
+60611_G�ssendorf;60662_Fernitz-Mellach;6;-1;-1;-1
+60618_Haselsdorf-Tobelbad;60629_Lieboch;2;-1;-1;-1
+60618_Haselsdorf-Tobelbad;60669_Seiersberg-Pirka;6;-1;-1;-1
+60618_Haselsdorf-Tobelbad;60670_Premst�tten;7;-1;-1;-1
+60624_Kalsdorf bei Graz;60655_Werndorf;4;-1;-1;-1
+60624_Kalsdorf bei Graz;60656_Wundschuh;5;-1;-1;-1
+60624_Kalsdorf bei Graz;60662_Fernitz-Mellach;3;-1;-1;-1
+60624_Kalsdorf bei Graz;60670_Premst�tten;6;-1;-1;-1
+60629_Lieboch;60660_Dobl-Zwaring;7;-1;-1;-1
+60655_Werndorf;60656_Wundschuh;3;-1;-1;-1
+60655_Werndorf;61001_Allerheiligen bei Wildon;11;-1;-1;-1
+60655_Werndorf;61059_Wildon;7;-1;-1;-1
+60656_Wundschuh;60660_Dobl-Zwaring;4;-1;-1;-1
+60656_Wundschuh;60670_Premst�tten;6;-1;-1;-1
+60660_Dobl-Zwaring;60670_Premst�tten;7;-1;-1;-1
+60662_Fernitz-Mellach;61001_Allerheiligen bei Wildon;8;-1;-1;-1
+60669_Seiersberg-Pirka;60670_Premst�tten;5;-1;-1;-1
+61001_Allerheiligen bei Wildon;61055_Sankt Georgen an der Stiefing;6;-1;-1;-1
+61001_Allerheiligen bei Wildon;61059_Wildon;2;-1;-1;-1
+61008_Gabersdorf;61027_Ragnitz;7;-1;-1;-1
+61008_Gabersdorf;61045_Wagna;3;-1;-1;-1
+61008_Gabersdorf;61058_Stra� in Steiermark;7;-1;-1;-1
+61012_Gralla;61021_Lebring-Sankt Margarethen;5;-1;-1;-1
+61012_Gralla;61027_Ragnitz;4;-1;-1;-1
+61012_Gralla;61043_Tillmitsch;4;-1;-1;-1
+61012_Gralla;61053_Leibnitz;3;-1;-1;-1
+61016_Heimschuh;61043_Tillmitsch;8;-1;-1;-1
+61016_Heimschuh;61050_Gamlitz;11;-1;-1;-1
+61016_Heimschuh;61053_Leibnitz;9;-1;-1;-1
+61017_Hengsberg;61020_Lang;8;-1;-1;-1
+61017_Hengsberg;61059_Wildon;7;-1;-1;-1
+61020_Lang;61021_Lebring-Sankt Margarethen;4;-1;-1;-1
+61020_Lang;61043_Tillmitsch;4;-1;-1;-1
+61021_Lebring-Sankt Margarethen;61027_Ragnitz;6;-1;-1;-1
+61021_Lebring-Sankt Margarethen;61043_Tillmitsch;6;-1;-1;-1
+61021_Lebring-Sankt Margarethen;61059_Wildon;4;-1;-1;-1
+61027_Ragnitz;61055_Sankt Georgen an der Stiefing;4;-1;-1;-1
+61043_Tillmitsch;61053_Leibnitz;6;-1;-1;-1
+61045_Wagna;61049_Ehrenhausen an der Weinstra�e;7;-1;-1;-1
+61045_Wagna;61053_Leibnitz;3;-1;-1;-1
+61049_Ehrenhausen an der Weinstra�e;61050_Gamlitz;2;-1;-1;-1
+61049_Ehrenhausen an der Weinstra�e;61058_Stra� in Steiermark;5;-1;-1;-1
+61055_Sankt Georgen an der Stiefing;61059_Wildon;8;-1;-1;-1
+61058_Stra� in Steiermark;62347_Murfeld;4;-1;-1;-1
