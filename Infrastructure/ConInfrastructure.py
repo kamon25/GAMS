@@ -183,7 +183,7 @@ def calc_dijkstra_withStartMode(start_node, target_node, trafficCells, first_mod
         path.insert(0, (city, previous[1], previous[2]))
         curr_node = previous[0]
 
-        #add sonnection to set of connections
+        #add connection to set of connections
         connectionsList.insert(0,previous[3])
 
     return path, connectionsList

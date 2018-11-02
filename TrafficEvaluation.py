@@ -1,15 +1,14 @@
-from Population.PopulationGroup import PopulationGroup
-from Infrastructure.TrafficCell import TrafficCell
+from collections import defaultdict
+
 from DataHandler import TrafficCellReaderCSV as TrafficCellReader
-from DataHandler import inhabitantReaderCSV as inhabitantReader
 from DataHandler import attractionReaderCSV as attractionReader
-from DataHandler import cellListToJson
+from DataHandler import cellListToJson, creatSimConfigFile
+from DataHandler import inhabitantReaderCSV as inhabitantReader
 from DataHandler import resultPerStepInFolders
-from DataHandler import creatSimConfigFile
 from DataHandler import saveTrafficCells as saveTC
 from Infrastructure import ConInfrastructure as ConInfra
-
-from collections import defaultdict
+from Infrastructure.TrafficCell import TrafficCell
+from Population.PopulationGroup import PopulationGroup
 
 
 def generatePopulationGroups(jsonParameter):
@@ -216,6 +215,7 @@ def runSimulation(trafficCellDict, groupDict, jsonSimConfig, jsonParameter):
         # write values
         startCellDict = defaultdict()
         for cellKey, cell in trafficCellDict.items():
+            
             startCellDict[cellKey] = dict([('Sum_Trips_per_Mode', cell.purposeDestinationMode),
                                            ('Trips_per_group', cell.purposeSestinationModeGroup)])
             # startCellDict[cellKey]=cell.purposeSestinationModeGroup

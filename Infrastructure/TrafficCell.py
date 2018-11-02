@@ -67,6 +67,10 @@ class TrafficCell():
         speedInZonePT = jsonParameter['speedInZonePT']
         speedInZoneBicycle = jsonParameter['speedInZoneBicycle']
         speedInZoneWalk = jsonParameter['speedInZoneWalk']
+        losInZoneCar = jsonParameter["losInZoneCar"],
+        losInZonePT = jsonParameter["losInZonePT"],
+        losInZoneBicycle = jsonParameter["losInZoneBicycle"],
+        losInZoneWalk = jsonParameter["losInZoneWalk"],
 
         for destination, modes in self.pathConnectionList.items():
             modeParams = defaultdict()
@@ -102,18 +106,22 @@ class TrafficCell():
                     if mode == 'car':
                         time = distance/speedInZoneCar
                         cost = distance*carCostKm
+                        los = losInZoneCar
                         
                     elif mode == 'publicTransport':
                         time = distance/speedInZonePT
                         cost = ptCostZone[zoneCounter]
+                        los = losInZonePT
 
                     elif mode == 'bicycle':
                         time = distance/speedInZoneBicycle
                         cost = 0
+                        los = losInZoneBicycle
 
                     elif mode == 'walk':
                         time = distance/speedInZoneWalk
                         cost = 0
+                        los = losInZoneWalk
 
                 params = {'duration': time, 'cost': cost,
                           'distance': distance, 'los': los}

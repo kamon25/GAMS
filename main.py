@@ -1,35 +1,28 @@
-import matplotlib.pyplot as plt
-import numpy as np
 from collections import defaultdict
 
-from Population.PopulationGroup import PopulationGroup
-from Infrastructure.TrafficCell import TrafficCell
-from DataHandler import loadSimConfig
-from DataHandler import loadParameterConfig
-from DataHandler import cellListToJson
-from DataHandler import groupDictToJson
-from DataHandler import graphToJson
-from DataHandler import connectionsToJson
-from DataHandler import destinationsModesToJson
+import matplotlib.pyplot as plt
+import numpy as np
+
+from DataHandler import (cellListToJson, connectionsToJson,
+                         createOutputDirectory, createScenarioConfigFile,
+                         destinationsModesToJson, graphToJson, groupDictToJson,
+                         loadParameterConfig, loadSimConfig)
+from DataHandler import loadTrafficCellDict as loadTC
 from DataHandler import resultOfSimulationToJson
 from DataHandler import saveTrafficCells as saveTC
-from DataHandler import loadTrafficCellDict as loadTC
-from DataHandler import createOutputDirectory
-from DataHandler import createScenarioConfigFile
-
 from Infrastructure import ConInfrastructure as ConInfra
-
-from TrafficEvaluation import generatePopulationGroups as generatePopulationGroups
+from Infrastructure.TrafficCell import TrafficCell
+from Population.PopulationGroup import PopulationGroup
+from TrafficEvaluation import (calcAllPathsForTrafficCell,
+                               choseDestinationAndMode)
+from TrafficEvaluation import \
+    generatePopulationGroups as generatePopulationGroups
 from TrafficEvaluation import generateTrafficCells as generateTrafficCells
-from TrafficEvaluation import calcAllPathsForTrafficCell
-from TrafficEvaluation import choseDestinationAndMode
 from TrafficEvaluation import runSimulation
-
-from visualGAMS import plotConnectionComparison
-from visualGAMS import plotModalSplitConnections
-from visualGAMS import plotModalSplitOverAllCells
-from visualGAMS import plotModalSplitwithinCells
-from visualGAMS import plotModalSplitOverAllCellsStacked
+from visualGAMS import (plotConnectionComparison, plotModalSplitBetweenCells,
+                        plotModalSplitConnections, plotModalSplitOverAllCells,
+                        plotModalSplitOverAllCellsStacked,
+                        plotModalSplitwithinCells)
 
 # --- load Config-File
 jsonSimConfig = loadSimConfig()
@@ -38,7 +31,7 @@ jsonParameter = loadParameterConfig()
 createOutputDirectory(jsonSimConfig["scenario_name"])
 
 # --- global Values and Assumptions
-trafficPeakPercentage=jsonParameter["trafficPeakPercentage"]
+trafficPeakPercentage = jsonParameter["trafficPeakPercentage"]
 
 
 # ---List of populationgroups in the area
@@ -62,7 +55,7 @@ saveTC(trafficCellDict)
 
 cellListToJson(trafficCellDict, jsonSimConfig["scenario_name"])
 
-#---- print Employed:
+# ---- print Employed:
 for tc in trafficCellDict.values():
     tc.printEmployed(groupDict)
 
@@ -90,26 +83,31 @@ for connection in trafficCellDict['61059'].pathConnectionList['60101']['car']:
 # Start of destination choice
 publicTransportCost = jsonSimConfig["publittransport_Cost"]
 for tC in trafficCellDict.values():
-    tC.calcConnectionParams(jsonSimConfig["carCostPer_KM"], publicTransportCost, jsonParameter)
+    tC.calcConnectionParams(
+        jsonSimConfig["carCostPer_KM"], publicTransportCost, jsonParameter)
 
 # Run Simulation
-resultDict = runSimulation(trafficCellDict, groupDict, jsonSimConfig, jsonParameter)
+resultDict = runSimulation(trafficCellDict, groupDict,
+                           jsonSimConfig, jsonParameter)
 # Write Connections
-connectionsToJson(trafficCellDict,jsonSimConfig["scenario_name"], -1)
+connectionsToJson(trafficCellDict, jsonSimConfig["scenario_name"], -1)
 createScenarioConfigFile(jsonSimConfig)
 
 #############
 
-plotConnectionComparison(trafficCellDict['60608'].pathConnectionList['60624']['car'][0],trafficCellDict['60608'].pathConnectionList['60624']['publicTransport'][0])
+plotConnectionComparison(trafficCellDict['60608'].pathConnectionList['60624']['car'][0],\
+                         trafficCellDict['60608'].\
+                         pathConnectionList['60624']['publicTransport'][0])
 plotModalSplitConnections(trafficCellDict)
 plotModalSplitOverAllCells(trafficCellDict)
 plotModalSplitwithinCells(trafficCellDict)
 plotModalSplitOverAllCellsStacked(trafficCellDict)
+plotModalSplitBetweenCells(trafficCellDict)
 
 
 ###########
 
-print(trafficCellDict['60101'].expectedResistance['work']['61059']['car']['popGroup2'])
+print(trafficCellDict['60101'].expectedResistance['work']
+      ['61059']['car']['popGroup2'])
 
 #########
-

@@ -65,11 +65,14 @@ class PopulationGroup():
             travelTimeBudgetCorrection = 1.0
             costBudgetCorrection = 1.0
         
-        #calc duration resistance
+        #calc trip budgets
         travelTimeBudgetPerTrip = travelTimeBudget/tripsPerDay
+        costBudgetPerTrip = costBudget/tripsPerDay
+
+        #calc duration resistance
         resistanceDuration= math.exp((duration/(travelTimeBudgetPerTrip*travelTimeBudgetCorrection))-1)
         #calc cost resistance
-        resistanceCost = math.exp((cost/(costBudget*costBudgetCorrection))-1)
+        resistanceCost = math.exp((cost/(costBudgetPerTrip*costBudgetCorrection))-1)
         # calc LoS resistance
         # los is calculatet for every path in trafficCell
         # los is normed to the occupancy (occ 0.8 is approximatly los 1 ) 
