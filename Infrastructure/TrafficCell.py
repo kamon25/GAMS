@@ -67,10 +67,10 @@ class TrafficCell():
         speedInZonePT = jsonParameter['speedInZonePT']
         speedInZoneBicycle = jsonParameter['speedInZoneBicycle']
         speedInZoneWalk = jsonParameter['speedInZoneWalk']
-        losInZoneCar = jsonParameter["losInZoneCar"],
-        losInZonePT = jsonParameter["losInZonePT"],
-        losInZoneBicycle = jsonParameter["losInZoneBicycle"],
-        losInZoneWalk = jsonParameter["losInZoneWalk"],
+        losInZoneCar = jsonParameter["losInZoneCar"]
+        losInZonePT = jsonParameter["losInZonePT"]
+        losInZoneBicycle = jsonParameter["losInZoneBicycle"]
+        losInZoneWalk = jsonParameter["losInZoneWalk"]
 
         for destination, modes in self.pathConnectionList.items():
             modeParams = defaultdict()

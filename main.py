@@ -22,7 +22,7 @@ from TrafficEvaluation import runSimulation
 from visualGAMS import (plotConnectionComparison, plotModalSplitBetweenCells,
                         plotModalSplitConnections, plotModalSplitOverAllCells,
                         plotModalSplitOverAllCellsStacked,
-                        plotModalSplitwithinCells)
+                        plotModalSplitwithinCells, plotModalSplitWithoutGrazStacked)
 
 # --- load Config-File
 jsonSimConfig = loadSimConfig()
@@ -103,6 +103,7 @@ plotModalSplitOverAllCells(trafficCellDict)
 plotModalSplitwithinCells(trafficCellDict)
 plotModalSplitOverAllCellsStacked(trafficCellDict)
 plotModalSplitBetweenCells(trafficCellDict)
+plotModalSplitWithoutGrazStacked(trafficCellDict)
 
 
 ###########

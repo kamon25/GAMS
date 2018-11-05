@@ -171,6 +171,50 @@ def plotModalSplitOverAllCellsStacked(trafficCellDict):
 
     fig.savefig(path)
 
+def plotModalSplitWithoutGrazStacked(trafficCellDict):
+    path='Pic/ModalSplitCellsWithoutGraz.png'
+    car_sum_trips=0
+    pt_sum_trips=0
+    bicycle_sum_trips = 0
+    walk_sum_trips = 0
+    
+    for tC in trafficCellDict.values():
+        if tC.cellID == "60101":
+            continue
+        for modeTrips in tC.purposeDestinationMode['work'].values():
+            for mode, trips in modeTrips.items():
+                if mode == 'car':
+                    car_sum_trips += trips
+                elif mode == 'publicTransport':
+                    pt_sum_trips += trips
+                elif mode == 'bicycle':
+                    bicycle_sum_trips += trips
+                elif mode == 'walk':
+                    walk_sum_trips += trips
+                else:
+                    print('Wrong Mode for Plot sum - plotModalSplitOverAllCells')
+    
+    
+    sumtrips=car_sum_trips + pt_sum_trips +bicycle_sum_trips +walk_sum_trips
+    car_sum_trips =(car_sum_trips/sumtrips) * 100
+    pt_sum_trips = (pt_sum_trips/sumtrips) * 100
+    bicycle_sum_trips = (bicycle_sum_trips /sumtrips) * 100
+    walk_sum_trips = (walk_sum_trips/sumtrips)*100
+    index = np.arange(1)
+    bar_width = 0.35
+
+    fig = plt.figure()
+    p1 = plt.bar(index, car_sum_trips, bar_width)
+    p2 = plt.bar(index, pt_sum_trips, bar_width, bottom = car_sum_trips)
+    p3 = plt.bar(index, bicycle_sum_trips, bar_width,  bottom = (car_sum_trips+ pt_sum_trips))
+    p4 = plt.bar(index, walk_sum_trips, bar_width,  bottom = (car_sum_trips+ pt_sum_trips+ bicycle_sum_trips))
+
+    plt.ylabel('Percent')
+    plt.title("Modal Split stacked without Graz")
+    plt.legend((p1[0], p2[0], p3[0], p4[0]), ('Car', 'PT', 'Bicycle', 'Walk'))
+
+    fig.savefig(path)
+
 
 def plotModalSplitwithinCells(trafficCellDict):
     path='Pic/ModalSplitwithinCells.png'

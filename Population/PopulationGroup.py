@@ -45,7 +45,11 @@ class PopulationGroup():
         return str(self._attributes)
 
     def calcResistance(self, duration, cost, los, travelTimeBudget, costBudget, expectationLos, tripsPerDay, mode, jsonParameter):
-        resistancePenaltyforNonCarModes=0.0 
+        resistancePenaltyforNonCarModes=0.0
+        losPenaltyforNonCarModes = 0.0
+        losOffsetforNonCarModes = 0.0
+        timeBudgetFactor = jsonParameter["timeBudgetFactor"]
+
 
         #skip if mode is car and a car is not available 
         if mode == 'car' and self._attributes['carAvailable']!='available':
@@ -53,30 +57,32 @@ class PopulationGroup():
 
         #penalty for other modes if car is available and mode is not car
         if mode != 'car' and self._attributes['carAvailable'] == 'available':
-            resistancePenaltyforNonCarModes = jsonParameter['resistancePenaltyIfCarAvailable']      
+            resistancePenaltyforNonCarModes = jsonParameter['resistancePenaltyIfCarAvailable'] 
+            losPenaltyforNonCarModes = jsonParameter['losPenaltyIfCarAviable']
+            losOffsetforNonCarModes =  jsonParameter['losOffsetIfCarAviable']
 
         if mode == 'car':
             travelTimeBudgetCorrection = 1.0
             costBudgetCorrection = 1.0
         elif mode == 'publicTransport':
-            travelTimeBudgetCorrection = jsonParameter['timeBudgetCorrectionPT']
-            costBudgetCorrection = jsonParameter['costBudgetCorrectionPT']
-        else:   
             travelTimeBudgetCorrection = 1.0
+            costBudgetCorrection = 1.0
+        else:   
+            travelTimeBudgetCorrection = jsonParameter["timeBudgetCorrectionWalkBicycle"]
             costBudgetCorrection = 1.0
         
         #calc trip budgets
-        travelTimeBudgetPerTrip = travelTimeBudget/tripsPerDay
+        travelTimeBudgetPerTrip = (travelTimeBudget/tripsPerDay)*timeBudgetFactor
         costBudgetPerTrip = costBudget/tripsPerDay
 
         #calc duration resistance
-        resistanceDuration= math.exp((duration/(travelTimeBudgetPerTrip*travelTimeBudgetCorrection))-1)
+        resistanceDuration= math.exp((duration/(travelTimeBudgetPerTrip*travelTimeBudgetCorrection)))
         #calc cost resistance
-        resistanceCost = math.exp((cost/(costBudgetPerTrip*costBudgetCorrection))-1)
+        resistanceCost = math.exp((cost/(costBudgetPerTrip*costBudgetCorrection)))
         # calc LoS resistance
         # los is calculatet for every path in trafficCell
         # los is normed to the occupancy (occ 0.8 is approximatly los 1 ) 
-        resistanceLos = los 
+        resistanceLos = los + los*losPenaltyforNonCarModes +losOffsetforNonCarModes 
 
         resistanceSum = self.k['cost']*resistanceCost + self.k['duration']*resistanceDuration + self.k['los']*resistanceLos
         resistanceSum = resistanceSum + resistanceSum*resistancePenaltyforNonCarModes
